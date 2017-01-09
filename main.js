@@ -252,28 +252,28 @@ function CRTDisplay()
         {
             this.m_Teeth[i - 11] = new Teeth(i, this.m_CellWidth * - (i - 18), 0);
 			
-            this.m_Teeth[i - 11].m_ImgFront.src = "Images/" + i + ".png";
+            this.m_Teeth[i - 11].m_ImgFront.src = "https://github.com/philippe-bachour/vr_charting/raw/master/Images/" + i + ".png";
             this.m_Teeth[i - 11].m_ImgFront.onload = this.checkLoadState.bind(this);
         }
         for (var i = 21 ; i < 29 ; i++)
         {
             this.m_Teeth[i - 13] = new Teeth(i, this.m_CellWidth * (i-13), 0);
 			
-            this.m_Teeth[i - 13].m_ImgFront.src = "Images/" + i + ".png";
+            this.m_Teeth[i - 13].m_ImgFront.src = "https://github.com/philippe-bachour/vr_charting/raw/master/Images/" + i + ".png";
             this.m_Teeth[i - 13].m_ImgFront.onload = this.checkLoadState.bind(this); 
         }
         for (var i = 31 ; i < 39 ; i++)
         {
             this.m_Teeth[i - 15] = new Teeth(i, this.m_CellWidth * (i-23), 239);
 			
-            this.m_Teeth[i - 15].m_ImgFront.src = "Images/" + i + ".png"; 
+            this.m_Teeth[i - 15].m_ImgFront.src = "https://github.com/philippe-bachour/vr_charting/raw/master/Images/" + i + ".png"; 
             this.m_Teeth[i - 15].m_ImgFront.onload = this.checkLoadState.bind(this); 
         }
         for (var i = 41 ; i < 49 ; i++)
         {
             this.m_Teeth[i - 17] = new Teeth(i, this.m_CellWidth * -(i - 48), 239);
 			
-            this.m_Teeth[i - 17].m_ImgFront.src = "Images/" + i + ".png";
+            this.m_Teeth[i - 17].m_ImgFront.src = "https://github.com/philippe-bachour/vr_charting/raw/master/Images/" + i + ".png";
             this.m_Teeth[i - 17].m_ImgFront.onload = this.checkLoadState.bind(this);
         }
     }
