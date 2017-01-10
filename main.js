@@ -1,5 +1,9 @@
-startup();
+/*
+ * Author : Philippe BACHOUR
+ * 
+ * */
 
+startup();
 
 
 document.getElementById('StartBut').addEventListener("click", startRecognition, false);
@@ -20,11 +24,36 @@ var TeethMinor = [
 
 var CurrentTeeth = {major:16,minor:0,asObject:-1};
 
+var DICTIONNARY = {
+    Missing:'',
+    StopReco:'',
+    Tooth:''
+};
+
+function setLanguage(lang)
+{
+    switch(lang)
+    {
+        case 'fr-FR':
+            DICTIONNARY.Missing = ('absente');
+            DICTIONNARY.StopReco = ('stop');
+            DICTIONNARY.Tooth = ('dent');
+            break;
+        case 'en-US':
+            DICTIONNARY.Missing = ('missing');
+            DICTIONNARY.StopReco = ('stop');
+            DICTIONNARY.Tooth = ('tooth');
+            break;
+        default:break;
+    }
+}
+
 function startRecognition(event)
 {
     printf("Recognition started :\n");
     final_transcript = '';
-    recognition.lang = 'fr-FR';
+    recognition.lang = document.getElementById('lang').value;
+    setLanguage(recognition.lang);
 
     CurrentField.focus();
     getCurrentTeeth();
@@ -56,14 +85,35 @@ function startup()
         {
             for (var i = event.resultIndex ; i < event.results.length ; ++i)
             {
-                if (event.results[i][0].transcript.includes("stop"))
+                if (event.results[i][0].transcript.includes(DICTIONNARY.StopReco))
                 {
                     recognition.stop();
                     printf("End of recognition.\n");
                 }
-                else if (event.results[i][0].transcript.includes("dent"))
+                else if (event.results[i][0].transcript.includes(DICTIONNARY.Tooth))
                 {
                     
+                }
+                else if (event.results[i][0].transcript.includes(DICTIONNARY.Missing))
+                {
+                    CurrentTeeth.minor = 0;
+                    getCurrentField();
+                    CurrentField.value = 0;
+                    
+                    CurrentTeeth.minor = 1;
+                    getCurrentField();
+                    CurrentField.value = 0;
+                    
+                    CurrentTeeth.minor = 2;
+                    getCurrentField();
+                    CurrentField.value = 0;
+                    
+                    CurrentTeeth.asObject.m_Exists = false;
+                    CurrentTeeth.asObject.draw();
+                    
+                    getNextTeeth();
+                    getCurrentField();
+                    getCurrentTeeth();
                 }
                 else if(parseInt(event.results[i][0].transcript) || event.results[i][0].transcript.includes("un"))
                 {
@@ -84,8 +134,9 @@ function startup()
                             default:break;
                         }
                     }
-                    else CurrentField.value = parseInt(event.results[i][0].transcript);
+                    else
                     {
+                        CurrentField.value = parseInt(event.results[i][0].transcript);
                         switch (TeethMinor[CurrentTeeth.minor])
                         {
                             case 'a':
@@ -188,7 +239,7 @@ function Teeth(id, posx, posy)
             dsp.m_Context.drawImage(this.m_ImgFront, this.m_Rect.x, this.m_Rect.y);
             dsp.m_Context.beginPath();
             
-            if (this.m_Id == 18 || this.m_Id == 48)
+            if (this.m_Id == 18 || this.m_Id == 48 || !getPrevTeeth(this.m_Id).m_Exists)
             {
                 dsp.m_Context.moveTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.a * HEIGHT_STEP);
             }
@@ -302,9 +353,19 @@ function CRTDisplay()
 
 function generatePageContent()
 {
-    document.getElementById('vr_charting').innerHTML = '<input type="button" value="Start recognition" id="StartBut">\
+    document.getElementById('vr_charting').innerHTML = 'Commandes vocales/Voice commands :<br>\
+    <ul>\
+        <li>"stop" : arrêter la reconnaissance / "stop" : stop speech recognition.</li>\
+        <li>"absente" : dent absente / "missing" : missing tooth</li>\
+        <li>dites un nombre pour remplir la case ayant le focus / say a number to fill in the focused input</li>\
+    </ul><br>\
+    <input type="button" value="Start recognition" id="StartBut">\
     <input type="button" value="Stop recognition" id="StopBut"> \
-    <table style="border:1px solid black;text-align:center;width:100vw;"> \
+    <select id="lang">\
+        <option value="fr-FR" selected>Français</option>\
+        <option value="en-US">English US</option>\
+    </select> \
+    <table style="border:1px solid black;text-align:center;width:calc(100vw-17px);"> \
         <tr> \
             <td colspan="3">18</td> \
             <td colspan="3">17</td> \
