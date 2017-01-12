@@ -3,8 +3,62 @@
  * 
  * */
 
-startup();
+/** _____________________________________TEETH CLASS____________________________________________________ **/
+function Teeth(id, posx, posy)
+{
+    this.m_Exists = true;
+    this.m_Id = id;
+    this.m_ProbingDepth = { a:0 , b:0 , c:0 };
+    this.m_ImgFront = new Image();
+    
+    this.m_Rect = { x:posx, y:posy, w:102, h:239 };
+    
+    this.draw = function()
+    {
+        dsp.m_Context.clearRect(this.m_Rect.x, this.m_Rect.y, this.m_Rect.w, this.m_Rect.h);
+        var offset = 105;
+        var sign = -1;
+        if (this.m_Id > 30)
+        {
+            offset = 135;
+            sign = 1;
+        }
+		if (this.m_Exists)
+        {
+            dsp.m_Context.drawImage(this.m_ImgFront, this.m_Rect.x, this.m_Rect.y);
+            dsp.m_Context.beginPath();
+            
+            if (this.m_Id == 18 || this.m_Id == 48 || !getPrevTeeth(this.m_Id).m_Exists)
+            {
+                dsp.m_Context.moveTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.a * HEIGHT_STEP);
+            }
+            else
+            {
+                var pt = getPrevTeeth(this.m_Id);
+                dsp.m_Context.moveTo(pt.m_Rect.x + pt.m_Rect.w * 3 / 4, (pt.m_Rect.y + pt.m_Rect.h - offset) + sign * pt.m_ProbingDepth.c * HEIGHT_STEP);
+                dsp.m_Context.lineTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.a * HEIGHT_STEP);
+            }
+            dsp.m_Context.lineTo(this.m_Rect.x + this.m_Rect.w / 2, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.b * HEIGHT_STEP);
+            dsp.m_Context.lineTo(this.m_Rect.x + this.m_Rect.w * 3 / 4, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.c * HEIGHT_STEP);
+            dsp.m_Context.lineWidth = 2;
+            dsp.m_Context.strokeStyle = '#B51515';
+            dsp.m_Context.stroke();
+        }
+    }
+}
 
+/** _________________________________________________________________________________________________ **/
+
+var TeethMajor = [
+    "18", "17", "16", "15", "14", "13", "12", "11", "21", "22", "23", "24", "25", "26", "27", "28",
+    "48", "47", "46", "45", "44", "43", "42", "41", "31", "32", "33", "34", "35", "36", "37", "38"
+];
+var TeethMinor = [
+    "a", "b", "c"
+];
+var CurrentTeeth = {major:16,minor:0,asObject:-1};
+
+startup();
 
 document.getElementById('StartBut').addEventListener("click", startRecognition, false);
 document.getElementById('StopBut').addEventListener("click", stopRecognition, false);
@@ -14,15 +68,7 @@ var recognition;
 var CurrentField = document.getElementById('48a');
 
 
-var TeethMajor = [
-    "18", "17", "16", "15", "14", "13", "12", "11", "21", "22", "23", "24", "25", "26", "27", "28",
-    "48", "47", "46", "45", "44", "43", "42", "41", "31", "32", "33", "34", "35", "36", "37", "38"
-];
-var TeethMinor = [
-    "a", "b", "c"
-];
 
-var CurrentTeeth = {major:16,minor:0,asObject:-1};
 
 var DICTIONNARY = {
     Missing:'',
@@ -67,6 +113,8 @@ function stopRecognition()
 function startup()
 {    
     generatePageContent();
+    
+    
     if (!('webkitSpeechRecognition' in window))
     {
         printf("Speech API not supported by your browser, you must use Chrome version 25 or later.");
@@ -79,7 +127,21 @@ function startup()
     
         recognition.onstart = function()
         {
-            printf("Starting from 48 distal...");
+            var str = TeethMajor[CurrentTeeth.major];
+            switch (CurrentTeeth.minor)
+            {
+                case 0:
+                    (CurrentTeeth.asObject.m_Id < 40 && CurrentTeeth.asObject.m_Id > 20) ? str += ' mesial' : str += ' distal';
+                    break;
+                case 1:
+                    str += ' median';
+                    break;
+                case 2:
+                    (CurrentTeeth.asObject.m_Id < 40 && CurrentTeeth.asObject.m_Id > 20) ? str += ' distal' : str += ' mesial';
+                    break;
+                default:break;
+            }
+            printf("Starting from " + str);
         };
         recognition.onresult = function(event)
         {
@@ -169,7 +231,9 @@ function startup()
         {
         
         };
-    }    
+    }
+    
+    addInputEvListeners();
 }
 
 function printf(string)
@@ -197,6 +261,31 @@ function getCurrentField()
     CurrentField = document.getElementById(TeethMajor[CurrentTeeth.major] + TeethMinor[CurrentTeeth.minor]);
     CurrentField.focus();    
 }
+function setTeethOnClick()
+{
+    var s = document.activeElement.id.substr(0, 2);
+    for (var i = 0 ; i < 32 ; ++i)
+        if (s == TeethMajor[i])
+        {
+            CurrentTeeth.major = i;
+            break;
+        }
+    switch (document.activeElement.id.substr(2, 1))
+    {
+        case 'a' :
+            CurrentTeeth.minor = 0;
+            break;
+        case 'b' :
+            CurrentTeeth.minor = 1;
+            break;
+        case 'c' :
+            CurrentTeeth.minor = 2;
+            break;
+    }
+    CurrentField = document.getElementById(TeethMajor[CurrentTeeth.major] + TeethMinor[CurrentTeeth.minor]);
+    getCurrentTeeth();
+    
+}
 function getCurrentTeeth()
 {
     for (var i = 0 ; i < 32 ; ++i)
@@ -215,48 +304,7 @@ dsp.init();
 
 var HEIGHT_STEP = 5; // px Y step offset
 
-function Teeth(id, posx, posy)
-{
-    this.m_Exists = true;
-    this.m_Id = id;
-    this.m_ProbingDepth = { a:0 , b:0 , c:0 };
-    this.m_ImgFront = new Image();
-    
-    this.m_Rect = { x:posx, y:posy, w:102, h:239 };
-    
-    this.draw = function()
-    {
-        dsp.m_Context.clearRect(this.m_Rect.x, this.m_Rect.y, this.m_Rect.w, this.m_Rect.h);
-        var offset = 105;
-        var sign = -1;
-        if (this.m_Id > 30)
-        {
-            offset = 135;
-            sign = 1;
-        }
-		if (this.m_Exists)
-        {
-            dsp.m_Context.drawImage(this.m_ImgFront, this.m_Rect.x, this.m_Rect.y);
-            dsp.m_Context.beginPath();
-            
-            if (this.m_Id == 18 || this.m_Id == 48 || !getPrevTeeth(this.m_Id).m_Exists)
-            {
-                dsp.m_Context.moveTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.a * HEIGHT_STEP);
-            }
-            else
-            {
-                var pt = getPrevTeeth(this.m_Id);
-                dsp.m_Context.moveTo(pt.m_Rect.x + pt.m_Rect.w * 3 / 4, (pt.m_Rect.y + pt.m_Rect.h - offset) + sign * pt.m_ProbingDepth.c * HEIGHT_STEP);
-                dsp.m_Context.lineTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.a * HEIGHT_STEP);
-            }
-            dsp.m_Context.lineTo(this.m_Rect.x + this.m_Rect.w / 2, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.b * HEIGHT_STEP);
-            dsp.m_Context.lineTo(this.m_Rect.x + this.m_Rect.w * 3 / 4, (this.m_Rect.y + this.m_Rect.h - offset) + sign * this.m_ProbingDepth.c * HEIGHT_STEP);
-            dsp.m_Context.lineWidth = 2;
-            dsp.m_Context.strokeStyle = '#B51515';
-            dsp.m_Context.stroke();
-        }
-    }
-}
+
 
 function getPrevTeeth(id)
 {
@@ -358,7 +406,9 @@ function generatePageContent()
         <li>"stop" : arrêter la reconnaissance / "stop" : stop speech recognition.</li>\
         <li>"absente" : dent absente / "missing" : missing tooth</li>\
         <li>dites un nombre pour remplir la case ayant le focus / say a number to fill in the focused input</li>\
-    </ul><br>\
+    </ul>\
+    <p>Vous pouvez également entrer des valeurs directement dans les champs au clavier / You can also set the inputs\'s value with your keyboard</p>\
+    <p>Cliquez sur un input pour définir la case de départ / Click on an input to select where to start setting values</p>\
     <input type="button" value="Start recognition" id="StartBut">\
     <input type="button" value="Stop recognition" id="StopBut"> \
     <select id="lang">\
@@ -520,4 +570,36 @@ function generatePageContent()
     <textarea rows="6" id="dbg" style="width:100%;">\
     </textarea>\
     </div>';
+}
+
+function updateCurrentTeeth()
+{
+    setTeethOnClick();
+    switch (TeethMinor[CurrentTeeth.minor])
+    {
+        case 'a':
+            CurrentTeeth.asObject.m_ProbingDepth.a = CurrentField.value;
+            break;
+        case 'b':
+            CurrentTeeth.asObject.m_ProbingDepth.b = CurrentField.value;
+            break;
+        case 'c':
+            CurrentTeeth.asObject.m_ProbingDepth.c = CurrentField.value;
+            break;
+        default:break;
+    }
+    CurrentTeeth.asObject.draw();
+}
+
+function addInputEvListeners()
+{
+    for (var i = 0 ; i < TeethMajor.length ; ++i)
+    {
+        for (var k = 0 ; k < 3 ; ++k)
+        {
+            var e = document.getElementById(TeethMajor[i] + TeethMinor[k]);
+            e.addEventListener('focus', setTeethOnClick.bind(), false);
+            e.addEventListener('change', updateCurrentTeeth.bind(), false);
+        }
+    }
 }
