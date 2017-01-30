@@ -1,0 +1,48 @@
+.table_title
+{
+    background:rgba(35, 35, 35, 1);
+    color:rgba(235, 235, 235, 1);
+}
+
+.table
+{
+    #white-space:nowrap;
+    border-collapse:collapse;
+    border-spacing:0px;
+    width:100%;
+    text-align:center;
+    width:calc(100vw-17px);
+}
+.row_title
+{
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.chart_title
+{
+	text-align:center;
+	font-size:2rem;
+}
+
+.flex_col
+{
+	display:flex;
+	flex-direction:column;
+}
+
+.flex_row
+{
+	display:flex;
+	flex-direction:row;
+}
+
+.space_around
+{
+	
+}
+
+.pdata_container
+{
+	
+}

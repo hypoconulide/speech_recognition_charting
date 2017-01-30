@@ -15,7 +15,9 @@ var TeethMajor = [
 var TeethMinor = [
     "a", "b", "c"
 ];
-
+var TeethFace = [
+	"", "L"
+];
 
 
 /**===================================================================================================*/
@@ -71,23 +73,23 @@ class ChartRenderer
 				var m_CellWidth = this.Canvas.width / 16;
 				var m_CellHeight = this.Canvas.height / 2;
 				
-				for (var i = 31 ; i < 39 ; i++)
-				{
-					this.Teeth[i - 31] = new Teeth(i, m_CellWidth * (i-23), 0);
-					
-					this.Teeth[i - 31].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png"; 
-					this.Teeth[i - 31].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png"; 
-					this.Teeth[i - 31].m_ImgFront.onload = this.checkLoadState.bind(this); 
-					this.Teeth[i - 31].m_ImgLing.onload = this.checkLoadState.bind(this); 
-				}
 				for (var i = 41 ; i < 49 ; i++)
 				{
-					this.Teeth[i - 33] = new Teeth(i, m_CellWidth * -(i - 48), 0);
+					this.Teeth[i - 41] = new Teeth(i, m_CellWidth * -(i - 48), 0);
+
+					this.Teeth[i - 41].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
+					this.Teeth[i - 41].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
+					this.Teeth[i - 41].m_ImgFront.onload = this.checkLoadState.bind(this);
+					this.Teeth[i - 41].m_ImgLing.onload = this.checkLoadState.bind(this);
+				}
+				for (var i = 31 ; i < 39 ; i++)
+				{
+					this.Teeth[i - 23] = new Teeth(i, m_CellWidth * (i-23), 0);
 					
-					this.Teeth[i - 33].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
-					this.Teeth[i - 33].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
-					this.Teeth[i - 33].m_ImgFront.onload = this.checkLoadState.bind(this);
-					this.Teeth[i - 33].m_ImgLing.onload = this.checkLoadState.bind(this);
+					this.Teeth[i - 23].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png"; 
+					this.Teeth[i - 23].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png"; 
+					this.Teeth[i - 23].m_ImgFront.onload = this.checkLoadState.bind(this); 
+					this.Teeth[i - 23].m_ImgLing.onload = this.checkLoadState.bind(this); 
 				}
 				break;
 			}
@@ -113,7 +115,11 @@ class ChartRenderer
 		this.Context.fillStyle="#353535";
         this.Context.clearRect(0, 0, this.Canvas.width, this.Canvas.height);
         
-        for (var i = 0 ; i < this.Teeth.length ; ++i)
+		for (var i = 7 ; i >=0 ; i--)
+		{
+			this.Teeth[i].draw(this.Context);
+		}
+		for (var i = 8 ; i < this.Teeth.length ; ++i)
         {
             this.Teeth[i].draw(this.Context);
         }
@@ -208,7 +214,7 @@ class Charting
 	{
 		this.Maxilla = new ChartRenderer('upper');
 		this.Mandibula = new ChartRenderer('lower');
-		this.CurrentTeeth = {major:0,minor:0,asObject:-1};
+		this.CurrentTeeth = {major:0,minor:0,face:0,asObject:-1};
 		this.CurrentField;
 		this.HEIGHT_STEP = 5; // px Y step offset
 	}
@@ -217,7 +223,8 @@ class Charting
 	{
 		this.Mandibula.initialise();
 		this.Maxilla.initialise();
-		this.getCurrentField();
+		//this.getCurrentField();
+		this.addInputEvListeners();
 	}
 	
 	getTeethById(id)
@@ -251,7 +258,20 @@ class Charting
 		if (this.CurrentTeeth.minor == 3)
 		{
 			this.CurrentTeeth.minor = 0;
-			this.CurrentTeeth.major++;
+			
+			if (TeethMajor[this.CurrentTeeth.major] == "28" || TeethMajor[this.CurrentTeeth.major] == "38") 
+			{
+				if (this.CurrentTeeth.face == 0)
+				{
+					this.CurrentTeeth.major -= 15;
+					this.CurrentTeeth.face = 1;
+				}
+				else
+				{
+					this.CurrentTeeth.major++;
+				}
+			}
+			else this.CurrentTeeth.major++;
 			
 			if (this.CurrentTeeth.major == TeethMajor.length)
 				this.CurrentTeeth.major = 0;
@@ -260,22 +280,25 @@ class Charting
 	
 	getCurrentField()
 	{
-		this.CurrentField = document.getElementById(TeethMajor[this.CurrentTeeth.major] + TeethMinor[this.CurrentTeeth.minor]);
+		this.CurrentField = document.getElementById(TeethMajor[this.CurrentTeeth.major] + 
+			TeethFace[this.CurrentTeeth.face] +
+			TeethMinor[this.CurrentTeeth.minor]);
 		this.CurrentField.focus();    
 	}
 	
 	
 
-	getCurrentTeeth()
+	getCurrentToothAsObject()
 	{
 		for (var i = 0 ; i < 32 ; ++i)
 		{
-			if (this.Mandibula.Teeth[i].Id == parseInt(this.CurrentField.id.substr(0, 2)))
+			var n = parseInt(this.CurrentField.id.substr(0, 2));
+			if (this.Mandibula.Teeth[i].Id == n)
 			{
-				this.CurrentTeeth.asObject = this.Maxilla.Teeth[i];
+				this.CurrentTeeth.asObject = this.Mandibula.Teeth[i];
 				break;
 			}
-			else if (this.Maxilla.Teeth[i].Id == parseInt(this.CurrentField.id.substr(0, 2)))
+			else if (this.Maxilla.Teeth[i].Id == n)
 			{
 				this.CurrentTeeth.asObject = this.Maxilla.Teeth[i];
 				break;
@@ -287,12 +310,15 @@ class Charting
 	{
 		if (id == -1)
 		{
-			this.CurrentTeeth.asObject.id > 30 ? this.CurrentTeeth.asObject.draw(this.Mandibula.Context) :
-				this.CurrentTeeth.asObject.draw(this.Maxilla.Context);
+			if(this.CurrentTeeth.asObject.Id > 30)
+				this.CurrentTeeth.asObject.draw(this.Mandibula.Context);
+			else this.CurrentTeeth.asObject.draw(this.Maxilla.Context);
 			return;
 		}
 		var t = this.getTeethById(id);
-		t.Id > 30 ? t.draw(this.Mandibula.Context) : t.draw(this.Maxilla.Context);
+		if (t.Id > 30)
+			t.draw(this.Mandibula.Context);
+		else t.draw(this.Maxilla.Context);
 	}
 	
 	setTeethOnClick()
@@ -306,33 +332,80 @@ class Charting
 			}
 		switch (document.activeElement.id.substr(2, 1))
 		{
+			case 'L' :
+			{
+				this.CurrentTeeth.face = 1;
+				switch(document.activeElement.id.substr(3, 1))
+				{
+					case 'a' :
+						this.CurrentTeeth.minor = 0;
+						break;
+					case 'b' :
+						this.CurrentTeeth.minor = 1;
+						break;
+					case 'c' :
+						this.CurrentTeeth.minor = 2;
+						break;
+				}
+				break;
+			}
 			case 'a' :
 				this.CurrentTeeth.minor = 0;
+				this.CurrentTeeth.face = 0;
 				break;
 			case 'b' :
 				this.CurrentTeeth.minor = 1;
+				this.CurrentTeeth.face = 0;
 				break;
-			case 'c' :
+			case 'c' :		
 				this.CurrentTeeth.minor = 2;
+				this.CurrentTeeth.face = 0;
 				break;
 		}
-		this.CurrentField = document.getElementById(TeethMajor[this.CurrentTeeth.major] + TeethMinor[this.CurrentTeeth.minor]);
-		this.getCurrentTeeth();
+		this.CurrentField = document.getElementById(TeethMajor[this.CurrentTeeth.major] + TeethFace[this.CurrentTeeth.face] + TeethMinor[this.CurrentTeeth.minor]);
+		this.getCurrentToothAsObject();
+	}
+	
+	setCurrentToothValue(value)
+	{
+		var target = (this.CurrentTeeth.face ? 
+			this.CurrentTeeth.asObject.m_ProbingDepthL : this.CurrentTeeth.asObject.m_ProbingDepth);
+		
+		switch(TeethMinor[this.CurrentTeeth.minor])
+		{
+			case 'a':
+				target.a = this.CurrentField.value;
+				break;
+			case 'b':
+				target.b = this.CurrentField.value;
+				break;
+			case 'c':
+				target.c = this.CurrentField.value;
+				break;
+			default:break;
+		}	
+		this.drawTooth();
 	}
 	
 	updateCurrentTeeth()
-	{vs
+	{
 		this.setTeethOnClick();
 		switch (TeethMinor[this.CurrentTeeth.minor])
 		{
 			case 'a':
-				this.CurrentTeeth.asObject.m_ProbingDepth.a = this.CurrentField.value;
+				if (this.CurrentTeeth.face)
+					this.CurrentTeeth.asObject.m_ProbingDepthL.a = parseInt(this.CurrentField.value);
+				else this.CurrentTeeth.asObject.m_ProbingDepth.a = parseInt(this.CurrentField.value);
 				break;
 			case 'b':
-				this.CurrentTeeth.asObject.m_ProbingDepth.b = this.CurrentField.value;
+				if (this.CurrentTeeth.face)
+					this.CurrentTeeth.asObject.m_ProbingDepthL.b = parseInt(this.CurrentField.value);
+				else this.CurrentTeeth.asObject.m_ProbingDepth.b = parseInt(this.CurrentField.value);
 				break;
 			case 'c':
-				this.CurrentTeeth.asObject.m_ProbingDepth.c = this.CurrentField.value;
+				if (this.CurrentTeeth.face)
+					this.CurrentTeeth.asObject.m_ProbingDepthL.c = parseInt(this.CurrentField.value);
+				else this.CurrentTeeth.asObject.m_ProbingDepth.c = parseInt(this.CurrentField.value);
 				break;
 			default:break;
 		}
@@ -346,12 +419,12 @@ class Charting
 			for (var k = 0 ; k < 3 ; ++k)
 			{
 				var e = document.getElementById(TeethMajor[i] + TeethMinor[k]);
-				e.addEventListener('focus', this.setTeethOnClick.bind(), false);
-				e.addEventListener('change', this.updateCurrentTeeth.bind(), false);
+				e.addEventListener('focus', this.setTeethOnClick.bind(this), false);
+				e.addEventListener('change', this.updateCurrentTeeth.bind(this), false);
 				
-				e = document.getElementById(TeethMajor[i] + TeethMinor[k]);
-				e.addEventListener('focus', this.setTeethOnClick.bind(), false);
-				e.addEventListener('change', this.updateCurrentTeeth.bind(), false);
+				e = document.getElementById(TeethMajor[i] + 'L' + TeethMinor[k]);
+				e.addEventListener('focus', this.setTeethOnClick.bind(this), false);
+				e.addEventListener('change', this.updateCurrentTeeth.bind(this), false);
 			}
 		}
 	}
@@ -370,6 +443,13 @@ class SpeechController
 	initialise()
 	{
 		generatePageContent();
+		
+		document.getElementById('refresh_bt').addEventListener("click", 
+			function(){
+				speech_ctl.Charting.Maxilla.drawBackground();
+				speech_ctl.Charting.Mandibula.drawBackground();
+			}, 
+			false);
 		
 		this.Charting = new Charting();
 		this.setLanguage(document.getElementById('lang').value);
@@ -437,85 +517,49 @@ class SpeechController
 					}
 					else if (event.results[i][0].transcript.includes(this.DICTIONNARY.Missing))
 					{
-						this.Charting.CurrentTeeth.minor = 0;
-						this.Charting.getCurrentField();
-						this.Charting.CurrentField.value = 0;
+						var sv = this.Charting.CurrentTeeth.face;
 						
-						this.Charting.CurrentTeeth.minor = 1;
-						this.Charting.getCurrentField();
-						this.Charting.CurrentField.value = 0;
+						document.getElementById(TeethMajor[this.Charting.CurrentTeeth.major] + 'a').value = 0;
+						document.getElementById(TeethMajor[this.Charting.CurrentTeeth.major] + 'b').value = 0;
+						document.getElementById(TeethMajor[this.Charting.CurrentTeeth.major] + 'c').value = 0;
+						document.getElementById(TeethMajor[this.Charting.CurrentTeeth.major] + 'La').value = 0;
+						document.getElementById(TeethMajor[this.Charting.CurrentTeeth.major] + 'Lb').value = 0;
+						document.getElementById(TeethMajor[this.Charting.CurrentTeeth.major] + 'Lc').value = 0;
 						
+						this.Charting.CurrentTeeth.face = sv;
 						this.Charting.CurrentTeeth.minor = 2;
-						this.Charting.getCurrentField();
-						this.Charting.CurrentField.value = 0;
 						
 						this.Charting.CurrentTeeth.asObject.m_Exists = false;
 						this.Charting.drawTooth();
 						
 						this.Charting.getNextTeeth();
 						this.Charting.getCurrentField();
-						this.Charting.getCurrentTeeth();
+						this.Charting.getCurrentToothAsObject();
 					}
-					else if(parseInt(event.results[i][0].transcript) || 
+					else if(!isNaN(parseInt(event.results[i][0].transcript)) || 
 							event.results[i][0].transcript.includes("un") ||
 							event.results[i][0].transcript.includes("de"))
 					{
 						if (event.results[i][0].transcript.includes("un"))
 						{
 							this.Charting.CurrentField.value = 1;
-							switch (TeethMinor[this.Charting.CurrentTeeth.minor])
-							{
-								case 'a':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.a = 1;
-									break;
-								case 'b':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.b = 1;
-									break;
-								case 'c':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.c = 1;
-									break;
-								default:break;
-							}
+							this.Charting.setCurrentToothValue(1);
 						}
 						else if (event.results[i][0].transcript.includes("de"))
 						{
-							this.Charting.CurrentField.value = 1;
-							switch (TeethMinor[this.Charting.CurrentTeeth.minor])
-							{
-								case 'a':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.a = 2;
-									break;
-								case 'b':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.b = 2;
-									break;
-								case 'c':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.c = 2;
-									break;
-								default:break;
-							}
+							this.Charting.CurrentField.value = 2;
+							this.Charting.setCurrentToothValue(2);
 						}
 						else
 						{
 							this.Charting.CurrentField.value = parseInt(event.results[i][0].transcript);
-							switch (TeethMinor[this.Charting.CurrentTeeth.minor])
-							{
-								case 'a':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.a = parseInt(event.results[i][0].transcript);
-									break;
-								case 'b':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.b = parseInt(event.results[i][0].transcript);
-									break;
-								case 'c':
-									this.Charting.CurrentTeeth.asObject.m_ProbingDepth.c = parseInt(event.results[i][0].transcript);
-									break;
-								default:break;
-							}
+							this.Charting.setCurrentToothValue(parseInt(event.results[i][0].transcript));
 						}
 						this.Charting.drawTooth();
 						printf("Found teeth with ID : " + this.Charting.CurrentTeeth.asObject.Id + " for " + TeethMajor[this.Charting.CurrentTeeth.major] + " filling " + this.Charting.CurrentField.id + '\n');
 						this.Charting.getNextTeeth();
 						this.Charting.getCurrentField();
-						this.Charting.getCurrentTeeth();
+						this.Charting.getCurrentToothAsObject();
 					}
 					else
 						printf("Unknown transcript : " + event.results[i][0].transcript);
@@ -562,8 +606,9 @@ class SpeechController
 		this.setLanguage(this.Recognition.lang);
 		document.getElementById('rec_icon').src = "icons/ic_settings_voice_red_24dp_2x.png";
 
-		this.Charting.CurrentField.focus();
-		this.Charting.getCurrentTeeth();
+		if (!this.Charting.CurrentField) this.Charting.getCurrentField();
+		else this.Charting.CurrentField.focus();
+		this.Charting.getCurrentToothAsObject();
 		this.Recognition.start();
 	}
 	stopRecognition()
@@ -662,7 +707,7 @@ function startup()
                     
                     this.Charting.getNextTeeth();
                     this.Charting.getCurrentField();
-                    this.Charting.getCurrentTeeth();
+                    this.Charting.getCurrentToothAsObject();
                 }
                 else if(parseInt(event.results[i][0].transcript) || event.results[i][0].transcript.includes("un"))
                 {
@@ -704,7 +749,7 @@ function startup()
                     printf("Found teeth with ID : " + CurrentTeeth.asObject.Id + " for " + TeethMajor[CurrentTeeth.major] + " filling " + this.CurrentField.id + '\n');
                     getNextTeeth();
                     getCurrentField();
-                    getCurrentTeeth();
+                    getCurrentToothAsObject();
                 }
                 else
                     printf("Unknown transcript : " + event.results[i][0].transcript);
@@ -734,112 +779,27 @@ function printf(string)
 }
 
 
-
-//var dsp = new CRTDisplay();
-//dsp.init();
-
-
-
-function CRTDisplay()
-{
-    this.Canvas = document.getElementById('vrc_display');
-    this.Context = this.Canvas.getContext('2d');
-    this.m_LeftToLoad = 64;
-    this.Canvas.width = 1632;
-    this.Canvas.height = 478;
-
-    this.Teeth = new Array(32);
-    
-    this.init = function()
-    {
-        this.m_CellWidth = this.Canvas.width / 16;
-        this.m_CellHeight = this.Canvas.height / 2;
-        
-        for (var i = 11 ; i < 19 ; i++)
-        {
-            this.Teeth[i - 11] = new Teeth(i, m_CellWidth * - (i - 18), 0);
-			
-            this.Teeth[i - 11].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
-			this.Teeth[i - 11].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
-            this.Teeth[i - 11].m_ImgFront.onload = this.checkLoadState.bind(this);
-			this.Teeth[i - 11].m_ImgLing.onload = this.checkLoadState.bind(this);
-        }
-        for (var i = 21 ; i < 29 ; i++)
-        {
-            this.Teeth[i - 13] = new Teeth(i, m_CellWidth * (i-13), 0);
-			
-            this.Teeth[i - 13].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
-            this.Teeth[i - 13].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
-            this.Teeth[i - 13].m_ImgFront.onload = this.checkLoadState.bind(this); 
-            this.Teeth[i - 13].m_ImgLing.onload = this.checkLoadState.bind(this); 
-        }
-        for (var i = 31 ; i < 39 ; i++)
-        {
-            this.Teeth[i - 15] = new Teeth(i, m_CellWidth * (i-23), 239);
-			
-            this.Teeth[i - 15].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png"; 
-            this.Teeth[i - 15].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png"; 
-            this.Teeth[i - 15].m_ImgFront.onload = this.checkLoadState.bind(this); 
-            this.Teeth[i - 15].m_ImgLing.onload = this.checkLoadState.bind(this); 
-        }
-        for (var i = 41 ; i < 49 ; i++)
-        {
-            this.Teeth[i - 17] = new Teeth(i, m_CellWidth * -(i - 48), 239);
-			
-            this.Teeth[i - 17].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
-            this.Teeth[i - 17].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
-            this.Teeth[i - 17].m_ImgFront.onload = this.checkLoadState.bind(this);
-            this.Teeth[i - 17].m_ImgLing.onload = this.checkLoadState.bind(this);
-        }
-    }
-    
-    this.checkLoadState = function()
-    {
-        --this.m_LeftToLoad;
-        if (this.m_LeftToLoad == 0)
-        {
-            this.drawBackground();
-        }
-    }
-    
-    this.drawBackground = function()
-    {
-		this.Context.fillStyle="#353535";
-        this.Context.clearRect(0, 0, this.Canvas.width, this.Canvas.height);
-        
-        for (var i = 0 ; i < this.Teeth.length ; ++i)
-        {
-            this.Teeth[i].draw();
-        }
-    }
-    
-}
-
-
-
-
-
 function generatePageContent()
 {
-    document.getElementById('vr_charting').innerHTML = 'Commandes vocales/Voice commands :<br>\
+    document.getElementById('vr_charting').innerHTML = 'Commandes vocales :<br>\
     <ul>\
-        <li>"stop" : arrêter la reconnaissance / "stop" : stop speech recognition.</li>\
-        <li>"absente" : dent absente / "missing" : missing tooth</li>\
-        <li>dites un nombre pour remplir la case ayant le focus / say a number to fill in the focused input</li>\
+        <li>"stop" : arrêter la reconnaissance</li>\
+        <li>"absente" : dent absente</li>\
+        <li>dites un nombre pour remplir la case ayant le focus</li>\
     </ul>\
-    <p>Vous pouvez également entrer des valeurs directement dans les champs au clavier / You can also set the inputs\'s value with your keyboard</p>\
-    <p>Cliquez sur un input pour définir la case de départ / Click on an input to select where to start setting values</p>\
+    <p>Vous pouvez également entrer des valeurs directement dans les champs au clavier</p>\
+    <p>Cliquez sur un input pour définir la case de départ</p>\
 	\
 	<div class="chart_title">Charting Parodontal</div>\
 	<div class="flex_col" style="align-items: center;">\
 		<table class="pdata_container">\
 			<tr>\
-				<td><label for="pFirstName">First name : </label></td><td><input id="pFirstName" type="text"></td>\
-				<td><label for="pLastName">Last name : </label></td><td><input id="pLastName" type="text"></td>\
-				<td><label for="pBirthDate">Birthdate : </label></td><td><input id="pBirthDate" type="text"></td>\
+				<td><label for="pFirstName">Nom : </label></td><td><input id="pFirstName" type="text"></td>\
+				<td><label for="pLastName">Prénom : </label></td><td><input id="pLastName" type="text"></td>\
+				<td><label for="pBirthDate">Date de naissance : </label></td><td><input id="pBirthDate" type="text"></td>\
 			</tr>\
 			<tr>\
-				<td><label for="pClinician">Clinician : </label></td><td><input id="pClinician" type="text"></td>\
+				<td><label for="pClinician">Praticien : </label></td><td><input id="pClinician" type="text"></td>\
 				<td><label for="pDate">Date : </label></td><td><input id="pDate" type="text"></td>\
 			</tr>\
 		</table><!--\
@@ -850,13 +810,14 @@ function generatePageContent()
 		</div>\
 		<div class="flex_row space_around">\
 			<div><label for="pClinician">Clinician : </label><input id="pClinician" type="text"></div>\
-			<div><label for="pDate">Date : </label><input id="pDate" type="text"></div>
-		</div>-->
-	</div>
+			<div><label for="pDate">Date : </label><input id="pDate" type="text"></div>\
+		</div>-->\
+	</div>\
     <p style="text-align:center;">\
         <span><img id="rec_icon" style="height:32px" src="icons/ic_settings_voice_black_24dp_2x.png"></span>\
         <input type="button" value="Start recognition" id="StartBut">\
         <input type="button" value="Stop recognition" id="StopBut"> \
+		<input type="button" value="Force update" id="refresh_bt">\
         <select id="lang">\
             <option value="fr-FR" selected>Français</option>\
             <option value="en-US">English</option>\
