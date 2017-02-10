@@ -790,348 +790,386 @@ function generatePageContent()
     <p>Vous pouvez également entrer des valeurs directement dans les champs au clavier</p>\
     <p>Cliquez sur un input pour définir la case de départ</p>\
 	\
-	<div class="chart_title">Charting Parodontal</div>\
-	<div class="flex_col" style="align-items: center;">\
-		<table class="pdata_container">\
-			<tr>\
-				<td><label for="pFirstName">Nom : </label></td><td><input id="pFirstName" type="text"></td>\
-				<td><label for="pLastName">Prénom : </label></td><td><input id="pLastName" type="text"></td>\
-				<td><label for="pBirthDate">Date de naissance : </label></td><td><input id="pBirthDate" type="text"></td>\
-			</tr>\
-			<tr>\
-				<td><label for="pClinician">Praticien : </label></td><td><input id="pClinician" type="text"></td>\
-				<td><label for="pDate">Date : </label></td><td><input id="pDate" type="text"></td>\
-			</tr>\
-		</table><!--\
-		<div class="flex_row space_around">\
-			<div><label for="pFirstName">First name : </label><input id="pFirstName" type="text"></div>\
-			<div><label for="pLastName">Last name : </label><input id="pLastName" type="text"></div>\
-			<div><label for="pBirthDate">Birthdate : </label><input id="pBirthDate" type="text"></div>\
+	<div style="display:flex;flex-direction:column;max-width:calc(100vw - 17px);">\
+		<div class="chart_title">Charting Parodontal</div>\
+		<div class="flex_col" style="width:100%;align-items: center;">\
+			<table class="pdata_container">\
+				<tr>\
+					<td><label for="pFirstName">Nom : </label></td><td><input id="pFirstName" type="text"></td>\
+					<td><label for="pLastName">Prénom : </label></td><td><input id="pLastName" type="text"></td>\
+					<td><label for="pBirthDate">Date de naissance : </label></td><td><input id="pBirthDate" type="text"></td>\
+				</tr>\
+				<tr>\
+					<td><label for="pClinician">Praticien : </label></td><td><input id="pClinician" type="text"></td>\
+					<td><label for="pDate">Date : </label></td><td><input id="pDate" type="text"></td>\
+				</tr>\
+			</table><!--\
+			<div class="flex_row space_around">\
+				<div><label for="pFirstName">First name : </label><input id="pFirstName" type="text"></div>\
+				<div><label for="pLastName">Last name : </label><input id="pLastName" type="text"></div>\
+				<div><label for="pBirthDate">Birthdate : </label><input id="pBirthDate" type="text"></div>\
+			</div>\
+			<div class="flex_row space_around">\
+				<div><label for="pClinician">Clinician : </label><input id="pClinician" type="text"></div>\
+				<div><label for="pDate">Date : </label><input id="pDate" type="text"></div>\
+			</div>-->\
 		</div>\
-		<div class="flex_row space_around">\
-			<div><label for="pClinician">Clinician : </label><input id="pClinician" type="text"></div>\
-			<div><label for="pDate">Date : </label><input id="pDate" type="text"></div>\
-		</div>-->\
+		<p style="text-align:center;">\
+			<span><img id="rec_icon" style="height:32px" src="icons/ic_settings_voice_black_24dp_2x.png"></span>\
+			<input type="button" value="Démarrer" id="StartBut">\
+			<input type="button" value="Arrêter" id="StopBut"> \
+			<input type="button" value="Rafraîchir" id="refresh_bt">\
+			<select style="display:none;" id="lang">\
+				<option value="fr-FR" selected>Français</option>\
+				<option value="en-US">English</option>\
+			</select> \
+		</p>\
+		<table class="table"> \
+			<tr> \
+				<td class="table_title row_title">Dent</td>\
+				<td class="table_title" colspan="3">18</td> \
+				<td class="table_title" colspan="3">17</td> \
+				<td class="table_title" colspan="3">16</td> \
+				<td class="table_title" colspan="3">15</td> \
+				<td class="table_title" colspan="3">14</td> \
+				<td class="table_title" colspan="3">13</td> \
+				<td class="table_title" colspan="3">12</td> \
+				<td class="table_title" colspan="3">11</td> \
+				<td class="table_title" colspan="3">21</td> \
+				<td class="table_title" colspan="3">22</td> \
+				<td class="table_title" colspan="3">23</td> \
+				<td class="table_title" colspan="3">24</td> \
+				<td class="table_title" colspan="3">25</td> \
+				<td class="table_title" colspan="3">26</td> \
+				<td class="table_title" colspan="3">27</td> \
+				<td class="table_title" colspan="3">28</td> \
+			</tr> \
+			<tr>\
+				<td class="table_title row_title">Implant</td>\
+				<td colspan="3"><input id="impl18" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl17" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl16" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl15" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl14" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl13" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl12" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl11" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl21" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl22" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl23" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl24" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl25" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl26" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl27" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl28" type="checkbox"/></td>\
+			</tr>\
+			<tr> \
+				<td class="table_title row_title">Poche</td>\
+				<td><input type="text" size="1" id="18a"></td> \
+				<td><input type="text" size="1" id="18b"></td> \
+				<td><input type="text" size="1" id="18c"></td> \
+				<td><input type="text" size="1" id="17a"></td> \
+				<td><input type="text" size="1" id="17b"></td> \
+				<td><input type="text" size="1" id="17c"></td> \
+				<td><input type="text" size="1" id="16a"></td> \
+				<td><input type="text" size="1" id="16b"></td> \
+				<td><input type="text" size="1" id="16c"></td> \
+				<td><input type="text" size="1" id="15a"></td> \
+				<td><input type="text" size="1" id="15b"></td> \
+				<td><input type="text" size="1" id="15c"></td> \
+				<td><input type="text" size="1" id="14a"></td> \
+				<td><input type="text" size="1" id="14b"></td> \
+				<td><input type="text" size="1" id="14c"></td> \
+				<td><input type="text" size="1" id="13a"></td> \
+				<td><input type="text" size="1" id="13b"></td> \
+				<td><input type="text" size="1" id="13c"></td> \
+				<td><input type="text" size="1" id="12a"></td> \
+				<td><input type="text" size="1" id="12b"></td> \
+				<td><input type="text" size="1" id="12c"></td> \
+				<td><input type="text" size="1" id="11a"></td> \
+				<td><input type="text" size="1" id="11b"></td> \
+				<td><input type="text" size="1" id="11c"></td> \
+															   \
+				<td><input type="text" size="1" id="21a"></td> \
+				<td><input type="text" size="1" id="21b"></td> \
+				<td><input type="text" size="1" id="21c"></td> \
+				<td><input type="text" size="1" id="22a"></td> \
+				<td><input type="text" size="1" id="22b"></td> \
+				<td><input type="text" size="1" id="22c"></td> \
+				<td><input type="text" size="1" id="23a"></td> \
+				<td><input type="text" size="1" id="23b"></td> \
+				<td><input type="text" size="1" id="23c"></td> \
+				<td><input type="text" size="1" id="24a"></td> \
+				<td><input type="text" size="1" id="24b"></td> \
+				<td><input type="text" size="1" id="24c"></td> \
+				<td><input type="text" size="1" id="25a"></td> \
+				<td><input type="text" size="1" id="25b"></td> \
+				<td><input type="text" size="1" id="25c"></td> \
+				<td><input type="text" size="1" id="26a"></td> \
+				<td><input type="text" size="1" id="26b"></td> \
+				<td><input type="text" size="1" id="26c"></td> \
+				<td><input type="text" size="1" id="27a"></td> \
+				<td><input type="text" size="1" id="27b"></td> \
+				<td><input type="text" size="1" id="27c"></td> \
+				<td><input type="text" size="1" id="28a"></td> \
+				<td><input type="text" size="1" id="28b"></td> \
+				<td><input type="text" size="1" id="28c"></td> \
+			</tr> \
+			<tr> \
+				<td class="table_title row_title"></td>\
+				<td colspan="48"> \
+				<div style="width:100%;"> \
+					<canvas id="vrc_display0" style="display:inline-block;max-width:100%;max-height:100%;"></canvas> \
+				</div> \
+				</td> \
+			</tr> \
+			\
+			<tr> \
+				<td class="table_title row_title">Poche</td>\
+				<td><input type="text" size="1" id="18La"></td> \
+				<td><input type="text" size="1" id="18Lb"></td> \
+				<td><input type="text" size="1" id="18Lc"></td> \
+				<td><input type="text" size="1" id="17La"></td> \
+				<td><input type="text" size="1" id="17Lb"></td> \
+				<td><input type="text" size="1" id="17Lc"></td> \
+				<td><input type="text" size="1" id="16La"></td> \
+				<td><input type="text" size="1" id="16Lb"></td> \
+				<td><input type="text" size="1" id="16Lc"></td> \
+				<td><input type="text" size="1" id="15La"></td> \
+				<td><input type="text" size="1" id="15Lb"></td> \
+				<td><input type="text" size="1" id="15Lc"></td> \
+				<td><input type="text" size="1" id="14La"></td> \
+				<td><input type="text" size="1" id="14Lb"></td> \
+				<td><input type="text" size="1" id="14Lc"></td> \
+				<td><input type="text" size="1" id="13La"></td> \
+				<td><input type="text" size="1" id="13Lb"></td> \
+				<td><input type="text" size="1" id="13Lc"></td> \
+				<td><input type="text" size="1" id="12La"></td> \
+				<td><input type="text" size="1" id="12Lb"></td> \
+				<td><input type="text" size="1" id="12Lc"></td> \
+				<td><input type="text" size="1" id="11La"></td> \
+				<td><input type="text" size="1" id="11Lb"></td> \
+				<td><input type="text" size="1" id="11Lc"></td> \
+															  \
+				<td><input type="text" size="1" id="21La"></td> \
+				<td><input type="text" size="1" id="21Lb"></td> \
+				<td><input type="text" size="1" id="21Lc"></td> \
+				<td><input type="text" size="1" id="22La"></td> \
+				<td><input type="text" size="1" id="22Lb"></td> \
+				<td><input type="text" size="1" id="22Lc"></td> \
+				<td><input type="text" size="1" id="23La"></td> \
+				<td><input type="text" size="1" id="23Lb"></td> \
+				<td><input type="text" size="1" id="23Lc"></td> \
+				<td><input type="text" size="1" id="24La"></td> \
+				<td><input type="text" size="1" id="24Lb"></td> \
+				<td><input type="text" size="1" id="24Lc"></td> \
+				<td><input type="text" size="1" id="25La"></td> \
+				<td><input type="text" size="1" id="25Lb"></td> \
+				<td><input type="text" size="1" id="25Lc"></td> \
+				<td><input type="text" size="1" id="26La"></td> \
+				<td><input type="text" size="1" id="26Lb"></td> \
+				<td><input type="text" size="1" id="26Lc"></td> \
+				<td><input type="text" size="1" id="27La"></td> \
+				<td><input type="text" size="1" id="27Lb"></td> \
+				<td><input type="text" size="1" id="27Lc"></td> \
+				<td><input type="text" size="1" id="28La"></td> \
+				<td><input type="text" size="1" id="28Lb"></td> \
+				<td><input type="text" size="1" id="28Lc"></td> \
+			</tr>\
+			<tr> \
+				<td class="table_title row_title">Dent</td>\
+				<td class="table_title" colspan="3">18 L</td> \
+				<td class="table_title" colspan="3">17 L</td> \
+				<td class="table_title" colspan="3">16 L</td> \
+				<td class="table_title" colspan="3">15 L</td> \
+				<td class="table_title" colspan="3">14 L</td> \
+				<td class="table_title" colspan="3">13 L</td> \
+				<td class="table_title" colspan="3">12 L</td> \
+				<td class="table_title" colspan="3">11 L</td> \
+				<td class="table_title" colspan="3">21 L</td> \
+				<td class="table_title" colspan="3">22 L</td> \
+				<td class="table_title" colspan="3">23 L</td> \
+				<td class="table_title" colspan="3">24 L</td> \
+				<td class="table_title" colspan="3">25 L</td> \
+				<td class="table_title" colspan="3">26 L</td> \
+				<td class="table_title" colspan="3">27 L</td> \
+				<td class="table_title" colspan="3">28 L</td> \
+			</tr> \
+			\
+		</table>\
+		<table class="table"> \
+			<tr> \
+				<td class="table_title row_title">Dent</td>\
+				<td class="table_title" colspan="3">48</td> \
+				<td class="table_title" colspan="3">47</td> \
+				<td class="table_title" colspan="3">46</td> \
+				<td class="table_title" colspan="3">45</td> \
+				<td class="table_title" colspan="3">44</td> \
+				<td class="table_title" colspan="3">43</td> \
+				<td class="table_title" colspan="3">42</td> \
+				<td class="table_title" colspan="3">41</td> \
+				<td class="table_title" colspan="3">31</td> \
+				<td class="table_title" colspan="3">32</td> \
+				<td class="table_title" colspan="3">33</td> \
+				<td class="table_title" colspan="3">34</td> \
+				<td class="table_title" colspan="3">35</td> \
+				<td class="table_title" colspan="3">36</td> \
+				<td class="table_title" colspan="3">37</td> \
+				<td class="table_title" colspan="3">38</td> \
+			</tr> \
+			<tr>\
+				<td class="table_title row_title">Implant</td>\
+				<td colspan="3"><input id="impl48" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl47" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl46" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl45" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl44" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl43" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl42" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl41" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl31" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl32" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl33" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl34" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl35" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl36" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl37" type="checkbox"/></td>\
+				<td colspan="3"><input id="impl38" type="checkbox"/></td>\
+			</tr>\
+			<tr> \
+				<td class="table_title row_title">Poche</td>\
+				<td><input type="text" size="1" id="48a"></td> \
+				<td><input type="text" size="1" id="48b"></td> \
+				<td><input type="text" size="1" id="48c"></td> \
+				<td><input type="text" size="1" id="47a"></td> \
+				<td><input type="text" size="1" id="47b"></td> \
+				<td><input type="text" size="1" id="47c"></td> \
+				<td><input type="text" size="1" id="46a"></td> \
+				<td><input type="text" size="1" id="46b"></td> \
+				<td><input type="text" size="1" id="46c"></td> \
+				<td><input type="text" size="1" id="45a"></td> \
+				<td><input type="text" size="1" id="45b"></td> \
+				<td><input type="text" size="1" id="45c"></td> \
+				<td><input type="text" size="1" id="44a"></td> \
+				<td><input type="text" size="1" id="44b"></td> \
+				<td><input type="text" size="1" id="44c"></td> \
+				<td><input type="text" size="1" id="43a"></td> \
+				<td><input type="text" size="1" id="43b"></td> \
+				<td><input type="text" size="1" id="43c"></td> \
+				<td><input type="text" size="1" id="42a"></td> \
+				<td><input type="text" size="1" id="42b"></td> \
+				<td><input type="text" size="1" id="42c"></td> \
+				<td><input type="text" size="1" id="41a"></td> \
+				<td><input type="text" size="1" id="41b"></td> \
+				<td><input type="text" size="1" id="41c"></td> \
+															   \
+				<td><input type="text" size="1" id="31a"></td> \
+				<td><input type="text" size="1" id="31b"></td> \
+				<td><input type="text" size="1" id="31c"></td> \
+				<td><input type="text" size="1" id="32a"></td> \
+				<td><input type="text" size="1" id="32b"></td> \
+				<td><input type="text" size="1" id="32c"></td> \
+				<td><input type="text" size="1" id="33a"></td> \
+				<td><input type="text" size="1" id="33b"></td> \
+				<td><input type="text" size="1" id="33c"></td> \
+				<td><input type="text" size="1" id="34a"></td> \
+				<td><input type="text" size="1" id="34b"></td> \
+				<td><input type="text" size="1" id="34c"></td> \
+				<td><input type="text" size="1" id="35a"></td> \
+				<td><input type="text" size="1" id="35b"></td> \
+				<td><input type="text" size="1" id="35c"></td> \
+				<td><input type="text" size="1" id="36a"></td> \
+				<td><input type="text" size="1" id="36b"></td> \
+				<td><input type="text" size="1" id="36c"></td> \
+				<td><input type="text" size="1" id="37a"></td> \
+				<td><input type="text" size="1" id="37b"></td> \
+				<td><input type="text" size="1" id="37c"></td> \
+				<td><input type="text" size="1" id="38a"></td> \
+				<td><input type="text" size="1" id="38b"></td> \
+				<td><input type="text" size="1" id="38c"></td> \
+			</tr> \
+			<tr> \
+				<td class="table_title row_title"></td>\
+				<td colspan="48"> \
+				<div style="width:100%;"> \
+					<canvas id="vrc_display1" style="display:inline-block;max-width:100%;max-height:100%;"></canvas> \
+				</div> \
+				</td> \
+			</tr> \
+			\
+			<tr> \
+				<td class="table_title row_title">Poche</td>\
+				<td><input type="text" size="1" id="48La"></td> \
+				<td><input type="text" size="1" id="48Lb"></td> \
+				<td><input type="text" size="1" id="48Lc"></td> \
+				<td><input type="text" size="1" id="47La"></td> \
+				<td><input type="text" size="1" id="47Lb"></td> \
+				<td><input type="text" size="1" id="47Lc"></td> \
+				<td><input type="text" size="1" id="46La"></td> \
+				<td><input type="text" size="1" id="46Lb"></td> \
+				<td><input type="text" size="1" id="46Lc"></td> \
+				<td><input type="text" size="1" id="45La"></td> \
+				<td><input type="text" size="1" id="45Lb"></td> \
+				<td><input type="text" size="1" id="45Lc"></td> \
+				<td><input type="text" size="1" id="44La"></td> \
+				<td><input type="text" size="1" id="44Lb"></td> \
+				<td><input type="text" size="1" id="44Lc"></td> \
+				<td><input type="text" size="1" id="43La"></td> \
+				<td><input type="text" size="1" id="43Lb"></td> \
+				<td><input type="text" size="1" id="43Lc"></td> \
+				<td><input type="text" size="1" id="42La"></td> \
+				<td><input type="text" size="1" id="42Lb"></td> \
+				<td><input type="text" size="1" id="42Lc"></td> \
+				<td><input type="text" size="1" id="41La"></td> \
+				<td><input type="text" size="1" id="41Lb"></td> \
+				<td><input type="text" size="1" id="41Lc"></td> \
+															   \
+				<td><input type="text" size="1" id="31La"></td> \
+				<td><input type="text" size="1" id="31Lb"></td> \
+				<td><input type="text" size="1" id="31Lc"></td> \
+				<td><input type="text" size="1" id="32La"></td> \
+				<td><input type="text" size="1" id="32Lb"></td> \
+				<td><input type="text" size="1" id="32Lc"></td> \
+				<td><input type="text" size="1" id="33La"></td> \
+				<td><input type="text" size="1" id="33Lb"></td> \
+				<td><input type="text" size="1" id="33Lc"></td> \
+				<td><input type="text" size="1" id="34La"></td> \
+				<td><input type="text" size="1" id="34Lb"></td> \
+				<td><input type="text" size="1" id="34Lc"></td> \
+				<td><input type="text" size="1" id="35La"></td> \
+				<td><input type="text" size="1" id="35Lb"></td> \
+				<td><input type="text" size="1" id="35Lc"></td> \
+				<td><input type="text" size="1" id="36La"></td> \
+				<td><input type="text" size="1" id="36Lb"></td> \
+				<td><input type="text" size="1" id="36Lc"></td> \
+				<td><input type="text" size="1" id="37La"></td> \
+				<td><input type="text" size="1" id="37Lb"></td> \
+				<td><input type="text" size="1" id="37Lc"></td> \
+				<td><input type="text" size="1" id="38La"></td> \
+				<td><input type="text" size="1" id="38Lb"></td> \
+				<td><input type="text" size="1" id="38Lc"></td> \
+			</tr>\
+			<tr> \
+				<td class="table_title row_title">Dent</td>\
+				<td class="table_title" colspan="3">48 L</td> \
+				<td class="table_title" colspan="3">47 L</td> \
+				<td class="table_title" colspan="3">46 L</td> \
+				<td class="table_title" colspan="3">45 L</td> \
+				<td class="table_title" colspan="3">44 L</td> \
+				<td class="table_title" colspan="3">43 L</td> \
+				<td class="table_title" colspan="3">42 L</td> \
+				<td class="table_title" colspan="3">41 L</td> \
+				<td class="table_title" colspan="3">31 L</td> \
+				<td class="table_title" colspan="3">32 L</td> \
+				<td class="table_title" colspan="3">33 L</td> \
+				<td class="table_title" colspan="3">34 L</td> \
+				<td class="table_title" colspan="3">35 L</td> \
+				<td class="table_title" colspan="3">36 L</td> \
+				<td class="table_title" colspan="3">37 L</td> \
+				<td class="table_title" colspan="3">38 L</td> \
+			</tr> \
+		</table>\
 	</div>\
-    <p style="text-align:center;">\
-        <span><img id="rec_icon" style="height:32px" src="icons/ic_settings_voice_black_24dp_2x.png"></span>\
-        <input type="button" value="Start recognition" id="StartBut">\
-        <input type="button" value="Stop recognition" id="StopBut"> \
-		<input type="button" value="Force update" id="refresh_bt">\
-        <select id="lang">\
-            <option value="fr-FR" selected>Français</option>\
-            <option value="en-US">English</option>\
-        </select> \
-    </p>\
-    <table class="table"> \
-        <tr> \
-            <td class="table_title row_title">Dent</td>\
-            <td class="table_title" colspan="3">18</td> \
-            <td class="table_title" colspan="3">17</td> \
-            <td class="table_title" colspan="3">16</td> \
-            <td class="table_title" colspan="3">15</td> \
-            <td class="table_title" colspan="3">14</td> \
-            <td class="table_title" colspan="3">13</td> \
-            <td class="table_title" colspan="3">12</td> \
-            <td class="table_title" colspan="3">11</td> \
-            <td class="table_title" colspan="3">21</td> \
-            <td class="table_title" colspan="3">22</td> \
-            <td class="table_title" colspan="3">23</td> \
-            <td class="table_title" colspan="3">24</td> \
-            <td class="table_title" colspan="3">25</td> \
-            <td class="table_title" colspan="3">26</td> \
-            <td class="table_title" colspan="3">27</td> \
-            <td class="table_title" colspan="3">28</td> \
-        </tr> \
-        <tr> \
-            <td class="table_title row_title">Poche</td>\
-            <td><input type="text" size="1" id="18a"></td> \
-            <td><input type="text" size="1" id="18b"></td> \
-            <td><input type="text" size="1" id="18c"></td> \
-            <td><input type="text" size="1" id="17a"></td> \
-            <td><input type="text" size="1" id="17b"></td> \
-            <td><input type="text" size="1" id="17c"></td> \
-            <td><input type="text" size="1" id="16a"></td> \
-            <td><input type="text" size="1" id="16b"></td> \
-            <td><input type="text" size="1" id="16c"></td> \
-            <td><input type="text" size="1" id="15a"></td> \
-            <td><input type="text" size="1" id="15b"></td> \
-            <td><input type="text" size="1" id="15c"></td> \
-            <td><input type="text" size="1" id="14a"></td> \
-            <td><input type="text" size="1" id="14b"></td> \
-            <td><input type="text" size="1" id="14c"></td> \
-            <td><input type="text" size="1" id="13a"></td> \
-            <td><input type="text" size="1" id="13b"></td> \
-            <td><input type="text" size="1" id="13c"></td> \
-            <td><input type="text" size="1" id="12a"></td> \
-            <td><input type="text" size="1" id="12b"></td> \
-            <td><input type="text" size="1" id="12c"></td> \
-            <td><input type="text" size="1" id="11a"></td> \
-            <td><input type="text" size="1" id="11b"></td> \
-            <td><input type="text" size="1" id="11c"></td> \
-                                                           \
-            <td><input type="text" size="1" id="21a"></td> \
-            <td><input type="text" size="1" id="21b"></td> \
-            <td><input type="text" size="1" id="21c"></td> \
-            <td><input type="text" size="1" id="22a"></td> \
-            <td><input type="text" size="1" id="22b"></td> \
-            <td><input type="text" size="1" id="22c"></td> \
-            <td><input type="text" size="1" id="23a"></td> \
-            <td><input type="text" size="1" id="23b"></td> \
-            <td><input type="text" size="1" id="23c"></td> \
-            <td><input type="text" size="1" id="24a"></td> \
-            <td><input type="text" size="1" id="24b"></td> \
-            <td><input type="text" size="1" id="24c"></td> \
-            <td><input type="text" size="1" id="25a"></td> \
-            <td><input type="text" size="1" id="25b"></td> \
-            <td><input type="text" size="1" id="25c"></td> \
-            <td><input type="text" size="1" id="26a"></td> \
-            <td><input type="text" size="1" id="26b"></td> \
-            <td><input type="text" size="1" id="26c"></td> \
-            <td><input type="text" size="1" id="27a"></td> \
-            <td><input type="text" size="1" id="27b"></td> \
-            <td><input type="text" size="1" id="27c"></td> \
-            <td><input type="text" size="1" id="28a"></td> \
-            <td><input type="text" size="1" id="28b"></td> \
-            <td><input type="text" size="1" id="28c"></td> \
-        </tr> \
-        <tr> \
-            <td class="table_title row_title"></td>\
-            <td colspan="48"> \
-            <div style="width:100%;"> \
-                <canvas id="vrc_display0" style="display:inline-block;max-width:100%;max-height:100%;"></canvas> \
-            </div> \
-            </td> \
-        </tr> \
-        \
-        <tr> \
-            <td class="table_title row_title">Poche</td>\
-            <td><input type="text" size="1" id="18La"></td> \
-            <td><input type="text" size="1" id="18Lb"></td> \
-            <td><input type="text" size="1" id="18Lc"></td> \
-            <td><input type="text" size="1" id="17La"></td> \
-            <td><input type="text" size="1" id="17Lb"></td> \
-            <td><input type="text" size="1" id="17Lc"></td> \
-            <td><input type="text" size="1" id="16La"></td> \
-            <td><input type="text" size="1" id="16Lb"></td> \
-            <td><input type="text" size="1" id="16Lc"></td> \
-            <td><input type="text" size="1" id="15La"></td> \
-            <td><input type="text" size="1" id="15Lb"></td> \
-            <td><input type="text" size="1" id="15Lc"></td> \
-            <td><input type="text" size="1" id="14La"></td> \
-            <td><input type="text" size="1" id="14Lb"></td> \
-            <td><input type="text" size="1" id="14Lc"></td> \
-            <td><input type="text" size="1" id="13La"></td> \
-            <td><input type="text" size="1" id="13Lb"></td> \
-            <td><input type="text" size="1" id="13Lc"></td> \
-            <td><input type="text" size="1" id="12La"></td> \
-            <td><input type="text" size="1" id="12Lb"></td> \
-            <td><input type="text" size="1" id="12Lc"></td> \
-            <td><input type="text" size="1" id="11La"></td> \
-            <td><input type="text" size="1" id="11Lb"></td> \
-            <td><input type="text" size="1" id="11Lc"></td> \
-                                                          \
-            <td><input type="text" size="1" id="21La"></td> \
-            <td><input type="text" size="1" id="21Lb"></td> \
-            <td><input type="text" size="1" id="21Lc"></td> \
-            <td><input type="text" size="1" id="22La"></td> \
-            <td><input type="text" size="1" id="22Lb"></td> \
-            <td><input type="text" size="1" id="22Lc"></td> \
-            <td><input type="text" size="1" id="23La"></td> \
-            <td><input type="text" size="1" id="23Lb"></td> \
-            <td><input type="text" size="1" id="23Lc"></td> \
-            <td><input type="text" size="1" id="24La"></td> \
-            <td><input type="text" size="1" id="24Lb"></td> \
-            <td><input type="text" size="1" id="24Lc"></td> \
-            <td><input type="text" size="1" id="25La"></td> \
-            <td><input type="text" size="1" id="25Lb"></td> \
-            <td><input type="text" size="1" id="25Lc"></td> \
-            <td><input type="text" size="1" id="26La"></td> \
-            <td><input type="text" size="1" id="26Lb"></td> \
-            <td><input type="text" size="1" id="26Lc"></td> \
-            <td><input type="text" size="1" id="27La"></td> \
-            <td><input type="text" size="1" id="27Lb"></td> \
-            <td><input type="text" size="1" id="27Lc"></td> \
-            <td><input type="text" size="1" id="28La"></td> \
-            <td><input type="text" size="1" id="28Lb"></td> \
-            <td><input type="text" size="1" id="28Lc"></td> \
-        </tr>\
-        <tr> \
-            <td class="table_title row_title">Dent</td>\
-            <td class="table_title" colspan="3">18 L</td> \
-            <td class="table_title" colspan="3">17 L</td> \
-            <td class="table_title" colspan="3">16 L</td> \
-            <td class="table_title" colspan="3">15 L</td> \
-            <td class="table_title" colspan="3">14 L</td> \
-            <td class="table_title" colspan="3">13 L</td> \
-            <td class="table_title" colspan="3">12 L</td> \
-            <td class="table_title" colspan="3">11 L</td> \
-            <td class="table_title" colspan="3">21 L</td> \
-            <td class="table_title" colspan="3">22 L</td> \
-            <td class="table_title" colspan="3">23 L</td> \
-            <td class="table_title" colspan="3">24 L</td> \
-            <td class="table_title" colspan="3">25 L</td> \
-            <td class="table_title" colspan="3">26 L</td> \
-            <td class="table_title" colspan="3">27 L</td> \
-            <td class="table_title" colspan="3">28 L</td> \
-        </tr> \
-        \
-    </table>\
-	<table class="table"> \
-        <tr> \
-            <td class="table_title row_title">Dent</td>\
-            <td class="table_title" colspan="3">48</td> \
-            <td class="table_title" colspan="3">47</td> \
-            <td class="table_title" colspan="3">46</td> \
-            <td class="table_title" colspan="3">45</td> \
-            <td class="table_title" colspan="3">44</td> \
-            <td class="table_title" colspan="3">43</td> \
-            <td class="table_title" colspan="3">42</td> \
-            <td class="table_title" colspan="3">41</td> \
-            <td class="table_title" colspan="3">31</td> \
-            <td class="table_title" colspan="3">32</td> \
-            <td class="table_title" colspan="3">33</td> \
-            <td class="table_title" colspan="3">34</td> \
-            <td class="table_title" colspan="3">35</td> \
-            <td class="table_title" colspan="3">36</td> \
-            <td class="table_title" colspan="3">37</td> \
-            <td class="table_title" colspan="3">38</td> \
-        </tr> \
-        <tr> \
-            <td class="table_title row_title">Poche</td>\
-            <td><input type="text" size="1" id="48a"></td> \
-            <td><input type="text" size="1" id="48b"></td> \
-            <td><input type="text" size="1" id="48c"></td> \
-            <td><input type="text" size="1" id="47a"></td> \
-            <td><input type="text" size="1" id="47b"></td> \
-            <td><input type="text" size="1" id="47c"></td> \
-            <td><input type="text" size="1" id="46a"></td> \
-            <td><input type="text" size="1" id="46b"></td> \
-            <td><input type="text" size="1" id="46c"></td> \
-            <td><input type="text" size="1" id="45a"></td> \
-            <td><input type="text" size="1" id="45b"></td> \
-            <td><input type="text" size="1" id="45c"></td> \
-            <td><input type="text" size="1" id="44a"></td> \
-            <td><input type="text" size="1" id="44b"></td> \
-            <td><input type="text" size="1" id="44c"></td> \
-            <td><input type="text" size="1" id="43a"></td> \
-            <td><input type="text" size="1" id="43b"></td> \
-            <td><input type="text" size="1" id="43c"></td> \
-            <td><input type="text" size="1" id="42a"></td> \
-            <td><input type="text" size="1" id="42b"></td> \
-            <td><input type="text" size="1" id="42c"></td> \
-            <td><input type="text" size="1" id="41a"></td> \
-            <td><input type="text" size="1" id="41b"></td> \
-            <td><input type="text" size="1" id="41c"></td> \
-                                                           \
-            <td><input type="text" size="1" id="31a"></td> \
-            <td><input type="text" size="1" id="31b"></td> \
-            <td><input type="text" size="1" id="31c"></td> \
-            <td><input type="text" size="1" id="32a"></td> \
-            <td><input type="text" size="1" id="32b"></td> \
-            <td><input type="text" size="1" id="32c"></td> \
-            <td><input type="text" size="1" id="33a"></td> \
-            <td><input type="text" size="1" id="33b"></td> \
-            <td><input type="text" size="1" id="33c"></td> \
-            <td><input type="text" size="1" id="34a"></td> \
-            <td><input type="text" size="1" id="34b"></td> \
-            <td><input type="text" size="1" id="34c"></td> \
-            <td><input type="text" size="1" id="35a"></td> \
-            <td><input type="text" size="1" id="35b"></td> \
-            <td><input type="text" size="1" id="35c"></td> \
-            <td><input type="text" size="1" id="36a"></td> \
-            <td><input type="text" size="1" id="36b"></td> \
-            <td><input type="text" size="1" id="36c"></td> \
-            <td><input type="text" size="1" id="37a"></td> \
-            <td><input type="text" size="1" id="37b"></td> \
-            <td><input type="text" size="1" id="37c"></td> \
-            <td><input type="text" size="1" id="38a"></td> \
-            <td><input type="text" size="1" id="38b"></td> \
-            <td><input type="text" size="1" id="38c"></td> \
-        </tr> \
-        <tr> \
-            <td class="table_title row_title"></td>\
-            <td colspan="48"> \
-            <div style="width:100%;"> \
-                <canvas id="vrc_display1" style="display:inline-block;max-width:100%;max-height:100%;"></canvas> \
-            </div> \
-            </td> \
-        </tr> \
-        \
-        <tr> \
-            <td class="table_title row_title">Poche</td>\
-            <td><input type="text" size="1" id="48La"></td> \
-            <td><input type="text" size="1" id="48Lb"></td> \
-            <td><input type="text" size="1" id="48Lc"></td> \
-            <td><input type="text" size="1" id="47La"></td> \
-            <td><input type="text" size="1" id="47Lb"></td> \
-            <td><input type="text" size="1" id="47Lc"></td> \
-            <td><input type="text" size="1" id="46La"></td> \
-            <td><input type="text" size="1" id="46Lb"></td> \
-            <td><input type="text" size="1" id="46Lc"></td> \
-            <td><input type="text" size="1" id="45La"></td> \
-            <td><input type="text" size="1" id="45Lb"></td> \
-            <td><input type="text" size="1" id="45Lc"></td> \
-            <td><input type="text" size="1" id="44La"></td> \
-            <td><input type="text" size="1" id="44Lb"></td> \
-            <td><input type="text" size="1" id="44Lc"></td> \
-            <td><input type="text" size="1" id="43La"></td> \
-            <td><input type="text" size="1" id="43Lb"></td> \
-            <td><input type="text" size="1" id="43Lc"></td> \
-            <td><input type="text" size="1" id="42La"></td> \
-            <td><input type="text" size="1" id="42Lb"></td> \
-            <td><input type="text" size="1" id="42Lc"></td> \
-            <td><input type="text" size="1" id="41La"></td> \
-            <td><input type="text" size="1" id="41Lb"></td> \
-            <td><input type="text" size="1" id="41Lc"></td> \
-                                                           \
-            <td><input type="text" size="1" id="31La"></td> \
-            <td><input type="text" size="1" id="31Lb"></td> \
-            <td><input type="text" size="1" id="31Lc"></td> \
-            <td><input type="text" size="1" id="32La"></td> \
-            <td><input type="text" size="1" id="32Lb"></td> \
-            <td><input type="text" size="1" id="32Lc"></td> \
-            <td><input type="text" size="1" id="33La"></td> \
-            <td><input type="text" size="1" id="33Lb"></td> \
-            <td><input type="text" size="1" id="33Lc"></td> \
-            <td><input type="text" size="1" id="34La"></td> \
-            <td><input type="text" size="1" id="34Lb"></td> \
-            <td><input type="text" size="1" id="34Lc"></td> \
-            <td><input type="text" size="1" id="35La"></td> \
-            <td><input type="text" size="1" id="35Lb"></td> \
-            <td><input type="text" size="1" id="35Lc"></td> \
-            <td><input type="text" size="1" id="36La"></td> \
-            <td><input type="text" size="1" id="36Lb"></td> \
-            <td><input type="text" size="1" id="36Lc"></td> \
-            <td><input type="text" size="1" id="37La"></td> \
-            <td><input type="text" size="1" id="37Lb"></td> \
-            <td><input type="text" size="1" id="37Lc"></td> \
-            <td><input type="text" size="1" id="38La"></td> \
-            <td><input type="text" size="1" id="38Lb"></td> \
-            <td><input type="text" size="1" id="38Lc"></td> \
-        </tr>\
-        <tr> \
-            <td class="table_title row_title">Dent</td>\
-            <td class="table_title" colspan="3">48 L</td> \
-            <td class="table_title" colspan="3">47 L</td> \
-            <td class="table_title" colspan="3">46 L</td> \
-            <td class="table_title" colspan="3">45 L</td> \
-            <td class="table_title" colspan="3">44 L</td> \
-            <td class="table_title" colspan="3">43 L</td> \
-            <td class="table_title" colspan="3">42 L</td> \
-            <td class="table_title" colspan="3">41 L</td> \
-            <td class="table_title" colspan="3">31 L</td> \
-            <td class="table_title" colspan="3">32 L</td> \
-            <td class="table_title" colspan="3">33 L</td> \
-            <td class="table_title" colspan="3">34 L</td> \
-            <td class="table_title" colspan="3">35 L</td> \
-            <td class="table_title" colspan="3">36 L</td> \
-            <td class="table_title" colspan="3">37 L</td> \
-            <td class="table_title" colspan="3">38 L</td> \
-        </tr> \
-        \
-    </table>\
-    \
     <br>\
     <label>Debug output : </label><br>\
     <textarea rows="6" id="dbg" style="width:100%;max-width:100%;">\
