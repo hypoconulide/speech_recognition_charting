@@ -1,3 +1,9 @@
+body
+{
+	width:calc(100vw - 17px);
+	overflow-x:hidden;
+}
+
 .table_title
 {
     background:rgba(35, 35, 35, 1);
@@ -6,12 +12,10 @@
 
 .table
 {
-    #white-space:nowrap;
     border-collapse:collapse;
     border-spacing:0px;
     width:100%;
     text-align:center;
-    width:calc(100vw-17px);
 }
 .row_title
 {
@@ -45,4 +49,9 @@
 .pdata_container
 {
 	
+}
+
+input[type=text]
+{
+	width:100%;
 }

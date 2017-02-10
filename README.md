@@ -1,2 +1,2 @@
 # vr_charting
-Periodontal charting using voice recognition
+Periodontal charting using speech recognition
