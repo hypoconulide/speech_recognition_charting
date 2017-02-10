@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+*
+{
+	font-family: 'Open Sans', sans-serif;
+}
+
 body
 {
 	width:calc(100vw - 17px);
@@ -12,6 +19,7 @@ body
 
 .table
 {
+	font-size:0.9rem;
     border-collapse:collapse;
     border-spacing:0px;
     width:100%;
@@ -51,7 +59,9 @@ body
 	
 }
 
-input[type=text]
+.table input[type=text]
 {
 	width:100%;
+	text-align:center;
+	border:1px solid rgba(0, 0, 0, 0.3);
 }

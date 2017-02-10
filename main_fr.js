@@ -133,8 +133,12 @@ class Teeth
     {
 		this.m_Exists = true;
 		this.Id = id;
+		
 		this.m_ProbingDepth = { a:0 , b:0 , c:0 };
 		this.m_ProbingDepthL = { a:0 , b:0 , c:0 };
+		this.m_GingivalMargin = { a:0 , b:0 , c:0 };
+		this.m_GingivalMarginL = { a:0 , b:0 , c:0 };
+		
 		this.m_ImgFront = new Image();
 		this.m_ImgLing = new Image();
 		this.m_Rect = { x:posx, y:posy, w:102, h:239 };
@@ -285,8 +289,6 @@ class Charting
 			TeethMinor[this.CurrentTeeth.minor]);
 		this.CurrentField.focus();    
 	}
-	
-	
 
 	getCurrentToothAsObject()
 	{
@@ -826,7 +828,7 @@ function generatePageContent()
 		</p>\
 		<table class="table"> \
 			<tr> \
-				<td class="table_title row_title">Dent</td>\
+				<td class="table_title row_title"></td>\
 				<td class="table_title" colspan="3">18</td> \
 				<td class="table_title" colspan="3">17</td> \
 				<td class="table_title" colspan="3">16</td> \
@@ -844,6 +846,25 @@ function generatePageContent()
 				<td class="table_title" colspan="3">27</td> \
 				<td class="table_title" colspan="3">28</td> \
 			</tr> \
+			<tr>\
+				<td class="table_title row_title">Mobilité</td>\
+				<td colspan="3"><input id="mob18" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob17" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob16" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob15" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob14" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob13" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob12" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob11" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob21" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob22" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob23" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob24" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob25" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob26" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob27" type="text" value="0"></td>\
+				<td colspan="3"><input id="mob28" type="text" value="0"></td>\
+			</tr>\
 			<tr>\
 				<td class="table_title row_title">Implant</td>\
 				<td colspan="3"><input id="impl18" type="checkbox"/></td>\
@@ -864,7 +885,59 @@ function generatePageContent()
 				<td colspan="3"><input id="impl28" type="checkbox"/></td>\
 			</tr>\
 			<tr> \
-				<td class="table_title row_title">Poche</td>\
+				<td class="table_title row_title">Niveau gingival</td>\
+				<td><input type="text" size="1" id="18Ga"></td> \
+				<td><input type="text" size="1" id="18Gb"></td> \
+				<td><input type="text" size="1" id="18Gc"></td> \
+				<td><input type="text" size="1" id="17Ga"></td> \
+				<td><input type="text" size="1" id="17Gb"></td> \
+				<td><input type="text" size="1" id="17Gc"></td> \
+				<td><input type="text" size="1" id="16Ga"></td> \
+				<td><input type="text" size="1" id="16Gb"></td> \
+				<td><input type="text" size="1" id="16Gc"></td> \
+				<td><input type="text" size="1" id="15Ga"></td> \
+				<td><input type="text" size="1" id="15Gb"></td> \
+				<td><input type="text" size="1" id="15Gc"></td> \
+				<td><input type="text" size="1" id="14Ga"></td> \
+				<td><input type="text" size="1" id="14Gb"></td> \
+				<td><input type="text" size="1" id="14Gc"></td> \
+				<td><input type="text" size="1" id="13Ga"></td> \
+				<td><input type="text" size="1" id="13Gb"></td> \
+				<td><input type="text" size="1" id="13Gc"></td> \
+				<td><input type="text" size="1" id="12Ga"></td> \
+				<td><input type="text" size="1" id="12Gb"></td> \
+				<td><input type="text" size="1" id="12Gc"></td> \
+				<td><input type="text" size="1" id="11Ga"></td> \
+				<td><input type="text" size="1" id="11Gb"></td> \
+				<td><input type="text" size="1" id="11Gc"></td> \
+															   \
+				<td><input type="text" size="1" id="21Ga"></td> \
+				<td><input type="text" size="1" id="21Gb"></td> \
+				<td><input type="text" size="1" id="21Gc"></td> \
+				<td><input type="text" size="1" id="22Ga"></td> \
+				<td><input type="text" size="1" id="22Gb"></td> \
+				<td><input type="text" size="1" id="22Gc"></td> \
+				<td><input type="text" size="1" id="23Ga"></td> \
+				<td><input type="text" size="1" id="23Gb"></td> \
+				<td><input type="text" size="1" id="23Gc"></td> \
+				<td><input type="text" size="1" id="24Ga"></td> \
+				<td><input type="text" size="1" id="24Gb"></td> \
+				<td><input type="text" size="1" id="24Gc"></td> \
+				<td><input type="text" size="1" id="25Ga"></td> \
+				<td><input type="text" size="1" id="25Gb"></td> \
+				<td><input type="text" size="1" id="25Gc"></td> \
+				<td><input type="text" size="1" id="26Ga"></td> \
+				<td><input type="text" size="1" id="26Gb"></td> \
+				<td><input type="text" size="1" id="26Gc"></td> \
+				<td><input type="text" size="1" id="27Ga"></td> \
+				<td><input type="text" size="1" id="27Gb"></td> \
+				<td><input type="text" size="1" id="27Gc"></td> \
+				<td><input type="text" size="1" id="28Ga"></td> \
+				<td><input type="text" size="1" id="28Gb"></td> \
+				<td><input type="text" size="1" id="28Gc"></td> \
+			</tr> \
+			<tr> \
+				<td class="table_title row_title">Profondeur de sondage</td>\
 				<td><input type="text" size="1" id="18a"></td> \
 				<td><input type="text" size="1" id="18b"></td> \
 				<td><input type="text" size="1" id="18c"></td> \
@@ -925,7 +998,7 @@ function generatePageContent()
 			</tr> \
 			\
 			<tr> \
-				<td class="table_title row_title">Poche</td>\
+				<td class="table_title row_title">Profondeur de sondage</td>\
 				<td><input type="text" size="1" id="18La"></td> \
 				<td><input type="text" size="1" id="18Lb"></td> \
 				<td><input type="text" size="1" id="18Lc"></td> \
@@ -977,7 +1050,59 @@ function generatePageContent()
 				<td><input type="text" size="1" id="28Lc"></td> \
 			</tr>\
 			<tr> \
-				<td class="table_title row_title">Dent</td>\
+				<td class="table_title row_title">Niveau gingival</td>\
+				<td><input type="text" size="1" id="18LGa"></td> \
+				<td><input type="text" size="1" id="18LGb"></td> \
+				<td><input type="text" size="1" id="18LGc"></td> \
+				<td><input type="text" size="1" id="17LGa"></td> \
+				<td><input type="text" size="1" id="17LGb"></td> \
+				<td><input type="text" size="1" id="17LGc"></td> \
+				<td><input type="text" size="1" id="16LGa"></td> \
+				<td><input type="text" size="1" id="16LGb"></td> \
+				<td><input type="text" size="1" id="16LGc"></td> \
+				<td><input type="text" size="1" id="15LGa"></td> \
+				<td><input type="text" size="1" id="15LGb"></td> \
+				<td><input type="text" size="1" id="15LGc"></td> \
+				<td><input type="text" size="1" id="14LGa"></td> \
+				<td><input type="text" size="1" id="14LGb"></td> \
+				<td><input type="text" size="1" id="14LGc"></td> \
+				<td><input type="text" size="1" id="13LGa"></td> \
+				<td><input type="text" size="1" id="13LGb"></td> \
+				<td><input type="text" size="1" id="13LGc"></td> \
+				<td><input type="text" size="1" id="12LGa"></td> \
+				<td><input type="text" size="1" id="12LGb"></td> \
+				<td><input type="text" size="1" id="12LGc"></td> \
+				<td><input type="text" size="1" id="11LGa"></td> \
+				<td><input type="text" size="1" id="11LGb"></td> \
+				<td><input type="text" size="1" id="11LGc"></td> \
+															  \
+				<td><input type="text" size="1" id="21LGa"></td> \
+				<td><input type="text" size="1" id="21LGb"></td> \
+				<td><input type="text" size="1" id="21LGc"></td> \
+				<td><input type="text" size="1" id="22LGa"></td> \
+				<td><input type="text" size="1" id="22LGb"></td> \
+				<td><input type="text" size="1" id="22LGc"></td> \
+				<td><input type="text" size="1" id="23LGa"></td> \
+				<td><input type="text" size="1" id="23LGb"></td> \
+				<td><input type="text" size="1" id="23LGc"></td> \
+				<td><input type="text" size="1" id="24LGa"></td> \
+				<td><input type="text" size="1" id="24LGb"></td> \
+				<td><input type="text" size="1" id="24LGc"></td> \
+				<td><input type="text" size="1" id="25LGa"></td> \
+				<td><input type="text" size="1" id="25LGb"></td> \
+				<td><input type="text" size="1" id="25LGc"></td> \
+				<td><input type="text" size="1" id="26LGa"></td> \
+				<td><input type="text" size="1" id="26LGb"></td> \
+				<td><input type="text" size="1" id="26LGc"></td> \
+				<td><input type="text" size="1" id="27LGa"></td> \
+				<td><input type="text" size="1" id="27LGb"></td> \
+				<td><input type="text" size="1" id="27LGc"></td> \
+				<td><input type="text" size="1" id="28LGa"></td> \
+				<td><input type="text" size="1" id="28LGb"></td> \
+				<td><input type="text" size="1" id="28LGc"></td> \
+			</tr>\
+			<tr> \
+				<td class="table_title row_title"></td>\
 				<td class="table_title" colspan="3">18 L</td> \
 				<td class="table_title" colspan="3">17 L</td> \
 				<td class="table_title" colspan="3">16 L</td> \
@@ -999,7 +1124,7 @@ function generatePageContent()
 		</table>\
 		<table class="table"> \
 			<tr> \
-				<td class="table_title row_title">Dent</td>\
+				<td class="table_title row_title"></td>\
 				<td class="table_title" colspan="3">48</td> \
 				<td class="table_title" colspan="3">47</td> \
 				<td class="table_title" colspan="3">46</td> \
@@ -1037,7 +1162,7 @@ function generatePageContent()
 				<td colspan="3"><input id="impl38" type="checkbox"/></td>\
 			</tr>\
 			<tr> \
-				<td class="table_title row_title">Poche</td>\
+				<td class="table_title row_title">Profondeur de sondage</td>\
 				<td><input type="text" size="1" id="48a"></td> \
 				<td><input type="text" size="1" id="48b"></td> \
 				<td><input type="text" size="1" id="48c"></td> \
@@ -1098,7 +1223,7 @@ function generatePageContent()
 			</tr> \
 			\
 			<tr> \
-				<td class="table_title row_title">Poche</td>\
+				<td class="table_title row_title">Profondeur de sondage</td>\
 				<td><input type="text" size="1" id="48La"></td> \
 				<td><input type="text" size="1" id="48Lb"></td> \
 				<td><input type="text" size="1" id="48Lc"></td> \
@@ -1150,7 +1275,7 @@ function generatePageContent()
 				<td><input type="text" size="1" id="38Lc"></td> \
 			</tr>\
 			<tr> \
-				<td class="table_title row_title">Dent</td>\
+				<td class="table_title row_title"></td>\
 				<td class="table_title" colspan="3">48 L</td> \
 				<td class="table_title" colspan="3">47 L</td> \
 				<td class="table_title" colspan="3">46 L</td> \
