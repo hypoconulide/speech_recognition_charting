@@ -657,7 +657,7 @@ class SpeechController
 		this.final_transcript = '';
 		this.Recognition.lang = document.getElementById('lang').value;
 		this.setLanguage(this.Recognition.lang);
-		document.getElementById('rec_icon').src = "https://github.com/philippe-bachour/vr_charting/icons/ic_settings_voice_red_24dp_2x.png";
+		document.getElementById('rec_icon').src = "https://github.com/philippe-bachour/vr_charting/raw/master/icons/ic_settings_voice_red_24dp_2x.png";
 
 		if (!this.Charting.CurrentField) this.Charting.getCurrentField();
 		else this.Charting.CurrentField.focus();
@@ -666,7 +666,7 @@ class SpeechController
 	}
 	stopRecognition()
 	{
-		document.getElementById('rec_icon').src = "https://github.com/philippe-bachour/vr_charting/icons/ic_settings_voice_black_24dp_2x.png";
+		document.getElementById('rec_icon').src = "https://github.com/philippe-bachour/vr_charting/raw/master/icons/ic_settings_voice_black_24dp_2x.png";
 		this.Recognition.stop();
 	}
 	
@@ -868,7 +868,7 @@ function generatePageContent()
 			</div>-->\
 		</div>\
 		<p style="text-align:center;" class="no-print">\
-			<span><img id="rec_icon" style="height:32px" src="icons/ic_settings_voice_black_24dp_2x.png"></span>\
+			<span><img id="rec_icon" style="height:32px" src="https://github.com/philippe-bachour/vr_charting/raw/master/icons/ic_settings_voice_black_24dp_2x.png"></span>\
 			<input type="button" value="Démarrer" id="StartBut">\
 			<input type="button" value="Arrêter" id="StopBut"> \
 			<input type="button" value="Rafraîchir" id="refresh_bt">\
