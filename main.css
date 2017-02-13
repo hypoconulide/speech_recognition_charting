@@ -27,7 +27,7 @@ body
 	margin:auto;
     text-align:center;
 	border:1px solid rgba(35, 35, 35, 0.9);
-	background:rgba(35, 35, 35, 0.1);
+	#background:rgba(35, 35, 35, 0.9);
 	
 }
 .row_title
@@ -66,14 +66,16 @@ body
 
 .pdata_container
 {
-	
+	font-size:1rem;
 }
 
 .table input[type=text]
 {
 	width:100%;
 	text-align:center;
-	border:1px solid rgba(0, 0, 0, 0.3);
+	#border:1px solid rgba(0, 0, 0, 0.3);
+	background:transparent;
+	border:none;
 }
 
 .table label {
@@ -87,40 +89,34 @@ body
 	display: none;
 }
 
-.cb input[type=checkbox] label:before {
+.cb input[type=checkbox] label:before 
+{
 	border-radius: 3px;
 }
 
 .bop input[type=checkbox]:checked + label:before {
-	content: "\23F9";
-	font-size: 15px;
+	content: "\2BC0";
 	color: #ce3333;
 	text-align: center;
-	line-height: 15px;
 }
 
 .bop input[type=checkbox] + label:before {
-	content: "\23F9";
-	font-size: 15px;
+	content: "\2BC0";
 	color: #cecece;
 	text-align: center;
-	line-height: 15px;
 }
 
 .plq input[type=checkbox]:checked + label:before {
-	content: "\23F9";
-	font-size: 15px;
+	content: "\2BC0";
 	color: #cece33;
 	text-align: center;
-	line-height: 15px;
 }
 
 .plq input[type=checkbox] + label:before {
-	content: "\23F9";
-	font-size: 15px;
+	content: "\2BC0";
+	max-width:100%;
 	color: #cecece;
 	text-align: center;
-	line-height: 15px;
 }
 
 @media print
@@ -135,5 +131,37 @@ body
 		margin:auto;
 		white-space:nowrap;
 		font-size:0.7rem;
+	}
+	.pdata_container
+	{
+		font-size:.7rem;
+	}
+	.pdata_container input
+	{
+		border:0;
+	}
+	.bop input[type=checkbox]:checked + label:before
+	{
+		content: "\2BC0";
+		color: #ce3333;
+		text-align: center;
+	}
+
+	.bop input[type=checkbox] + label:before {
+		content: "\2BC0";
+		color: transparent;
+		text-align: center;
+	}
+
+	.plq input[type=checkbox]:checked + label:before {
+		content: "\2BC0";
+		color: #cece33;
+		text-align: center;
+	}
+
+	.plq input[type=checkbox] + label:before {
+		content: "\2BC0";
+		color: transparent;
+		text-align: center;
 	}
 }

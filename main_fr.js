@@ -1039,107 +1039,107 @@ function generatePageContent()
 			</tr>\
 			<tr> \
 				<td class="table_title row_title">Niveau gingival</td>\
-				<td><input type="text" size="1" id="18Ga"></td> \
-				<td><input type="text" size="1" id="18Gb"></td> \
-				<td><input type="text" size="1" id="18Gc"></td> \
-				<td><input type="text" size="1" id="17Ga"></td> \
-				<td><input type="text" size="1" id="17Gb"></td> \
-				<td><input type="text" size="1" id="17Gc"></td> \
-				<td><input type="text" size="1" id="16Ga"></td> \
-				<td><input type="text" size="1" id="16Gb"></td> \
-				<td><input type="text" size="1" id="16Gc"></td> \
-				<td><input type="text" size="1" id="15Ga"></td> \
-				<td><input type="text" size="1" id="15Gb"></td> \
-				<td><input type="text" size="1" id="15Gc"></td> \
-				<td><input type="text" size="1" id="14Ga"></td> \
-				<td><input type="text" size="1" id="14Gb"></td> \
-				<td><input type="text" size="1" id="14Gc"></td> \
-				<td><input type="text" size="1" id="13Ga"></td> \
-				<td><input type="text" size="1" id="13Gb"></td> \
-				<td><input type="text" size="1" id="13Gc"></td> \
-				<td><input type="text" size="1" id="12Ga"></td> \
-				<td><input type="text" size="1" id="12Gb"></td> \
-				<td><input type="text" size="1" id="12Gc"></td> \
-				<td><input type="text" size="1" id="11Ga"></td> \
-				<td><input type="text" size="1" id="11Gb"></td> \
-				<td><input type="text" size="1" id="11Gc"></td> \
+				<td><input type="text" value="0" size="1" id="18Ga"></td> \
+				<td><input type="text" value="0" size="1" id="18Gb"></td> \
+				<td><input type="text" value="0" size="1" id="18Gc"></td> \
+				<td><input type="text" value="0" size="1" id="17Ga"></td> \
+				<td><input type="text" value="0" size="1" id="17Gb"></td> \
+				<td><input type="text" value="0" size="1" id="17Gc"></td> \
+				<td><input type="text" value="0" size="1" id="16Ga"></td> \
+				<td><input type="text" value="0" size="1" id="16Gb"></td> \
+				<td><input type="text" value="0" size="1" id="16Gc"></td> \
+				<td><input type="text" value="0" size="1" id="15Ga"></td> \
+				<td><input type="text" value="0" size="1" id="15Gb"></td> \
+				<td><input type="text" value="0" size="1" id="15Gc"></td> \
+				<td><input type="text" value="0" size="1" id="14Ga"></td> \
+				<td><input type="text" value="0" size="1" id="14Gb"></td> \
+				<td><input type="text" value="0" size="1" id="14Gc"></td> \
+				<td><input type="text" value="0" size="1" id="13Ga"></td> \
+				<td><input type="text" value="0" size="1" id="13Gb"></td> \
+				<td><input type="text" value="0" size="1" id="13Gc"></td> \
+				<td><input type="text" value="0" size="1" id="12Ga"></td> \
+				<td><input type="text" value="0" size="1" id="12Gb"></td> \
+				<td><input type="text" value="0" size="1" id="12Gc"></td> \
+				<td><input type="text" value="0" size="1" id="11Ga"></td> \
+				<td><input type="text" value="0" size="1" id="11Gb"></td> \
+				<td><input type="text" value="0" size="1" id="11Gc"></td> \
 															   \
-				<td><input type="text" size="1" id="21Ga"></td> \
-				<td><input type="text" size="1" id="21Gb"></td> \
-				<td><input type="text" size="1" id="21Gc"></td> \
-				<td><input type="text" size="1" id="22Ga"></td> \
-				<td><input type="text" size="1" id="22Gb"></td> \
-				<td><input type="text" size="1" id="22Gc"></td> \
-				<td><input type="text" size="1" id="23Ga"></td> \
-				<td><input type="text" size="1" id="23Gb"></td> \
-				<td><input type="text" size="1" id="23Gc"></td> \
-				<td><input type="text" size="1" id="24Ga"></td> \
-				<td><input type="text" size="1" id="24Gb"></td> \
-				<td><input type="text" size="1" id="24Gc"></td> \
-				<td><input type="text" size="1" id="25Ga"></td> \
-				<td><input type="text" size="1" id="25Gb"></td> \
-				<td><input type="text" size="1" id="25Gc"></td> \
-				<td><input type="text" size="1" id="26Ga"></td> \
-				<td><input type="text" size="1" id="26Gb"></td> \
-				<td><input type="text" size="1" id="26Gc"></td> \
-				<td><input type="text" size="1" id="27Ga"></td> \
-				<td><input type="text" size="1" id="27Gb"></td> \
-				<td><input type="text" size="1" id="27Gc"></td> \
-				<td><input type="text" size="1" id="28Ga"></td> \
-				<td><input type="text" size="1" id="28Gb"></td> \
-				<td><input type="text" size="1" id="28Gc"></td> \
+				<td><input type="text" value="0" size="1" id="21Ga"></td> \
+				<td><input type="text" value="0" size="1" id="21Gb"></td> \
+				<td><input type="text" value="0" size="1" id="21Gc"></td> \
+				<td><input type="text" value="0" size="1" id="22Ga"></td> \
+				<td><input type="text" value="0" size="1" id="22Gb"></td> \
+				<td><input type="text" value="0" size="1" id="22Gc"></td> \
+				<td><input type="text" value="0" size="1" id="23Ga"></td> \
+				<td><input type="text" value="0" size="1" id="23Gb"></td> \
+				<td><input type="text" value="0" size="1" id="23Gc"></td> \
+				<td><input type="text" value="0" size="1" id="24Ga"></td> \
+				<td><input type="text" value="0" size="1" id="24Gb"></td> \
+				<td><input type="text" value="0" size="1" id="24Gc"></td> \
+				<td><input type="text" value="0" size="1" id="25Ga"></td> \
+				<td><input type="text" value="0" size="1" id="25Gb"></td> \
+				<td><input type="text" value="0" size="1" id="25Gc"></td> \
+				<td><input type="text" value="0" size="1" id="26Ga"></td> \
+				<td><input type="text" value="0" size="1" id="26Gb"></td> \
+				<td><input type="text" value="0" size="1" id="26Gc"></td> \
+				<td><input type="text" value="0" size="1" id="27Ga"></td> \
+				<td><input type="text" value="0" size="1" id="27Gb"></td> \
+				<td><input type="text" value="0" size="1" id="27Gc"></td> \
+				<td><input type="text" value="0" size="1" id="28Ga"></td> \
+				<td><input type="text" value="0" size="1" id="28Gb"></td> \
+				<td><input type="text" value="0" size="1" id="28Gc"></td> \
 			</tr> \
 			<tr> \
 				<td class="table_title row_title">Profondeur de sondage</td>\
-				<td><input type="text" size="1" id="18a"></td> \
-				<td><input type="text" size="1" id="18b"></td> \
-				<td><input type="text" size="1" id="18c"></td> \
-				<td><input type="text" size="1" id="17a"></td> \
-				<td><input type="text" size="1" id="17b"></td> \
-				<td><input type="text" size="1" id="17c"></td> \
-				<td><input type="text" size="1" id="16a"></td> \
-				<td><input type="text" size="1" id="16b"></td> \
-				<td><input type="text" size="1" id="16c"></td> \
-				<td><input type="text" size="1" id="15a"></td> \
-				<td><input type="text" size="1" id="15b"></td> \
-				<td><input type="text" size="1" id="15c"></td> \
-				<td><input type="text" size="1" id="14a"></td> \
-				<td><input type="text" size="1" id="14b"></td> \
-				<td><input type="text" size="1" id="14c"></td> \
-				<td><input type="text" size="1" id="13a"></td> \
-				<td><input type="text" size="1" id="13b"></td> \
-				<td><input type="text" size="1" id="13c"></td> \
-				<td><input type="text" size="1" id="12a"></td> \
-				<td><input type="text" size="1" id="12b"></td> \
-				<td><input type="text" size="1" id="12c"></td> \
-				<td><input type="text" size="1" id="11a"></td> \
-				<td><input type="text" size="1" id="11b"></td> \
-				<td><input type="text" size="1" id="11c"></td> \
+				<td><input type="text" value="0" size="1" id="18a"></td> \
+				<td><input type="text" value="0" size="1" id="18b"></td> \
+				<td><input type="text" value="0" size="1" id="18c"></td> \
+				<td><input type="text" value="0" size="1" id="17a"></td> \
+				<td><input type="text" value="0" size="1" id="17b"></td> \
+				<td><input type="text" value="0" size="1" id="17c"></td> \
+				<td><input type="text" value="0" size="1" id="16a"></td> \
+				<td><input type="text" value="0" size="1" id="16b"></td> \
+				<td><input type="text" value="0" size="1" id="16c"></td> \
+				<td><input type="text" value="0" size="1" id="15a"></td> \
+				<td><input type="text" value="0" size="1" id="15b"></td> \
+				<td><input type="text" value="0" size="1" id="15c"></td> \
+				<td><input type="text" value="0" size="1" id="14a"></td> \
+				<td><input type="text" value="0" size="1" id="14b"></td> \
+				<td><input type="text" value="0" size="1" id="14c"></td> \
+				<td><input type="text" value="0" size="1" id="13a"></td> \
+				<td><input type="text" value="0" size="1" id="13b"></td> \
+				<td><input type="text" value="0" size="1" id="13c"></td> \
+				<td><input type="text" value="0" size="1" id="12a"></td> \
+				<td><input type="text" value="0" size="1" id="12b"></td> \
+				<td><input type="text" value="0" size="1" id="12c"></td> \
+				<td><input type="text" value="0" size="1" id="11a"></td> \
+				<td><input type="text" value="0" size="1" id="11b"></td> \
+				<td><input type="text" value="0" size="1" id="11c"></td> \
 															   \
-				<td><input type="text" size="1" id="21a"></td> \
-				<td><input type="text" size="1" id="21b"></td> \
-				<td><input type="text" size="1" id="21c"></td> \
-				<td><input type="text" size="1" id="22a"></td> \
-				<td><input type="text" size="1" id="22b"></td> \
-				<td><input type="text" size="1" id="22c"></td> \
-				<td><input type="text" size="1" id="23a"></td> \
-				<td><input type="text" size="1" id="23b"></td> \
-				<td><input type="text" size="1" id="23c"></td> \
-				<td><input type="text" size="1" id="24a"></td> \
-				<td><input type="text" size="1" id="24b"></td> \
-				<td><input type="text" size="1" id="24c"></td> \
-				<td><input type="text" size="1" id="25a"></td> \
-				<td><input type="text" size="1" id="25b"></td> \
-				<td><input type="text" size="1" id="25c"></td> \
-				<td><input type="text" size="1" id="26a"></td> \
-				<td><input type="text" size="1" id="26b"></td> \
-				<td><input type="text" size="1" id="26c"></td> \
-				<td><input type="text" size="1" id="27a"></td> \
-				<td><input type="text" size="1" id="27b"></td> \
-				<td><input type="text" size="1" id="27c"></td> \
-				<td><input type="text" size="1" id="28a"></td> \
-				<td><input type="text" size="1" id="28b"></td> \
-				<td><input type="text" size="1" id="28c"></td> \
+				<td><input type="text" value="0" size="1" id="21a"></td> \
+				<td><input type="text" value="0" size="1" id="21b"></td> \
+				<td><input type="text" value="0" size="1" id="21c"></td> \
+				<td><input type="text" value="0" size="1" id="22a"></td> \
+				<td><input type="text" value="0" size="1" id="22b"></td> \
+				<td><input type="text" value="0" size="1" id="22c"></td> \
+				<td><input type="text" value="0" size="1" id="23a"></td> \
+				<td><input type="text" value="0" size="1" id="23b"></td> \
+				<td><input type="text" value="0" size="1" id="23c"></td> \
+				<td><input type="text" value="0" size="1" id="24a"></td> \
+				<td><input type="text" value="0" size="1" id="24b"></td> \
+				<td><input type="text" value="0" size="1" id="24c"></td> \
+				<td><input type="text" value="0" size="1" id="25a"></td> \
+				<td><input type="text" value="0" size="1" id="25b"></td> \
+				<td><input type="text" value="0" size="1" id="25c"></td> \
+				<td><input type="text" value="0" size="1" id="26a"></td> \
+				<td><input type="text" value="0" size="1" id="26b"></td> \
+				<td><input type="text" value="0" size="1" id="26c"></td> \
+				<td><input type="text" value="0" size="1" id="27a"></td> \
+				<td><input type="text" value="0" size="1" id="27b"></td> \
+				<td><input type="text" value="0" size="1" id="27c"></td> \
+				<td><input type="text" value="0" size="1" id="28a"></td> \
+				<td><input type="text" value="0" size="1" id="28b"></td> \
+				<td><input type="text" value="0" size="1" id="28c"></td> \
 			</tr> \
 			<tr> \
 				<td class="table_title row_title"></td>\
@@ -1152,107 +1152,107 @@ function generatePageContent()
 			\
 			<tr> \
 				<td class="table_title row_title">Profondeur de sondage</td>\
-				<td><input type="text" size="1" id="18La"></td> \
-				<td><input type="text" size="1" id="18Lb"></td> \
-				<td><input type="text" size="1" id="18Lc"></td> \
-				<td><input type="text" size="1" id="17La"></td> \
-				<td><input type="text" size="1" id="17Lb"></td> \
-				<td><input type="text" size="1" id="17Lc"></td> \
-				<td><input type="text" size="1" id="16La"></td> \
-				<td><input type="text" size="1" id="16Lb"></td> \
-				<td><input type="text" size="1" id="16Lc"></td> \
-				<td><input type="text" size="1" id="15La"></td> \
-				<td><input type="text" size="1" id="15Lb"></td> \
-				<td><input type="text" size="1" id="15Lc"></td> \
-				<td><input type="text" size="1" id="14La"></td> \
-				<td><input type="text" size="1" id="14Lb"></td> \
-				<td><input type="text" size="1" id="14Lc"></td> \
-				<td><input type="text" size="1" id="13La"></td> \
-				<td><input type="text" size="1" id="13Lb"></td> \
-				<td><input type="text" size="1" id="13Lc"></td> \
-				<td><input type="text" size="1" id="12La"></td> \
-				<td><input type="text" size="1" id="12Lb"></td> \
-				<td><input type="text" size="1" id="12Lc"></td> \
-				<td><input type="text" size="1" id="11La"></td> \
-				<td><input type="text" size="1" id="11Lb"></td> \
-				<td><input type="text" size="1" id="11Lc"></td> \
+				<td><input type="text" value="0" size="1" id="18La"></td> \
+				<td><input type="text" value="0" size="1" id="18Lb"></td> \
+				<td><input type="text" value="0" size="1" id="18Lc"></td> \
+				<td><input type="text" value="0" size="1" id="17La"></td> \
+				<td><input type="text" value="0" size="1" id="17Lb"></td> \
+				<td><input type="text" value="0" size="1" id="17Lc"></td> \
+				<td><input type="text" value="0" size="1" id="16La"></td> \
+				<td><input type="text" value="0" size="1" id="16Lb"></td> \
+				<td><input type="text" value="0" size="1" id="16Lc"></td> \
+				<td><input type="text" value="0" size="1" id="15La"></td> \
+				<td><input type="text" value="0" size="1" id="15Lb"></td> \
+				<td><input type="text" value="0" size="1" id="15Lc"></td> \
+				<td><input type="text" value="0" size="1" id="14La"></td> \
+				<td><input type="text" value="0" size="1" id="14Lb"></td> \
+				<td><input type="text" value="0" size="1" id="14Lc"></td> \
+				<td><input type="text" value="0" size="1" id="13La"></td> \
+				<td><input type="text" value="0" size="1" id="13Lb"></td> \
+				<td><input type="text" value="0" size="1" id="13Lc"></td> \
+				<td><input type="text" value="0" size="1" id="12La"></td> \
+				<td><input type="text" value="0" size="1" id="12Lb"></td> \
+				<td><input type="text" value="0" size="1" id="12Lc"></td> \
+				<td><input type="text" value="0" size="1" id="11La"></td> \
+				<td><input type="text" value="0" size="1" id="11Lb"></td> \
+				<td><input type="text" value="0" size="1" id="11Lc"></td> \
 															  \
-				<td><input type="text" size="1" id="21La"></td> \
-				<td><input type="text" size="1" id="21Lb"></td> \
-				<td><input type="text" size="1" id="21Lc"></td> \
-				<td><input type="text" size="1" id="22La"></td> \
-				<td><input type="text" size="1" id="22Lb"></td> \
-				<td><input type="text" size="1" id="22Lc"></td> \
-				<td><input type="text" size="1" id="23La"></td> \
-				<td><input type="text" size="1" id="23Lb"></td> \
-				<td><input type="text" size="1" id="23Lc"></td> \
-				<td><input type="text" size="1" id="24La"></td> \
-				<td><input type="text" size="1" id="24Lb"></td> \
-				<td><input type="text" size="1" id="24Lc"></td> \
-				<td><input type="text" size="1" id="25La"></td> \
-				<td><input type="text" size="1" id="25Lb"></td> \
-				<td><input type="text" size="1" id="25Lc"></td> \
-				<td><input type="text" size="1" id="26La"></td> \
-				<td><input type="text" size="1" id="26Lb"></td> \
-				<td><input type="text" size="1" id="26Lc"></td> \
-				<td><input type="text" size="1" id="27La"></td> \
-				<td><input type="text" size="1" id="27Lb"></td> \
-				<td><input type="text" size="1" id="27Lc"></td> \
-				<td><input type="text" size="1" id="28La"></td> \
-				<td><input type="text" size="1" id="28Lb"></td> \
-				<td><input type="text" size="1" id="28Lc"></td> \
+				<td><input type="text" value="0" size="1" id="21La"></td> \
+				<td><input type="text" value="0" size="1" id="21Lb"></td> \
+				<td><input type="text" value="0" size="1" id="21Lc"></td> \
+				<td><input type="text" value="0" size="1" id="22La"></td> \
+				<td><input type="text" value="0" size="1" id="22Lb"></td> \
+				<td><input type="text" value="0" size="1" id="22Lc"></td> \
+				<td><input type="text" value="0" size="1" id="23La"></td> \
+				<td><input type="text" value="0" size="1" id="23Lb"></td> \
+				<td><input type="text" value="0" size="1" id="23Lc"></td> \
+				<td><input type="text" value="0" size="1" id="24La"></td> \
+				<td><input type="text" value="0" size="1" id="24Lb"></td> \
+				<td><input type="text" value="0" size="1" id="24Lc"></td> \
+				<td><input type="text" value="0" size="1" id="25La"></td> \
+				<td><input type="text" value="0" size="1" id="25Lb"></td> \
+				<td><input type="text" value="0" size="1" id="25Lc"></td> \
+				<td><input type="text" value="0" size="1" id="26La"></td> \
+				<td><input type="text" value="0" size="1" id="26Lb"></td> \
+				<td><input type="text" value="0" size="1" id="26Lc"></td> \
+				<td><input type="text" value="0" size="1" id="27La"></td> \
+				<td><input type="text" value="0" size="1" id="27Lb"></td> \
+				<td><input type="text" value="0" size="1" id="27Lc"></td> \
+				<td><input type="text" value="0" size="1" id="28La"></td> \
+				<td><input type="text" value="0" size="1" id="28Lb"></td> \
+				<td><input type="text" value="0" size="1" id="28Lc"></td> \
 			</tr>\
 			<tr> \
 				<td class="table_title row_title">Niveau gingival</td>\
-				<td><input type="text" size="1" id="18LGa"></td> \
-				<td><input type="text" size="1" id="18LGb"></td> \
-				<td><input type="text" size="1" id="18LGc"></td> \
-				<td><input type="text" size="1" id="17LGa"></td> \
-				<td><input type="text" size="1" id="17LGb"></td> \
-				<td><input type="text" size="1" id="17LGc"></td> \
-				<td><input type="text" size="1" id="16LGa"></td> \
-				<td><input type="text" size="1" id="16LGb"></td> \
-				<td><input type="text" size="1" id="16LGc"></td> \
-				<td><input type="text" size="1" id="15LGa"></td> \
-				<td><input type="text" size="1" id="15LGb"></td> \
-				<td><input type="text" size="1" id="15LGc"></td> \
-				<td><input type="text" size="1" id="14LGa"></td> \
-				<td><input type="text" size="1" id="14LGb"></td> \
-				<td><input type="text" size="1" id="14LGc"></td> \
-				<td><input type="text" size="1" id="13LGa"></td> \
-				<td><input type="text" size="1" id="13LGb"></td> \
-				<td><input type="text" size="1" id="13LGc"></td> \
-				<td><input type="text" size="1" id="12LGa"></td> \
-				<td><input type="text" size="1" id="12LGb"></td> \
-				<td><input type="text" size="1" id="12LGc"></td> \
-				<td><input type="text" size="1" id="11LGa"></td> \
-				<td><input type="text" size="1" id="11LGb"></td> \
-				<td><input type="text" size="1" id="11LGc"></td> \
+				<td><input type="text" value="0" size="1" id="18LGa"></td> \
+				<td><input type="text" value="0" size="1" id="18LGb"></td> \
+				<td><input type="text" value="0" size="1" id="18LGc"></td> \
+				<td><input type="text" value="0" size="1" id="17LGa"></td> \
+				<td><input type="text" value="0" size="1" id="17LGb"></td> \
+				<td><input type="text" value="0" size="1" id="17LGc"></td> \
+				<td><input type="text" value="0" size="1" id="16LGa"></td> \
+				<td><input type="text" value="0" size="1" id="16LGb"></td> \
+				<td><input type="text" value="0" size="1" id="16LGc"></td> \
+				<td><input type="text" value="0" size="1" id="15LGa"></td> \
+				<td><input type="text" value="0" size="1" id="15LGb"></td> \
+				<td><input type="text" value="0" size="1" id="15LGc"></td> \
+				<td><input type="text" value="0" size="1" id="14LGa"></td> \
+				<td><input type="text" value="0" size="1" id="14LGb"></td> \
+				<td><input type="text" value="0" size="1" id="14LGc"></td> \
+				<td><input type="text" value="0" size="1" id="13LGa"></td> \
+				<td><input type="text" value="0" size="1" id="13LGb"></td> \
+				<td><input type="text" value="0" size="1" id="13LGc"></td> \
+				<td><input type="text" value="0" size="1" id="12LGa"></td> \
+				<td><input type="text" value="0" size="1" id="12LGb"></td> \
+				<td><input type="text" value="0" size="1" id="12LGc"></td> \
+				<td><input type="text" value="0" size="1" id="11LGa"></td> \
+				<td><input type="text" value="0" size="1" id="11LGb"></td> \
+				<td><input type="text" value="0" size="1" id="11LGc"></td> \
 															  \
-				<td><input type="text" size="1" id="21LGa"></td> \
-				<td><input type="text" size="1" id="21LGb"></td> \
-				<td><input type="text" size="1" id="21LGc"></td> \
-				<td><input type="text" size="1" id="22LGa"></td> \
-				<td><input type="text" size="1" id="22LGb"></td> \
-				<td><input type="text" size="1" id="22LGc"></td> \
-				<td><input type="text" size="1" id="23LGa"></td> \
-				<td><input type="text" size="1" id="23LGb"></td> \
-				<td><input type="text" size="1" id="23LGc"></td> \
-				<td><input type="text" size="1" id="24LGa"></td> \
-				<td><input type="text" size="1" id="24LGb"></td> \
-				<td><input type="text" size="1" id="24LGc"></td> \
-				<td><input type="text" size="1" id="25LGa"></td> \
-				<td><input type="text" size="1" id="25LGb"></td> \
-				<td><input type="text" size="1" id="25LGc"></td> \
-				<td><input type="text" size="1" id="26LGa"></td> \
-				<td><input type="text" size="1" id="26LGb"></td> \
-				<td><input type="text" size="1" id="26LGc"></td> \
-				<td><input type="text" size="1" id="27LGa"></td> \
-				<td><input type="text" size="1" id="27LGb"></td> \
-				<td><input type="text" size="1" id="27LGc"></td> \
-				<td><input type="text" size="1" id="28LGa"></td> \
-				<td><input type="text" size="1" id="28LGb"></td> \
-				<td><input type="text" size="1" id="28LGc"></td> \
+				<td><input type="text" value="0" size="1" id="21LGa"></td> \
+				<td><input type="text" value="0" size="1" id="21LGb"></td> \
+				<td><input type="text" value="0" size="1" id="21LGc"></td> \
+				<td><input type="text" value="0" size="1" id="22LGa"></td> \
+				<td><input type="text" value="0" size="1" id="22LGb"></td> \
+				<td><input type="text" value="0" size="1" id="22LGc"></td> \
+				<td><input type="text" value="0" size="1" id="23LGa"></td> \
+				<td><input type="text" value="0" size="1" id="23LGb"></td> \
+				<td><input type="text" value="0" size="1" id="23LGc"></td> \
+				<td><input type="text" value="0" size="1" id="24LGa"></td> \
+				<td><input type="text" value="0" size="1" id="24LGb"></td> \
+				<td><input type="text" value="0" size="1" id="24LGc"></td> \
+				<td><input type="text" value="0" size="1" id="25LGa"></td> \
+				<td><input type="text" value="0" size="1" id="25LGb"></td> \
+				<td><input type="text" value="0" size="1" id="25LGc"></td> \
+				<td><input type="text" value="0" size="1" id="26LGa"></td> \
+				<td><input type="text" value="0" size="1" id="26LGb"></td> \
+				<td><input type="text" value="0" size="1" id="26LGc"></td> \
+				<td><input type="text" value="0" size="1" id="27LGa"></td> \
+				<td><input type="text" value="0" size="1" id="27LGb"></td> \
+				<td><input type="text" value="0" size="1" id="27LGc"></td> \
+				<td><input type="text" value="0" size="1" id="28LGa"></td> \
+				<td><input type="text" value="0" size="1" id="28LGb"></td> \
+				<td><input type="text" value="0" size="1" id="28LGc"></td> \
 			</tr>\
 			<tr class="cb plq">\
 				<td class="table_title row_title">Plaque</td>\
@@ -1520,107 +1520,107 @@ function generatePageContent()
 			</tr>\
 			<tr> \
 				<td class="table_title row_title">Niveau gingival</td>\
-				<td><input type="text" size="1" id="48Ga"></td> \
-				<td><input type="text" size="1" id="48Gb"></td> \
-				<td><input type="text" size="1" id="48Gc"></td> \
-				<td><input type="text" size="1" id="47Ga"></td> \
-				<td><input type="text" size="1" id="47Gb"></td> \
-				<td><input type="text" size="1" id="47Gc"></td> \
-				<td><input type="text" size="1" id="46Ga"></td> \
-				<td><input type="text" size="1" id="46Gb"></td> \
-				<td><input type="text" size="1" id="46Gc"></td> \
-				<td><input type="text" size="1" id="45Ga"></td> \
-				<td><input type="text" size="1" id="45Gb"></td> \
-				<td><input type="text" size="1" id="45Gc"></td> \
-				<td><input type="text" size="1" id="44Ga"></td> \
-				<td><input type="text" size="1" id="44Gb"></td> \
-				<td><input type="text" size="1" id="44Gc"></td> \
-				<td><input type="text" size="1" id="43Ga"></td> \
-				<td><input type="text" size="1" id="43Gb"></td> \
-				<td><input type="text" size="1" id="43Gc"></td> \
-				<td><input type="text" size="1" id="42Ga"></td> \
-				<td><input type="text" size="1" id="42Gb"></td> \
-				<td><input type="text" size="1" id="42Gc"></td> \
-				<td><input type="text" size="1" id="41Ga"></td> \
-				<td><input type="text" size="1" id="41Gb"></td> \
-				<td><input type="text" size="1" id="41Gc"></td> \
+				<td><input type="text" value="0" size="1" id="48Ga"></td> \
+				<td><input type="text" value="0" size="1" id="48Gb"></td> \
+				<td><input type="text" value="0" size="1" id="48Gc"></td> \
+				<td><input type="text" value="0" size="1" id="47Ga"></td> \
+				<td><input type="text" value="0" size="1" id="47Gb"></td> \
+				<td><input type="text" value="0" size="1" id="47Gc"></td> \
+				<td><input type="text" value="0" size="1" id="46Ga"></td> \
+				<td><input type="text" value="0" size="1" id="46Gb"></td> \
+				<td><input type="text" value="0" size="1" id="46Gc"></td> \
+				<td><input type="text" value="0" size="1" id="45Ga"></td> \
+				<td><input type="text" value="0" size="1" id="45Gb"></td> \
+				<td><input type="text" value="0" size="1" id="45Gc"></td> \
+				<td><input type="text" value="0" size="1" id="44Ga"></td> \
+				<td><input type="text" value="0" size="1" id="44Gb"></td> \
+				<td><input type="text" value="0" size="1" id="44Gc"></td> \
+				<td><input type="text" value="0" size="1" id="43Ga"></td> \
+				<td><input type="text" value="0" size="1" id="43Gb"></td> \
+				<td><input type="text" value="0" size="1" id="43Gc"></td> \
+				<td><input type="text" value="0" size="1" id="42Ga"></td> \
+				<td><input type="text" value="0" size="1" id="42Gb"></td> \
+				<td><input type="text" value="0" size="1" id="42Gc"></td> \
+				<td><input type="text" value="0" size="1" id="41Ga"></td> \
+				<td><input type="text" value="0" size="1" id="41Gb"></td> \
+				<td><input type="text" value="0" size="1" id="41Gc"></td> \
 															   \
-				<td><input type="text" size="1" id="31Ga"></td> \
-				<td><input type="text" size="1" id="31Gb"></td> \
-				<td><input type="text" size="1" id="31Gc"></td> \
-				<td><input type="text" size="1" id="32Ga"></td> \
-				<td><input type="text" size="1" id="32Gb"></td> \
-				<td><input type="text" size="1" id="32Gc"></td> \
-				<td><input type="text" size="1" id="33Ga"></td> \
-				<td><input type="text" size="1" id="33Gb"></td> \
-				<td><input type="text" size="1" id="33Gc"></td> \
-				<td><input type="text" size="1" id="34Ga"></td> \
-				<td><input type="text" size="1" id="34Gb"></td> \
-				<td><input type="text" size="1" id="34Gc"></td> \
-				<td><input type="text" size="1" id="35Ga"></td> \
-				<td><input type="text" size="1" id="35Gb"></td> \
-				<td><input type="text" size="1" id="35Gc"></td> \
-				<td><input type="text" size="1" id="36Ga"></td> \
-				<td><input type="text" size="1" id="36Gb"></td> \
-				<td><input type="text" size="1" id="36Gc"></td> \
-				<td><input type="text" size="1" id="37Ga"></td> \
-				<td><input type="text" size="1" id="37Gb"></td> \
-				<td><input type="text" size="1" id="37Gc"></td> \
-				<td><input type="text" size="1" id="38Ga"></td> \
-				<td><input type="text" size="1" id="38Gb"></td> \
-				<td><input type="text" size="1" id="38Gc"></td> \
+				<td><input type="text" value="0" size="1" id="31Ga"></td> \
+				<td><input type="text" value="0" size="1" id="31Gb"></td> \
+				<td><input type="text" value="0" size="1" id="31Gc"></td> \
+				<td><input type="text" value="0" size="1" id="32Ga"></td> \
+				<td><input type="text" value="0" size="1" id="32Gb"></td> \
+				<td><input type="text" value="0" size="1" id="32Gc"></td> \
+				<td><input type="text" value="0" size="1" id="33Ga"></td> \
+				<td><input type="text" value="0" size="1" id="33Gb"></td> \
+				<td><input type="text" value="0" size="1" id="33Gc"></td> \
+				<td><input type="text" value="0" size="1" id="34Ga"></td> \
+				<td><input type="text" value="0" size="1" id="34Gb"></td> \
+				<td><input type="text" value="0" size="1" id="34Gc"></td> \
+				<td><input type="text" value="0" size="1" id="35Ga"></td> \
+				<td><input type="text" value="0" size="1" id="35Gb"></td> \
+				<td><input type="text" value="0" size="1" id="35Gc"></td> \
+				<td><input type="text" value="0" size="1" id="36Ga"></td> \
+				<td><input type="text" value="0" size="1" id="36Gb"></td> \
+				<td><input type="text" value="0" size="1" id="36Gc"></td> \
+				<td><input type="text" value="0" size="1" id="37Ga"></td> \
+				<td><input type="text" value="0" size="1" id="37Gb"></td> \
+				<td><input type="text" value="0" size="1" id="37Gc"></td> \
+				<td><input type="text" value="0" size="1" id="38Ga"></td> \
+				<td><input type="text" value="0" size="1" id="38Gb"></td> \
+				<td><input type="text" value="0" size="1" id="38Gc"></td> \
 			</tr> \
 			<tr> \
 				<td class="table_title row_title">Profondeur de sondage</td>\
-				<td><input type="text" size="1" id="48a"></td> \
-				<td><input type="text" size="1" id="48b"></td> \
-				<td><input type="text" size="1" id="48c"></td> \
-				<td><input type="text" size="1" id="47a"></td> \
-				<td><input type="text" size="1" id="47b"></td> \
-				<td><input type="text" size="1" id="47c"></td> \
-				<td><input type="text" size="1" id="46a"></td> \
-				<td><input type="text" size="1" id="46b"></td> \
-				<td><input type="text" size="1" id="46c"></td> \
-				<td><input type="text" size="1" id="45a"></td> \
-				<td><input type="text" size="1" id="45b"></td> \
-				<td><input type="text" size="1" id="45c"></td> \
-				<td><input type="text" size="1" id="44a"></td> \
-				<td><input type="text" size="1" id="44b"></td> \
-				<td><input type="text" size="1" id="44c"></td> \
-				<td><input type="text" size="1" id="43a"></td> \
-				<td><input type="text" size="1" id="43b"></td> \
-				<td><input type="text" size="1" id="43c"></td> \
-				<td><input type="text" size="1" id="42a"></td> \
-				<td><input type="text" size="1" id="42b"></td> \
-				<td><input type="text" size="1" id="42c"></td> \
-				<td><input type="text" size="1" id="41a"></td> \
-				<td><input type="text" size="1" id="41b"></td> \
-				<td><input type="text" size="1" id="41c"></td> \
+				<td><input type="text" value="0" size="1" id="48a"></td> \
+				<td><input type="text" value="0" size="1" id="48b"></td> \
+				<td><input type="text" value="0" size="1" id="48c"></td> \
+				<td><input type="text" value="0" size="1" id="47a"></td> \
+				<td><input type="text" value="0" size="1" id="47b"></td> \
+				<td><input type="text" value="0" size="1" id="47c"></td> \
+				<td><input type="text" value="0" size="1" id="46a"></td> \
+				<td><input type="text" value="0" size="1" id="46b"></td> \
+				<td><input type="text" value="0" size="1" id="46c"></td> \
+				<td><input type="text" value="0" size="1" id="45a"></td> \
+				<td><input type="text" value="0" size="1" id="45b"></td> \
+				<td><input type="text" value="0" size="1" id="45c"></td> \
+				<td><input type="text" value="0" size="1" id="44a"></td> \
+				<td><input type="text" value="0" size="1" id="44b"></td> \
+				<td><input type="text" value="0" size="1" id="44c"></td> \
+				<td><input type="text" value="0" size="1" id="43a"></td> \
+				<td><input type="text" value="0" size="1" id="43b"></td> \
+				<td><input type="text" value="0" size="1" id="43c"></td> \
+				<td><input type="text" value="0" size="1" id="42a"></td> \
+				<td><input type="text" value="0" size="1" id="42b"></td> \
+				<td><input type="text" value="0" size="1" id="42c"></td> \
+				<td><input type="text" value="0" size="1" id="41a"></td> \
+				<td><input type="text" value="0" size="1" id="41b"></td> \
+				<td><input type="text" value="0" size="1" id="41c"></td> \
 															   \
-				<td><input type="text" size="1" id="31a"></td> \
-				<td><input type="text" size="1" id="31b"></td> \
-				<td><input type="text" size="1" id="31c"></td> \
-				<td><input type="text" size="1" id="32a"></td> \
-				<td><input type="text" size="1" id="32b"></td> \
-				<td><input type="text" size="1" id="32c"></td> \
-				<td><input type="text" size="1" id="33a"></td> \
-				<td><input type="text" size="1" id="33b"></td> \
-				<td><input type="text" size="1" id="33c"></td> \
-				<td><input type="text" size="1" id="34a"></td> \
-				<td><input type="text" size="1" id="34b"></td> \
-				<td><input type="text" size="1" id="34c"></td> \
-				<td><input type="text" size="1" id="35a"></td> \
-				<td><input type="text" size="1" id="35b"></td> \
-				<td><input type="text" size="1" id="35c"></td> \
-				<td><input type="text" size="1" id="36a"></td> \
-				<td><input type="text" size="1" id="36b"></td> \
-				<td><input type="text" size="1" id="36c"></td> \
-				<td><input type="text" size="1" id="37a"></td> \
-				<td><input type="text" size="1" id="37b"></td> \
-				<td><input type="text" size="1" id="37c"></td> \
-				<td><input type="text" size="1" id="38a"></td> \
-				<td><input type="text" size="1" id="38b"></td> \
-				<td><input type="text" size="1" id="38c"></td> \
+				<td><input type="text" value="0" size="1" id="31a"></td> \
+				<td><input type="text" value="0" size="1" id="31b"></td> \
+				<td><input type="text" value="0" size="1" id="31c"></td> \
+				<td><input type="text" value="0" size="1" id="32a"></td> \
+				<td><input type="text" value="0" size="1" id="32b"></td> \
+				<td><input type="text" value="0" size="1" id="32c"></td> \
+				<td><input type="text" value="0" size="1" id="33a"></td> \
+				<td><input type="text" value="0" size="1" id="33b"></td> \
+				<td><input type="text" value="0" size="1" id="33c"></td> \
+				<td><input type="text" value="0" size="1" id="34a"></td> \
+				<td><input type="text" value="0" size="1" id="34b"></td> \
+				<td><input type="text" value="0" size="1" id="34c"></td> \
+				<td><input type="text" value="0" size="1" id="35a"></td> \
+				<td><input type="text" value="0" size="1" id="35b"></td> \
+				<td><input type="text" value="0" size="1" id="35c"></td> \
+				<td><input type="text" value="0" size="1" id="36a"></td> \
+				<td><input type="text" value="0" size="1" id="36b"></td> \
+				<td><input type="text" value="0" size="1" id="36c"></td> \
+				<td><input type="text" value="0" size="1" id="37a"></td> \
+				<td><input type="text" value="0" size="1" id="37b"></td> \
+				<td><input type="text" value="0" size="1" id="37c"></td> \
+				<td><input type="text" value="0" size="1" id="38a"></td> \
+				<td><input type="text" value="0" size="1" id="38b"></td> \
+				<td><input type="text" value="0" size="1" id="38c"></td> \
 			</tr> \
 			<tr> \
 				<td class="table_title row_title"></td>\
@@ -1633,107 +1633,107 @@ function generatePageContent()
 			\
 			<tr> \
 				<td class="table_title row_title">Profondeur de sondage</td>\
-				<td><input type="text" size="1" id="48La"></td> \
-				<td><input type="text" size="1" id="48Lb"></td> \
-				<td><input type="text" size="1" id="48Lc"></td> \
-				<td><input type="text" size="1" id="47La"></td> \
-				<td><input type="text" size="1" id="47Lb"></td> \
-				<td><input type="text" size="1" id="47Lc"></td> \
-				<td><input type="text" size="1" id="46La"></td> \
-				<td><input type="text" size="1" id="46Lb"></td> \
-				<td><input type="text" size="1" id="46Lc"></td> \
-				<td><input type="text" size="1" id="45La"></td> \
-				<td><input type="text" size="1" id="45Lb"></td> \
-				<td><input type="text" size="1" id="45Lc"></td> \
-				<td><input type="text" size="1" id="44La"></td> \
-				<td><input type="text" size="1" id="44Lb"></td> \
-				<td><input type="text" size="1" id="44Lc"></td> \
-				<td><input type="text" size="1" id="43La"></td> \
-				<td><input type="text" size="1" id="43Lb"></td> \
-				<td><input type="text" size="1" id="43Lc"></td> \
-				<td><input type="text" size="1" id="42La"></td> \
-				<td><input type="text" size="1" id="42Lb"></td> \
-				<td><input type="text" size="1" id="42Lc"></td> \
-				<td><input type="text" size="1" id="41La"></td> \
-				<td><input type="text" size="1" id="41Lb"></td> \
-				<td><input type="text" size="1" id="41Lc"></td> \
+				<td><input type="text" value="0" size="1" id="48La"></td> \
+				<td><input type="text" value="0" size="1" id="48Lb"></td> \
+				<td><input type="text" value="0" size="1" id="48Lc"></td> \
+				<td><input type="text" value="0" size="1" id="47La"></td> \
+				<td><input type="text" value="0" size="1" id="47Lb"></td> \
+				<td><input type="text" value="0" size="1" id="47Lc"></td> \
+				<td><input type="text" value="0" size="1" id="46La"></td> \
+				<td><input type="text" value="0" size="1" id="46Lb"></td> \
+				<td><input type="text" value="0" size="1" id="46Lc"></td> \
+				<td><input type="text" value="0" size="1" id="45La"></td> \
+				<td><input type="text" value="0" size="1" id="45Lb"></td> \
+				<td><input type="text" value="0" size="1" id="45Lc"></td> \
+				<td><input type="text" value="0" size="1" id="44La"></td> \
+				<td><input type="text" value="0" size="1" id="44Lb"></td> \
+				<td><input type="text" value="0" size="1" id="44Lc"></td> \
+				<td><input type="text" value="0" size="1" id="43La"></td> \
+				<td><input type="text" value="0" size="1" id="43Lb"></td> \
+				<td><input type="text" value="0" size="1" id="43Lc"></td> \
+				<td><input type="text" value="0" size="1" id="42La"></td> \
+				<td><input type="text" value="0" size="1" id="42Lb"></td> \
+				<td><input type="text" value="0" size="1" id="42Lc"></td> \
+				<td><input type="text" value="0" size="1" id="41La"></td> \
+				<td><input type="text" value="0" size="1" id="41Lb"></td> \
+				<td><input type="text" value="0" size="1" id="41Lc"></td> \
 															   \
-				<td><input type="text" size="1" id="31La"></td> \
-				<td><input type="text" size="1" id="31Lb"></td> \
-				<td><input type="text" size="1" id="31Lc"></td> \
-				<td><input type="text" size="1" id="32La"></td> \
-				<td><input type="text" size="1" id="32Lb"></td> \
-				<td><input type="text" size="1" id="32Lc"></td> \
-				<td><input type="text" size="1" id="33La"></td> \
-				<td><input type="text" size="1" id="33Lb"></td> \
-				<td><input type="text" size="1" id="33Lc"></td> \
-				<td><input type="text" size="1" id="34La"></td> \
-				<td><input type="text" size="1" id="34Lb"></td> \
-				<td><input type="text" size="1" id="34Lc"></td> \
-				<td><input type="text" size="1" id="35La"></td> \
-				<td><input type="text" size="1" id="35Lb"></td> \
-				<td><input type="text" size="1" id="35Lc"></td> \
-				<td><input type="text" size="1" id="36La"></td> \
-				<td><input type="text" size="1" id="36Lb"></td> \
-				<td><input type="text" size="1" id="36Lc"></td> \
-				<td><input type="text" size="1" id="37La"></td> \
-				<td><input type="text" size="1" id="37Lb"></td> \
-				<td><input type="text" size="1" id="37Lc"></td> \
-				<td><input type="text" size="1" id="38La"></td> \
-				<td><input type="text" size="1" id="38Lb"></td> \
-				<td><input type="text" size="1" id="38Lc"></td> \
+				<td><input type="text" value="0" size="1" id="31La"></td> \
+				<td><input type="text" value="0" size="1" id="31Lb"></td> \
+				<td><input type="text" value="0" size="1" id="31Lc"></td> \
+				<td><input type="text" value="0" size="1" id="32La"></td> \
+				<td><input type="text" value="0" size="1" id="32Lb"></td> \
+				<td><input type="text" value="0" size="1" id="32Lc"></td> \
+				<td><input type="text" value="0" size="1" id="33La"></td> \
+				<td><input type="text" value="0" size="1" id="33Lb"></td> \
+				<td><input type="text" value="0" size="1" id="33Lc"></td> \
+				<td><input type="text" value="0" size="1" id="34La"></td> \
+				<td><input type="text" value="0" size="1" id="34Lb"></td> \
+				<td><input type="text" value="0" size="1" id="34Lc"></td> \
+				<td><input type="text" value="0" size="1" id="35La"></td> \
+				<td><input type="text" value="0" size="1" id="35Lb"></td> \
+				<td><input type="text" value="0" size="1" id="35Lc"></td> \
+				<td><input type="text" value="0" size="1" id="36La"></td> \
+				<td><input type="text" value="0" size="1" id="36Lb"></td> \
+				<td><input type="text" value="0" size="1" id="36Lc"></td> \
+				<td><input type="text" value="0" size="1" id="37La"></td> \
+				<td><input type="text" value="0" size="1" id="37Lb"></td> \
+				<td><input type="text" value="0" size="1" id="37Lc"></td> \
+				<td><input type="text" value="0" size="1" id="38La"></td> \
+				<td><input type="text" value="0" size="1" id="38Lb"></td> \
+				<td><input type="text" value="0" size="1" id="38Lc"></td> \
 			</tr>\
 			<tr> \
 				<td class="table_title row_title">Niveau gingival</td>\
-				<td><input type="text" size="1" id="18LGa"></td> \
-				<td><input type="text" size="1" id="18LGb"></td> \
-				<td><input type="text" size="1" id="18LGc"></td> \
-				<td><input type="text" size="1" id="17LGa"></td> \
-				<td><input type="text" size="1" id="17LGb"></td> \
-				<td><input type="text" size="1" id="17LGc"></td> \
-				<td><input type="text" size="1" id="16LGa"></td> \
-				<td><input type="text" size="1" id="16LGb"></td> \
-				<td><input type="text" size="1" id="16LGc"></td> \
-				<td><input type="text" size="1" id="15LGa"></td> \
-				<td><input type="text" size="1" id="15LGb"></td> \
-				<td><input type="text" size="1" id="15LGc"></td> \
-				<td><input type="text" size="1" id="14LGa"></td> \
-				<td><input type="text" size="1" id="14LGb"></td> \
-				<td><input type="text" size="1" id="14LGc"></td> \
-				<td><input type="text" size="1" id="13LGa"></td> \
-				<td><input type="text" size="1" id="13LGb"></td> \
-				<td><input type="text" size="1" id="13LGc"></td> \
-				<td><input type="text" size="1" id="12LGa"></td> \
-				<td><input type="text" size="1" id="12LGb"></td> \
-				<td><input type="text" size="1" id="12LGc"></td> \
-				<td><input type="text" size="1" id="11LGa"></td> \
-				<td><input type="text" size="1" id="11LGb"></td> \
-				<td><input type="text" size="1" id="11LGc"></td> \
+				<td><input type="text" value="0" size="1" id="18LGa"></td> \
+				<td><input type="text" value="0" size="1" id="18LGb"></td> \
+				<td><input type="text" value="0" size="1" id="18LGc"></td> \
+				<td><input type="text" value="0" size="1" id="17LGa"></td> \
+				<td><input type="text" value="0" size="1" id="17LGb"></td> \
+				<td><input type="text" value="0" size="1" id="17LGc"></td> \
+				<td><input type="text" value="0" size="1" id="16LGa"></td> \
+				<td><input type="text" value="0" size="1" id="16LGb"></td> \
+				<td><input type="text" value="0" size="1" id="16LGc"></td> \
+				<td><input type="text" value="0" size="1" id="15LGa"></td> \
+				<td><input type="text" value="0" size="1" id="15LGb"></td> \
+				<td><input type="text" value="0" size="1" id="15LGc"></td> \
+				<td><input type="text" value="0" size="1" id="14LGa"></td> \
+				<td><input type="text" value="0" size="1" id="14LGb"></td> \
+				<td><input type="text" value="0" size="1" id="14LGc"></td> \
+				<td><input type="text" value="0" size="1" id="13LGa"></td> \
+				<td><input type="text" value="0" size="1" id="13LGb"></td> \
+				<td><input type="text" value="0" size="1" id="13LGc"></td> \
+				<td><input type="text" value="0" size="1" id="12LGa"></td> \
+				<td><input type="text" value="0" size="1" id="12LGb"></td> \
+				<td><input type="text" value="0" size="1" id="12LGc"></td> \
+				<td><input type="text" value="0" size="1" id="11LGa"></td> \
+				<td><input type="text" value="0" size="1" id="11LGb"></td> \
+				<td><input type="text" value="0" size="1" id="11LGc"></td> \
 															  \
-				<td><input type="text" size="1" id="21LGa"></td> \
-				<td><input type="text" size="1" id="21LGb"></td> \
-				<td><input type="text" size="1" id="21LGc"></td> \
-				<td><input type="text" size="1" id="22LGa"></td> \
-				<td><input type="text" size="1" id="22LGb"></td> \
-				<td><input type="text" size="1" id="22LGc"></td> \
-				<td><input type="text" size="1" id="23LGa"></td> \
-				<td><input type="text" size="1" id="23LGb"></td> \
-				<td><input type="text" size="1" id="23LGc"></td> \
-				<td><input type="text" size="1" id="24LGa"></td> \
-				<td><input type="text" size="1" id="24LGb"></td> \
-				<td><input type="text" size="1" id="24LGc"></td> \
-				<td><input type="text" size="1" id="25LGa"></td> \
-				<td><input type="text" size="1" id="25LGb"></td> \
-				<td><input type="text" size="1" id="25LGc"></td> \
-				<td><input type="text" size="1" id="26LGa"></td> \
-				<td><input type="text" size="1" id="26LGb"></td> \
-				<td><input type="text" size="1" id="26LGc"></td> \
-				<td><input type="text" size="1" id="27LGa"></td> \
-				<td><input type="text" size="1" id="27LGb"></td> \
-				<td><input type="text" size="1" id="27LGc"></td> \
-				<td><input type="text" size="1" id="28LGa"></td> \
-				<td><input type="text" size="1" id="28LGb"></td> \
-				<td><input type="text" size="1" id="28LGc"></td> \
+				<td><input type="text" value="0" size="1" id="21LGa"></td> \
+				<td><input type="text" value="0" size="1" id="21LGb"></td> \
+				<td><input type="text" value="0" size="1" id="21LGc"></td> \
+				<td><input type="text" value="0" size="1" id="22LGa"></td> \
+				<td><input type="text" value="0" size="1" id="22LGb"></td> \
+				<td><input type="text" value="0" size="1" id="22LGc"></td> \
+				<td><input type="text" value="0" size="1" id="23LGa"></td> \
+				<td><input type="text" value="0" size="1" id="23LGb"></td> \
+				<td><input type="text" value="0" size="1" id="23LGc"></td> \
+				<td><input type="text" value="0" size="1" id="24LGa"></td> \
+				<td><input type="text" value="0" size="1" id="24LGb"></td> \
+				<td><input type="text" value="0" size="1" id="24LGc"></td> \
+				<td><input type="text" value="0" size="1" id="25LGa"></td> \
+				<td><input type="text" value="0" size="1" id="25LGb"></td> \
+				<td><input type="text" value="0" size="1" id="25LGc"></td> \
+				<td><input type="text" value="0" size="1" id="26LGa"></td> \
+				<td><input type="text" value="0" size="1" id="26LGb"></td> \
+				<td><input type="text" value="0" size="1" id="26LGc"></td> \
+				<td><input type="text" value="0" size="1" id="27LGa"></td> \
+				<td><input type="text" value="0" size="1" id="27LGb"></td> \
+				<td><input type="text" value="0" size="1" id="27LGc"></td> \
+				<td><input type="text" value="0" size="1" id="28LGa"></td> \
+				<td><input type="text" value="0" size="1" id="28LGb"></td> \
+				<td><input type="text" value="0" size="1" id="28LGc"></td> \
 			</tr>\
 			<tr class="cb plq">\
 				<td class="table_title row_title">Plaque</td>\
