@@ -50,6 +50,7 @@ class ChartRenderer
 					this.Teeth[i - 11] = new Teeth(i, m_CellWidth * - (i - 18), 0);
 					
 					this.Teeth[i - 11].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
+					this.Teeth[i - 11].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
 					this.Teeth[i - 11].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
 					this.Teeth[i - 11].m_ImgFront.onload = this.checkLoadState.bind(this);
 					this.Teeth[i - 11].m_ImgLing.onload = this.checkLoadState.bind(this);
@@ -59,6 +60,7 @@ class ChartRenderer
 					this.Teeth[i - 13] = new Teeth(i, m_CellWidth * (i-13), 0);
 					
 					this.Teeth[i - 13].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
+					this.Teeth[i - 13].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
 					this.Teeth[i - 13].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
 					this.Teeth[i - 13].m_ImgFront.onload = this.checkLoadState.bind(this); 
 					this.Teeth[i - 13].m_ImgLing.onload = this.checkLoadState.bind(this); 
@@ -78,6 +80,7 @@ class ChartRenderer
 					this.Teeth[i - 41] = new Teeth(i, m_CellWidth * -(i - 48), 0);
 
 					this.Teeth[i - 41].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
+					this.Teeth[i - 41].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
 					this.Teeth[i - 41].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
 					this.Teeth[i - 41].m_ImgFront.onload = this.checkLoadState.bind(this);
 					this.Teeth[i - 41].m_ImgLing.onload = this.checkLoadState.bind(this);
@@ -87,6 +90,7 @@ class ChartRenderer
 					this.Teeth[i - 23] = new Teeth(i, m_CellWidth * (i-23), 0);
 					
 					this.Teeth[i - 23].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png"; 
+					this.Teeth[i - 23].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
 					this.Teeth[i - 23].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png"; 
 					this.Teeth[i - 23].m_ImgFront.onload = this.checkLoadState.bind(this); 
 					this.Teeth[i - 23].m_ImgLing.onload = this.checkLoadState.bind(this); 
@@ -132,6 +136,7 @@ class Teeth
 	constructor(id, posx, posy)
     {
 		this.m_Exists = true;
+		this.m_Implant = false;
 		this.Id = id;
 		
 		this.m_ProbingDepth = { a:0 , b:0 , c:0 };
@@ -141,6 +146,8 @@ class Teeth
 		
 		this.m_ImgFront = new Image();
 		this.m_ImgLing = new Image();
+		this.m_ImgImplantFront = new Image();
+		this.m_ImgImplantLing = new Image();
 		this.m_Rect = { x:posx, y:posy, w:102, h:239 };
 	}
     
@@ -158,8 +165,17 @@ class Teeth
 		if (this.m_Exists)
         {
 			// draw images
-            ctx.drawImage(this.m_ImgFront, this.m_Rect.x, this.m_Rect.y);
-			ctx.drawImage(this.m_ImgLing, this.m_Rect.x, this.m_Rect.y + this.m_Rect.h);
+			
+			if (this.m_Implant)
+			{
+				ctx.drawImage(this.m_ImgImplantFront, this.m_Rect.x, this.m_Rect.y);
+				ctx.drawImage(this.m_ImgLing, this.m_Rect.x, this.m_Rect.y + this.m_Rect.h);
+			}
+            else
+			{
+				ctx.drawImage(this.m_ImgFront, this.m_Rect.x, this.m_Rect.y);
+				ctx.drawImage(this.m_ImgLing, this.m_Rect.x, this.m_Rect.y + this.m_Rect.h);
+			}
             
 			/*--------------------FRONT VIEW------------------------*/
 			ctx.beginPath();
@@ -464,6 +480,23 @@ class Charting
 		}
 		this.drawTooth();
 	}
+	
+	toggleImplant(tooth)
+	{
+		var q = document.getElementById('impl' + tooth);
+		var t = this.getTeethById(tooth);
+		if (!q.checked)
+		{
+			q.checked = true;
+			t.m_Implant = true;
+		}
+		else
+		{
+			q.checked = false;
+			t.m_Implant = false;
+		}
+		this.drawTooth(tooth);
+	}
 
 	addInputEvListeners()
 	{
@@ -479,8 +512,11 @@ class Charting
 				e.addEventListener('focus', this.setTeethOnClick.bind(this), false);
 				e.addEventListener('change', this.updateCurrentTeeth.bind(this), false);
 			}
+			document.getElementById('impl' + TeethMajor[i]).addEventListener('click', this.toggleImplant.bind(this, TeethMajor[i]), false);
 		}
 	}
+	
+	
 }
 
 class SpeechController
