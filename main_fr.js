@@ -27,7 +27,7 @@ class ChartRenderer
 	constructor(arc)
 	{
 		this.Teeth = new Array(16);
-		this.leftToLoad = 64;
+		this.leftToLoad = 32;
 		this.Canvas;
 		this.Context;
 		this.Arc = arc;
@@ -40,6 +40,8 @@ class ChartRenderer
 			case 'upper':
 			{
 				this.Canvas = document.getElementById('vrc_display0');
+				this.Canvas.width = 1632;
+				this.Canvas.height = 478;
 				this.Context = this.Canvas.getContext('2d');
 				
 				var m_CellWidth = this.Canvas.width / 16;
@@ -51,6 +53,7 @@ class ChartRenderer
 					
 					this.Teeth[i - 11].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
 					this.Teeth[i - 11].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
+					this.Teeth[i - 11].m_ImgImplantLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + "_L.png";
 					this.Teeth[i - 11].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
 					this.Teeth[i - 11].m_ImgFront.onload = this.checkLoadState.bind(this);
 					this.Teeth[i - 11].m_ImgLing.onload = this.checkLoadState.bind(this);
@@ -61,6 +64,7 @@ class ChartRenderer
 					
 					this.Teeth[i - 13].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
 					this.Teeth[i - 13].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
+					this.Teeth[i - 13].m_ImgImplantLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + "_L.png";
 					this.Teeth[i - 13].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
 					this.Teeth[i - 13].m_ImgFront.onload = this.checkLoadState.bind(this); 
 					this.Teeth[i - 13].m_ImgLing.onload = this.checkLoadState.bind(this); 
@@ -70,6 +74,8 @@ class ChartRenderer
 			case 'lower':
 			{
 				this.Canvas = document.getElementById('vrc_display1');
+				this.Canvas.width = 1632;
+				this.Canvas.height = 478;
 				this.Context = this.Canvas.getContext('2d');
 				
 				var m_CellWidth = this.Canvas.width / 16;
@@ -81,6 +87,7 @@ class ChartRenderer
 
 					this.Teeth[i - 41].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png";
 					this.Teeth[i - 41].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
+					this.Teeth[i - 41].m_ImgImplantLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + "_L.png";
 					this.Teeth[i - 41].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png";
 					this.Teeth[i - 41].m_ImgFront.onload = this.checkLoadState.bind(this);
 					this.Teeth[i - 41].m_ImgLing.onload = this.checkLoadState.bind(this);
@@ -91,6 +98,7 @@ class ChartRenderer
 					
 					this.Teeth[i - 23].m_ImgFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + ".png"; 
 					this.Teeth[i - 23].m_ImgImplantFront.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + ".png";
+					this.Teeth[i - 23].m_ImgImplantLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/implants/" + i + "_L.png";
 					this.Teeth[i - 23].m_ImgLing.src = "https://github.com/philippe-bachour/resources/raw/master/Dentistry/teeth/" + i + "_L.png"; 
 					this.Teeth[i - 23].m_ImgFront.onload = this.checkLoadState.bind(this); 
 					this.Teeth[i - 23].m_ImgLing.onload = this.checkLoadState.bind(this); 
@@ -100,9 +108,6 @@ class ChartRenderer
 			default:break;
 		}
 		
-		
-		this.Canvas.width = 1632;
-		this.Canvas.height = 478;
 	}
 	
 	checkLoadState()
@@ -169,7 +174,7 @@ class Teeth
 			if (this.m_Implant)
 			{
 				ctx.drawImage(this.m_ImgImplantFront, this.m_Rect.x, this.m_Rect.y);
-				ctx.drawImage(this.m_ImgLing, this.m_Rect.x, this.m_Rect.y + this.m_Rect.h);
+				ctx.drawImage(this.m_ImgImplantLing, this.m_Rect.x, this.m_Rect.y + this.m_Rect.h);
 			}
             else
 			{
@@ -485,14 +490,12 @@ class Charting
 	{
 		var q = document.getElementById('impl' + tooth);
 		var t = this.getTeethById(tooth);
-		if (!q.checked)
+		if (q.checked)
 		{
-			q.checked = true;
 			t.m_Implant = true;
 		}
 		else
 		{
-			q.checked = false;
 			t.m_Implant = false;
 		}
 		this.drawTooth(tooth);
@@ -514,9 +517,24 @@ class Charting
 			}
 			document.getElementById('impl' + TeethMajor[i]).addEventListener('click', this.toggleImplant.bind(this, TeethMajor[i]), false);
 		}
+		
+		var q = document.getElementsByClassName("box");
+		for (var i = 0 ; i < q.length ; ++i)
+		{
+			q[i].addEventListener('click', this.cycle_furcState.bind(this, q[i]), false);
+		}
+		//document.getElementById('furca' + TeethMajor[i]).addEventListener('click', this.cycle_furcState.bind(this, TeethMajor[i]), false);
 	}
 	
-	
+	cycle_furcState(tooth)
+	{
+		var e = document.getElementById('furca' + tooth);
+		if(tooth.classList.contains("half_fill"))
+tooth.className = "box fill";
+		else if (tooth.classList.contains("fill"))
+			tooth.className = "box";
+		else tooth.className = "box half_fill";
+	}
 }
 
 class SpeechController
@@ -531,7 +549,11 @@ class SpeechController
 	
 	initialise()
 	{
-		generatePageContent();
+		generatePageContent();		
+		
+		this.Charting = new Charting();
+		this.setLanguage(document.getElementById('lang').value);
+		this.Charting.initialise();
 		
 		document.getElementById('refresh_bt').addEventListener("click", 
 			function(){
@@ -539,11 +561,7 @@ class SpeechController
 				speech_ctl.Charting.Mandibula.drawBackground();
 			}, 
 			false);
-		
-		this.Charting = new Charting();
-		this.setLanguage(document.getElementById('lang').value);
-		this.Charting.initialise();
-		
+			
 		/* Generate tables, and buttons event listeners */
 		dbg = document.getElementById('dbg')
 		
@@ -715,7 +733,7 @@ class SpeechController
 
 var speech_ctl = new SpeechController();
 speech_ctl.initialise();
-speech_ctl.Charting.initialise();
+//peech_ctl.Charting.initialise();
 
 //startup();
 
@@ -858,7 +876,7 @@ function startup()
         };
     }
     
-    addInputEvListeners();
+    //addInputEvListeners();
 }
 
 function printf(string)
@@ -879,9 +897,9 @@ function generatePageContent()
     <p>Vous pouvez également entrer des valeurs directement dans les champs au clavier</p>\
     <p>Cliquez sur un input pour définir la case de départ</p>\
 	</div>\
-	<div style="display:flex;flex-direction:column;max-width:calc(100vw - 17px);">\
+	<div style="display:flex;flex-direction:column;width:100%;">\
 		<div class="chart_title">Charting Parodontal</div>\
-		<div class="flex_col" style="width:100%;align-items: center;">\
+		<div style="text-align:center;">\
 			<table class="pdata_container">\
 				<tr>\
 					<td><label for="pFirstName">Nom : </label></td><td><input id="pFirstName" type="text"></td>\
@@ -970,6 +988,25 @@ function generatePageContent()
 				<td colspan="3"><input id="impl26" type="checkbox"/></td>\
 				<td colspan="3"><input id="impl27" type="checkbox"/></td>\
 				<td colspan="3"><input id="impl28" type="checkbox"/></td>\
+			</tr>\
+			<tr class="furca">\
+				<td class="table_title row_title">Furcation</td>\
+				<td colspan="3"><div id="furca18" class="box"></div></td>\
+				<td colspan="3"><div id="furca17" class="box"></div></td>\
+				<td colspan="3"><div id="furca16" class="box"></div></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"><div id="furca14" class="box"></div></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"><div id="furca24" class="box"></div></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"><div id="furca26" class="box"></div></td>\
+				<td colspan="3"><div id="furca27" class="box"></div></td>\
+				<td colspan="3"><div id="furca28" class="box"></div></td>\
 			</tr>\
 			<tr class="cb bop">\
 				<td class="table_title row_title">Saignement au sondage</td>\
@@ -1392,6 +1429,25 @@ function generatePageContent()
 				<td><input id="bop28Lb" type="checkbox"/><label for="bop28Lb"></label>\</td>\
 				<td><input id="bop28Lc" type="checkbox"/><label for="bop28Lc"></label>\</td>\
 			</tr>\
+			<tr class="furca">\
+				<td class="table_title row_title">Furcation</td>\
+				<td colspan="3"><div id="furca_d18" class="box"></div><div id="furca_m18" class="box"></div></td>\
+				<td colspan="3"><div id="furca_d17" class="box"></div><div id="furca_m17" class="box"></div></td>\
+				<td colspan="3"><div id="furca_d16" class="box"></div><div id="furca_m16" class="box"></div></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"><div id="furca_m26" class="box"></div><div id="furca_d26" class="box"></div></td>\
+				<td colspan="3"><div id="furca_m27" class="box"></div><div id="furca_d27" class="box"></div></td>\
+				<td colspan="3"><div id="furca_m28" class="box"></div><div id="furca_d28" class="box"></div></td>\
+			</tr>\
 			<tr class="table_title teeth_num"> \
 				<td></td>\
 				<td colspan="3">18 L</td> \
@@ -1451,6 +1507,25 @@ function generatePageContent()
 				<td colspan="3"><input id="impl36" type="checkbox"/></td>\
 				<td colspan="3"><input id="impl37" type="checkbox"/></td>\
 				<td colspan="3"><input id="impl38" type="checkbox"/></td>\
+			</tr>\
+			<tr class="furca">\
+				<td class="table_title row_title">Furcation</td>\
+				<td colspan="3"><div id="furca48" class="box"></div></td>\
+				<td colspan="3"><div id="furca47" class="box"></div></td>\
+				<td colspan="3"><div id="furca46" class="box"></div></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"></td>\
+				<td colspan="3"><div id="furca36" class="box"></div></td>\
+				<td colspan="3"><div id="furca37" class="box"></div></td>\
+				<td colspan="3"><div id="furca38" class="box"></div></td>\
 			</tr>\
 			<tr class="cb bop">\
 				<td class="table_title row_title">Saignement au sondage</td>\
@@ -1893,13 +1968,13 @@ function generatePageContent()
 				<td colspan="3">38 L</td> \
 			</tr> \
 		</table>\
+		<br>\
 	</div>\
     <br>\
 	<div class="no-print">\
 		<label>Debug output : </label><br>\
 		<textarea rows="6" id="dbg" style="width:100%;max-width:100%;">\
 		</textarea>\
-	</div>\
     </div>';
 }
 

@@ -27,7 +27,7 @@ body
 	margin:auto;
     text-align:center;
 	border:1px solid rgba(35, 35, 35, 0.9);
-	#background:rgba(35, 35, 35, 0.9);
+	/*background:rgba(35, 35, 35, 0.9);*/
 	
 }
 .row_title
@@ -66,14 +66,16 @@ body
 
 .pdata_container
 {
-	font-size:1rem;
+	font-size:1rem;	
+	white-space: nowrap;
+	display:inline-block;
 }
 
 .table input[type=text]
 {
 	width:100%;
 	text-align:center;
-	#border:1px solid rgba(0, 0, 0, 0.3);
+	/*border:1px solid rgba(0, 0, 0, 0.3);*/
 	background:transparent;
 	border:none;
 }
@@ -119,15 +121,47 @@ body
 	text-align: center;
 }
 
+.furca div
+{
+	text-align: center;
+}
+.furca .box
+{
+	margin:3px;
+	border: 1px solid black;
+	border-radius: 10px;
+	text-align: center;
+	display: inline-block;
+	cursor:pointer;
+
+	width: 20%;
+	height: 0;
+	padding-bottom: 20%;
+}
+.furca .half_fill
+{
+	background: linear-gradient(to right, black 0%, black 50%, white 51%);
+}
+
+.furca .fill
+{
+	background:black;
+}
+
 @media print
-{    
+{
+	body
+	{
+		margin:0;
+	}
+
     .no-print, .no-print *
     {
         display: none !important;
     }
 	.table
 	{
-		width:90%;
+		width:100%;
 		margin:auto;
 		white-space:nowrap;
 		font-size:0.7rem;
