@@ -18,6 +18,9 @@ var TeethMinor = [
 var TeethFace = [
 	"", "L"
 ];
+var GingivalState = [
+	"", "G"
+];
 
 
 /**===================================================================================================*/
@@ -121,6 +124,8 @@ class ChartRenderer
 	
 	drawBackground()
 	{
+		var startTime = new Date();
+
 		this.Context.fillStyle="#353535";
         this.Context.clearRect(0, 0, this.Canvas.width, this.Canvas.height);
         
@@ -132,6 +137,9 @@ class ChartRenderer
         {
             this.Teeth[i].draw(this.Context);
         }
+
+        var end = new Date();
+        console.log('Frame time : ' + (end - startTime) + 'ms');
 	}
 }
 
@@ -154,6 +162,9 @@ class Teeth
 		this.m_ImgImplantFront = new Image();
 		this.m_ImgImplantLing = new Image();
 		this.m_Rect = { x:posx, y:posy, w:102, h:239 };
+
+		this.m_BleedOnProbing = {a:false , b:false , c:false};
+		this.m_HasPlaque = {a:false , b:false , c:false};
 	}
     
     
@@ -187,20 +198,20 @@ class Teeth
 			if (this.Id == 18 || this.Id == 48 || !speech_ctl.Charting.getPrevTeeth(this.Id).m_Exists)
             {
                 ctx.moveTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h - offset) + 
-					sign * this.m_GingivalMargin.a * speech_ctl.Charting.HEIGHT_STEP);
+					sign * (this.m_GingivalMargin.a + this.m_ProbingDepth.a) * speech_ctl.Charting.HEIGHT_STEP);
             }
             else
             {
                 var pt = speech_ctl.Charting.getPrevTeeth(this.Id);
                 ctx.moveTo(pt.m_Rect.x + pt.m_Rect.w * 3 / 4, (pt.m_Rect.y + pt.m_Rect.h - offset) + 
-					sign * pt.m_GingivalMargin.c * speech_ctl.Charting.HEIGHT_STEP);
+					sign * (pt.m_GingivalMargin.c + pt.m_ProbingDepth.c) * speech_ctl.Charting.HEIGHT_STEP);
                 ctx.lineTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h - offset) + 
-					sign * this.m_GingivalMargin.a * speech_ctl.Charting.HEIGHT_STEP);
+					sign * (this.m_GingivalMargin.a + this.m_ProbingDepth.a) * speech_ctl.Charting.HEIGHT_STEP);
             }
             ctx.lineTo(this.m_Rect.x + this.m_Rect.w / 2, (this.m_Rect.y + this.m_Rect.h - offset) + 	
-				sign * this.m_GingivalMargin.b * speech_ctl.Charting.HEIGHT_STEP);
+				sign * (this.m_GingivalMargin.b + this.m_ProbingDepth.b) * speech_ctl.Charting.HEIGHT_STEP);
             ctx.lineTo(this.m_Rect.x + this.m_Rect.w * 3 / 4, (this.m_Rect.y + this.m_Rect.h - offset) + 
-				sign * this.m_GingivalMargin.c * speech_ctl.Charting.HEIGHT_STEP);
+				sign * (this.m_GingivalMargin.c + this.m_ProbingDepth.c) * speech_ctl.Charting.HEIGHT_STEP);
 			
 			ctx.lineWidth = 2;
             ctx.strokeStyle = speech_ctl.Charting.GMColor;
@@ -241,14 +252,14 @@ class Teeth
             {
                 var pt = speech_ctl.Charting.getPrevTeeth(this.Id);
                 ctx.moveTo(pt.m_Rect.x + pt.m_Rect.w * 3 / 4, (pt.m_Rect.y + pt.m_Rect.h*2 - offset) + 
-					sign * pt.m_GingivalMarginL.c * speech_ctl.Charting.HEIGHT_STEP);
+					sign * (pt.m_GingivalMarginL.c + pt.m_ProbingDepthL.c) * speech_ctl.Charting.HEIGHT_STEP);
                 ctx.lineTo(this.m_Rect.x + this.m_Rect.w / 4, (this.m_Rect.y + this.m_Rect.h*2 - offset) + 
-					sign * this.m_GingivalMarginL.a * speech_ctl.Charting.HEIGHT_STEP);
+					sign * (this.m_GingivalMarginL.a + this.m_ProbingDepthL.a) * speech_ctl.Charting.HEIGHT_STEP);
             }
             ctx.lineTo(this.m_Rect.x + this.m_Rect.w / 2, (this.m_Rect.y + this.m_Rect.h*2 - offset) + 
-				sign * this.m_GingivalMarginL.b * speech_ctl.Charting.HEIGHT_STEP);
+				sign * (this.m_GingivalMarginL.b + this.m_ProbingDepthL.b) * speech_ctl.Charting.HEIGHT_STEP);
             ctx.lineTo(this.m_Rect.x + this.m_Rect.w * 3 / 4, (this.m_Rect.y + this.m_Rect.h*2 - offset) + 
-				sign * this.m_GingivalMarginL.c * speech_ctl.Charting.HEIGHT_STEP);
+				sign * (this.m_GingivalMarginL.c + this.m_ProbingDepthL.c) * speech_ctl.Charting.HEIGHT_STEP);
 			
 			ctx.lineWidth = 2;
             ctx.strokeStyle = speech_ctl.Charting.GMColor;
@@ -288,7 +299,7 @@ class Charting
 	{
 		this.Maxilla = new ChartRenderer('upper');
 		this.Mandibula = new ChartRenderer('lower');
-		this.CurrentTeeth = {major:0,minor:0,face:0,asObject:-1};
+		this.CurrentTeeth = {major:0,minor:0,face:0,asObject:-1,gingival:0};
 		this.CurrentField;
 		this.HEIGHT_STEP = 5; // px Y step offset
 		this.GMColor = 'green';
@@ -303,12 +314,42 @@ class Charting
 		this.addInputEvListeners();
 	}
 	
+	computeStatistics()
+	{
+
+	}
+
+	computeGlobalPocketDepth()
+	{
+
+	}
+
+	computePocketDepth()
+	{
+		var max;
+		var min;
+
+		for (var i = 0 ; i < 16 ; ++i)
+		{
+			if (this.Maxilla.Teeth[i].m_HasPlaque.a) max++;
+			if (this.Maxilla.Teeth[i].m_HasPlaque.b) max++;
+			if (this.Maxilla.Teeth[i].m_HasPlaque.c) max++;
+			if (this.Mandibula.Teeth[i].m_HasPlaque.a) max++;
+			if (this.Mandibula.Teeth[i].m_HasPlaque.b) max++;
+			if (this.Mandibula.Teeth[i].m_HasPlaque.c) max++;
+		}
+
+		alert(max);
+	}
+
 	getTeethById(id)
 	{
 		for (var i = 0 ; i < this.Maxilla.Teeth.length ; ++i)
 		{
-			if (this.Maxilla.Teeth[i].Id == id) return this.Maxilla.Teeth[i];
-			if (this.Mandibula.Teeth[i].Id == id) return this.Mandibula.Teeth[i];
+			if (this.Maxilla.Teeth[i].Id == id)
+				return this.Maxilla.Teeth[i];
+			else if (this.Mandibula.Teeth[i].Id == id)
+				return this.Mandibula.Teeth[i];
 		}
 	}
 
@@ -357,7 +398,8 @@ class Charting
 	getCurrentField()
 	{
 		this.CurrentField = document.getElementById(TeethMajor[this.CurrentTeeth.major] + 
-			TeethFace[this.CurrentTeeth.face] +
+			TeethFace[this.CurrentTeeth.face] + 
+			GingivalState[this.CurrentTeeth.gingival] + 
 			TeethMinor[this.CurrentTeeth.minor]);
 		this.CurrentField.focus();    
 	}
@@ -411,6 +453,44 @@ class Charting
 				this.CurrentTeeth.face = 1;
 				switch(document.activeElement.id.substr(3, 1))
 				{
+					case 'G' :
+					{
+						this.CurrentTeeth.gingival = 1;
+						switch(document.activeElement.id.substr(4, 1))
+						{
+							case 'a' :
+								this.CurrentTeeth.minor = 0;
+								break;
+							case 'b' :
+								this.CurrentTeeth.minor = 1;
+								break;
+							case 'c' :
+								this.CurrentTeeth.minor = 2;
+								break;
+						}
+						break;
+					}
+					case 'a' :
+						this.CurrentTeeth.gingival = 0;
+						this.CurrentTeeth.minor = 0;
+						break;
+					case 'b' :
+						this.CurrentTeeth.gingival = 0;
+						this.CurrentTeeth.minor = 1;
+						break;
+					case 'c' :
+						this.CurrentTeeth.gingival = 0;
+						this.CurrentTeeth.minor = 2;
+						break;
+				}
+				break;
+			}
+			case 'G' :
+			{
+				this.CurrentTeeth.face = 0;
+				this.CurrentTeeth.gingival = 1;
+				switch(document.activeElement.id.substr(3, 1))
+				{
 					case 'a' :
 						this.CurrentTeeth.minor = 0;
 						break;
@@ -426,24 +506,37 @@ class Charting
 			case 'a' :
 				this.CurrentTeeth.minor = 0;
 				this.CurrentTeeth.face = 0;
+				this.CurrentTeeth.gingival = 0;
 				break;
 			case 'b' :
 				this.CurrentTeeth.minor = 1;
 				this.CurrentTeeth.face = 0;
+				this.CurrentTeeth.gingival = 0;
 				break;
 			case 'c' :		
 				this.CurrentTeeth.minor = 2;
 				this.CurrentTeeth.face = 0;
+				this.CurrentTeeth.gingival = 0;
 				break;
 		}
-		this.CurrentField = document.getElementById(TeethMajor[this.CurrentTeeth.major] + TeethFace[this.CurrentTeeth.face] + TeethMinor[this.CurrentTeeth.minor]);
+		this.CurrentField = document.getElementById(TeethMajor[this.CurrentTeeth.major] + TeethFace[this.CurrentTeeth.face] 
+			+ GingivalState[this.CurrentTeeth.gingival] + TeethMinor[this.CurrentTeeth.minor]);
 		this.getCurrentToothAsObject();
 	}
 	
 	setCurrentToothValue(value)
 	{
-		var target = (this.CurrentTeeth.face ? 
-			this.CurrentTeeth.asObject.m_ProbingDepthL : this.CurrentTeeth.asObject.m_ProbingDepth);
+		var target;
+		if (this.CurrentField.id.contains('G'))
+		{
+			target = (this.CurrentTeeth.face ? 
+				this.CurrentTeeth.asObject.m_GingivalMarginL : this.CurrentTeeth.asObject.m_GingivalMargin);
+		}
+		else
+		{
+			target = (this.CurrentTeeth.face ? 
+				this.CurrentTeeth.asObject.m_ProbingDepthL : this.CurrentTeeth.asObject.m_ProbingDepth);
+		}
 		
 		switch(TeethMinor[this.CurrentTeeth.minor])
 		{
@@ -464,24 +557,50 @@ class Charting
 	updateCurrentTeeth()
 	{
 		this.setTeethOnClick();
-		switch (TeethMinor[this.CurrentTeeth.minor])
+
+		if (this.CurrentField.id.indexOf('G') != -1)
 		{
-			case 'a':
-				if (this.CurrentTeeth.face)
-					this.CurrentTeeth.asObject.m_ProbingDepthL.a = parseInt(this.CurrentField.value);
-				else this.CurrentTeeth.asObject.m_ProbingDepth.a = parseInt(this.CurrentField.value);
-				break;
-			case 'b':
-				if (this.CurrentTeeth.face)
-					this.CurrentTeeth.asObject.m_ProbingDepthL.b = parseInt(this.CurrentField.value);
-				else this.CurrentTeeth.asObject.m_ProbingDepth.b = parseInt(this.CurrentField.value);
-				break;
-			case 'c':
-				if (this.CurrentTeeth.face)
-					this.CurrentTeeth.asObject.m_ProbingDepthL.c = parseInt(this.CurrentField.value);
-				else this.CurrentTeeth.asObject.m_ProbingDepth.c = parseInt(this.CurrentField.value);
-				break;
-			default:break;
+			switch (TeethMinor[this.CurrentTeeth.minor])
+			{
+				case 'a':
+					if (this.CurrentTeeth.face)
+						this.CurrentTeeth.asObject.m_GingivalMarginL.a = parseInt(this.CurrentField.value);
+					else this.CurrentTeeth.asObject.m_GingivalMargin.a = parseInt(this.CurrentField.value);
+					break;
+				case 'b':
+					if (this.CurrentTeeth.face)
+						this.CurrentTeeth.asObject.m_GingivalMarginL.b = parseInt(this.CurrentField.value);
+					else this.CurrentTeeth.asObject.m_GingivalMargin.b = parseInt(this.CurrentField.value);
+					break;
+				case 'c':
+					if (this.CurrentTeeth.face)
+						this.CurrentTeeth.asObject.m_GingivalMarginL.c = parseInt(this.CurrentField.value);
+					else this.CurrentTeeth.asObject.m_GingivalMargin.c = parseInt(this.CurrentField.value);
+					break;
+				default:break;
+			}	
+		}	
+		else
+		{
+			switch (TeethMinor[this.CurrentTeeth.minor])
+			{
+				case 'a':
+					if (this.CurrentTeeth.face)
+						this.CurrentTeeth.asObject.m_ProbingDepthL.a = parseInt(this.CurrentField.value);
+					else this.CurrentTeeth.asObject.m_ProbingDepth.a = parseInt(this.CurrentField.value);
+					break;
+				case 'b':
+					if (this.CurrentTeeth.face)
+						this.CurrentTeeth.asObject.m_ProbingDepthL.b = parseInt(this.CurrentField.value);
+					else this.CurrentTeeth.asObject.m_ProbingDepth.b = parseInt(this.CurrentField.value);
+					break;
+				case 'c':
+					if (this.CurrentTeeth.face)
+						this.CurrentTeeth.asObject.m_ProbingDepthL.c = parseInt(this.CurrentField.value);
+					else this.CurrentTeeth.asObject.m_ProbingDepth.c = parseInt(this.CurrentField.value);
+					break;
+				default:break;
+			}
 		}
 		this.drawTooth();
 	}
@@ -514,6 +633,22 @@ class Charting
 				e = document.getElementById(TeethMajor[i] + 'L' + TeethMinor[k]);
 				e.addEventListener('focus', this.setTeethOnClick.bind(this), false);
 				e.addEventListener('change', this.updateCurrentTeeth.bind(this), false);
+
+				e = document.getElementById(TeethMajor[i] + 'G' + TeethMinor[k]);
+				e.addEventListener('focus', this.setTeethOnClick.bind(this), false);
+				e.addEventListener('change', this.updateCurrentTeeth.bind(this), false);
+
+				e = document.getElementById(TeethMajor[i] + 'LG' + TeethMinor[k]);
+				e.addEventListener('focus', this.setTeethOnClick.bind(this), false);
+				e.addEventListener('change', this.updateCurrentTeeth.bind(this), false);
+
+				//plaque & probing
+				e = document.getElementById('plq' + TeethMajor[i] + 'a');
+				e.addEventListener('change', this.togglePlaque.bind(this, TeethMajor[i], 'a'), false);
+				e = document.getElementById('plq' + TeethMajor[i] + 'b');
+				e.addEventListener('change', this.togglePlaque.bind(this, TeethMajor[i], 'b'), false);
+				e = document.getElementById('plq' + TeethMajor[i] + 'c');
+				e.addEventListener('change', this.togglePlaque.bind(this, TeethMajor[i], 'c'), false);
 			}
 			document.getElementById('impl' + TeethMajor[i]).addEventListener('click', this.toggleImplant.bind(this, TeethMajor[i]), false);
 		}
@@ -525,12 +660,29 @@ class Charting
 		}
 		//document.getElementById('furca' + TeethMajor[i]).addEventListener('click', this.cycle_furcState.bind(this, TeethMajor[i]), false);
 	}
+
+	togglePlaque(majorid, subelement)
+	{
+		tooth = getTeethById(parseInt(majorid));
+		switch(subelement)
+		{
+			case 'a':
+				tooth.m_HasPlaque.a = !tooth.m_HasPlaque.a;
+				break;
+			case 'b':
+				tooth.m_HasPlaque.b = !tooth.m_HasPlaque.b;
+				break;
+			case 'c':
+				tooth.m_HasPlaque.c = !tooth.m_HasPlaque.c;
+				break;
+		}
+	}
 	
 	cycle_furcState(tooth)
 	{
 		var e = document.getElementById('furca' + tooth);
 		if(tooth.classList.contains("half_fill"))
-tooth.className = "box fill";
+			tooth.className = "box fill";
 		else if (tooth.classList.contains("fill"))
 			tooth.className = "box";
 		else tooth.className = "box half_fill";
@@ -1796,55 +1948,55 @@ function generatePageContent()
 			</tr>\
 			<tr> \
 				<td class="table_title row_title">Niveau gingival</td>\
-				<td><input type="text" value="0" size="1" id="18LGa"></td> \
-				<td><input type="text" value="0" size="1" id="18LGb"></td> \
-				<td><input type="text" value="0" size="1" id="18LGc"></td> \
-				<td><input type="text" value="0" size="1" id="17LGa"></td> \
-				<td><input type="text" value="0" size="1" id="17LGb"></td> \
-				<td><input type="text" value="0" size="1" id="17LGc"></td> \
-				<td><input type="text" value="0" size="1" id="16LGa"></td> \
-				<td><input type="text" value="0" size="1" id="16LGb"></td> \
-				<td><input type="text" value="0" size="1" id="16LGc"></td> \
-				<td><input type="text" value="0" size="1" id="15LGa"></td> \
-				<td><input type="text" value="0" size="1" id="15LGb"></td> \
-				<td><input type="text" value="0" size="1" id="15LGc"></td> \
-				<td><input type="text" value="0" size="1" id="14LGa"></td> \
-				<td><input type="text" value="0" size="1" id="14LGb"></td> \
-				<td><input type="text" value="0" size="1" id="14LGc"></td> \
-				<td><input type="text" value="0" size="1" id="13LGa"></td> \
-				<td><input type="text" value="0" size="1" id="13LGb"></td> \
-				<td><input type="text" value="0" size="1" id="13LGc"></td> \
-				<td><input type="text" value="0" size="1" id="12LGa"></td> \
-				<td><input type="text" value="0" size="1" id="12LGb"></td> \
-				<td><input type="text" value="0" size="1" id="12LGc"></td> \
-				<td><input type="text" value="0" size="1" id="11LGa"></td> \
-				<td><input type="text" value="0" size="1" id="11LGb"></td> \
-				<td><input type="text" value="0" size="1" id="11LGc"></td> \
+				<td><input type="text" value="0" size="1" id="48LGa"></td> \
+				<td><input type="text" value="0" size="1" id="48LGb"></td> \
+				<td><input type="text" value="0" size="1" id="48LGc"></td> \
+				<td><input type="text" value="0" size="1" id="47LGa"></td> \
+				<td><input type="text" value="0" size="1" id="47LGb"></td> \
+				<td><input type="text" value="0" size="1" id="47LGc"></td> \
+				<td><input type="text" value="0" size="1" id="46LGa"></td> \
+				<td><input type="text" value="0" size="1" id="46LGb"></td> \
+				<td><input type="text" value="0" size="1" id="46LGc"></td> \
+				<td><input type="text" value="0" size="1" id="45LGa"></td> \
+				<td><input type="text" value="0" size="1" id="45LGb"></td> \
+				<td><input type="text" value="0" size="1" id="45LGc"></td> \
+				<td><input type="text" value="0" size="1" id="44LGa"></td> \
+				<td><input type="text" value="0" size="1" id="44LGb"></td> \
+				<td><input type="text" value="0" size="1" id="44LGc"></td> \
+				<td><input type="text" value="0" size="1" id="43LGa"></td> \
+				<td><input type="text" value="0" size="1" id="43LGb"></td> \
+				<td><input type="text" value="0" size="1" id="43LGc"></td> \
+				<td><input type="text" value="0" size="1" id="42LGa"></td> \
+				<td><input type="text" value="0" size="1" id="42LGb"></td> \
+				<td><input type="text" value="0" size="1" id="42LGc"></td> \
+				<td><input type="text" value="0" size="1" id="41LGa"></td> \
+				<td><input type="text" value="0" size="1" id="41LGb"></td> \
+				<td><input type="text" value="0" size="1" id="41LGc"></td> \
 															  \
-				<td><input type="text" value="0" size="1" id="21LGa"></td> \
-				<td><input type="text" value="0" size="1" id="21LGb"></td> \
-				<td><input type="text" value="0" size="1" id="21LGc"></td> \
-				<td><input type="text" value="0" size="1" id="22LGa"></td> \
-				<td><input type="text" value="0" size="1" id="22LGb"></td> \
-				<td><input type="text" value="0" size="1" id="22LGc"></td> \
-				<td><input type="text" value="0" size="1" id="23LGa"></td> \
-				<td><input type="text" value="0" size="1" id="23LGb"></td> \
-				<td><input type="text" value="0" size="1" id="23LGc"></td> \
-				<td><input type="text" value="0" size="1" id="24LGa"></td> \
-				<td><input type="text" value="0" size="1" id="24LGb"></td> \
-				<td><input type="text" value="0" size="1" id="24LGc"></td> \
-				<td><input type="text" value="0" size="1" id="25LGa"></td> \
-				<td><input type="text" value="0" size="1" id="25LGb"></td> \
-				<td><input type="text" value="0" size="1" id="25LGc"></td> \
-				<td><input type="text" value="0" size="1" id="26LGa"></td> \
-				<td><input type="text" value="0" size="1" id="26LGb"></td> \
-				<td><input type="text" value="0" size="1" id="26LGc"></td> \
-				<td><input type="text" value="0" size="1" id="27LGa"></td> \
-				<td><input type="text" value="0" size="1" id="27LGb"></td> \
-				<td><input type="text" value="0" size="1" id="27LGc"></td> \
-				<td><input type="text" value="0" size="1" id="28LGa"></td> \
-				<td><input type="text" value="0" size="1" id="28LGb"></td> \
-				<td><input type="text" value="0" size="1" id="28LGc"></td> \
+				<td><input type="text" value="0" size="1" id="31LGa"></td> \
+				<td><input type="text" value="0" size="1" id="31LGb"></td> \
+				<td><input type="text" value="0" size="1" id="31LGc"></td> \
+				<td><input type="text" value="0" size="1" id="32LGa"></td> \
+				<td><input type="text" value="0" size="1" id="32LGb"></td> \
+				<td><input type="text" value="0" size="1" id="32LGc"></td> \
+				<td><input type="text" value="0" size="1" id="33LGa"></td> \
+				<td><input type="text" value="0" size="1" id="33LGb"></td> \
+				<td><input type="text" value="0" size="1" id="33LGc"></td> \
+				<td><input type="text" value="0" size="1" id="34LGa"></td> \
+				<td><input type="text" value="0" size="1" id="34LGb"></td> \
+				<td><input type="text" value="0" size="1" id="34LGc"></td> \
+				<td><input type="text" value="0" size="1" id="35LGa"></td> \
+				<td><input type="text" value="0" size="1" id="35LGb"></td> \
+				<td><input type="text" value="0" size="1" id="35LGc"></td> \
+				<td><input type="text" value="0" size="1" id="36LGa"></td> \
+				<td><input type="text" value="0" size="1" id="36LGb"></td> \
+				<td><input type="text" value="0" size="1" id="36LGc"></td> \
+				<td><input type="text" value="0" size="1" id="37LGa"></td> \
+				<td><input type="text" value="0" size="1" id="37LGb"></td> \
+				<td><input type="text" value="0" size="1" id="37LGc"></td> \
+				<td><input type="text" value="0" size="1" id="38LGa"></td> \
+				<td><input type="text" value="0" size="1" id="38LGb"></td> \
+				<td><input type="text" value="0" size="1" id="38LGc"></td> \
 			</tr>\
 			<tr class="cb plq">\
 				<td class="table_title row_title">Plaque</td>\
