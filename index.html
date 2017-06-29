@@ -3,12 +3,294 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<link  rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body style="margin:0px;padding:0px;">
 	<div id="vr_charting"></div>
 
-	<script type="text/javascript" src="main_fr.js"></script>
+
+<div ng-app="app">
+    <div ng-controller="ctl">
+
+		<div style="display:flex;flex-direction:column;width:100%;">
+			<div class="chart_title">{{Dictionnary.periodontal_chart}}</div>
+			<div style="text-align:center;">
+				<table class="pdata_container">
+					<tr>
+						<td><label for="pFirstName">{{Dictionnary.last_name}} : </label></td><td><input id="pFirstName" type="text"></td>
+						<td><label for="pLastName">{{Dictionnary.first_name}} : </label></td><td><input id="pLastName" type="text"></td>
+						<td><label for="pBirthDate">{{Dictionnary.date_of_birth}} : </label></td><td><input id="pBirthDate" type="text"></td>
+					</tr>
+					<tr>
+						<td><label for="pClinician">{{Dictionnary.clinician}} : </label></td><td><input id="pClinician" type="text"></td>
+						<td><label for="pDate">{{Dictionnary.date}} : </label></td><td><input id="pDate" type="text"></td>
+					</tr>
+				</table>
+			</div>
+			<!--
+			<p style="text-align:center;" class="no-print">
+				<span><img id="rec_icon" style="height:32px" src="https://github.com/philippe-bachour/vr_charting/raw/master/icons/ic_settings_voice_black_24dp_2x.png"></span>
+				<input type="button" value="{{Dictionnary.start}}" id="StartBut">
+				<input type="button" value="{{Dictionnary.stop}}" id="StopBut"> 
+				<input type="button" value="{{Dictionnary.refresh}}" id="refresh_bt">
+				<select style="display:none;" id="lang">
+					<option value="fr-FR" selected>Français</option>
+					<option value="en-US">English</option>
+				</select> 
+			</p>
+			<br>
+			-->
+		</div>
+		<br>
+        <table class="table">
+            <tr class="table_title teeth_num">
+				<td></td>
+                <td ng-repeat="x in UpperTeeth">{{x.Id}}</td>
+            </tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.mobility}}</td>
+				<td ng-repeat="x in UpperTeeth">
+					<input type="number" value="0"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.Implant}}</td>
+				<td ng-repeat="x in UpperTeeth"><input ng-change="redraw({{x.Id}})" type="checkbox" ng-model="x.m_Implant"/></td>
+			</tr>
+			<tr class="furca">
+				<td class="table_title row_title">{{Dictionnary.furcation}}</td>
+				<td><div ng-click="cycleFurca(18)" id="furca18" class="box"></div></td>
+				<td><div ng-click="cycleFurca(17)" id="furca17" class="box"></div></td>
+				<td><div ng-click="cycleFurca(16)" id="furca16" class="box"></div></td>
+				<td></td>
+				<td><div ng-click="cycleFurca(14)" id="furca14" class="box"></div></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><div ng-click="cycleFurca(24)" id="furca24" class="box"></div></td>
+				<td></td>
+				<td><div ng-click="cycleFurca(26)" id="furca26" class="box"></div></td>
+				<td><div ng-click="cycleFurca(27)" id="furca27" class="box"></div></td>
+				<td><div ng-click="cycleFurca(28)" id="furca28" class="box"></div></td>
+			</tr>
+			<tr class="cb bop">
+				<td class="table_title row_title">{{Dictionnary.bleed_on_probing}}</td>
+				<td ng-repeat="x in UpperTeeth">
+					<input id="bop{{x.Id}}a" ng-model="x.m_BleedOnProbing.a" type="checkbox"/><label for="bop{{x.Id}}a"></label>
+					<input id="bop{{x.Id}}b" ng-model="x.m_BleedOnProbing.b" type="checkbox"/><label for="bop{{x.Id}}b"></label>	
+					<input id="bop{{x.Id}}c" ng-model="x.m_BleedOnProbing.c" type="checkbox"/><label for="bop{{x.Id}}c"></label>
+				</td>
+			</tr>
+			<tr class="cb plq">
+				<td class="table_title row_title">{{Dictionnary.plaque}}</td>
+				<td ng-repeat="x in UpperTeeth">
+					<input id="plq{{x.Id}}a" ng-model="x.m_HasPlaque.a" type="checkbox"/><label for="plq{{x.Id}}a"></label>
+					<input id="plq{{x.Id}}b" ng-model="x.m_HasPlaque.b" type="checkbox"/><label for="plq{{x.Id}}b"></label>	
+					<input id="plq{{x.Id}}c" ng-model="x.m_HasPlaque.c" type="checkbox"/><label for="plq{{x.Id}}c"></label>
+				</td>
+			</tr>
+            <tr>
+				<td class="table_title row_title">{{Dictionnary.gingival_depth}}</td>
+                <td style="white-space: nowrap;" ng-repeat="x in UpperTeeth">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.a" value="{{x.m_GingivalMargin.a}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.b" value="{{x.m_GingivalMargin.b}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.c" value="{{x.m_GingivalMargin.c}}">
+                </td>
+            </tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.probing_depth}}</td>
+				<td style="white-space: nowrap;" ng-repeat="x in UpperTeeth">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.a" value="{{x.m_ProbingDepth.a}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.b" value="{{x.m_ProbingDepth.b}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.c" value="{{x.m_ProbingDepth.c}}">
+                </td>
+			</tr>
+			<tr>
+				<td class="table_title row_title"></td>
+				<td colspan="48">
+				<div style="width:100%;">
+					<canvas id="vrc_display0" style="display:inline-block;max-width:100%;max-height:100%;"></canvas>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.probing_depth}}</td>
+				<td style="white-space: nowrap;" ng-repeat="x in UpperTeeth">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepthL.a" value="{{x.m_ProbingDepthL.a}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepthL.b" value="{{x.m_ProbingDepthL.b}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepthL.c" value="{{x.m_ProbingDepthL.c}}">
+                </td>
+			</tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.gingival_depth}}</td>
+                <td style="white-space: nowrap;" ng-repeat="x in UpperTeeth">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMarginL.a" value="{{x.m_GingivalMarginL.a}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMarginL.b" value="{{x.m_GingivalMarginL.b}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMarginL.c" value="{{x.m_GingivalMarginL.c}}">
+                </td>
+            </tr>
+			<tr class="cb plq">
+				<td class="table_title row_title">{{Dictionnary.plaque}}</td>
+				<td ng-repeat="x in UpperTeeth">
+					<input id="plq{{x.Id}}La" ng-model="x.m_HasPlaqueL.a" type="checkbox"/><label for="plq{{x.Id}}La"></label>
+					<input id="plq{{x.Id}}Lb" ng-model="x.m_HasPlaqueL.b" type="checkbox"/><label for="plq{{x.Id}}Lb"></label>	
+					<input id="plq{{x.Id}}Lc" ng-model="x.m_HasPlaqueL.c" type="checkbox"/><label for="plq{{x.Id}}Lc"></label>
+				</td>
+			</tr>
+			<tr class="cb bop">
+				<td class="table_title row_title">{{Dictionnary.bleed_on_probing}}</td>
+				<td ng-repeat="x in UpperTeeth">
+					<input id="bop{{x.Id}}La" ng-model="x.m_BleedOnProbingL.a" type="checkbox"/><label for="bop{{x.Id}}La"></label>
+					<input id="bop{{x.Id}}Lb" ng-model="x.m_BleedOnProbingL.b" type="checkbox"/><label for="bop{{x.Id}}Lb"></label>	
+					<input id="bop{{x.Id}}Lc" ng-model="x.m_BleedOnProbingL.c" type="checkbox"/><label for="bop{{x.Id}}Lc"></label>
+				</td>
+			</tr>
+			<tr class="furca">
+				<td class="table_title row_title">{{Dictionnary.furcation}}</td>
+				<td><div ng-click="cycleFurca('_d18')" id="furca_d18" class="box"></div><div ng-click="cycleFurca('_m18')" id="furca_m18" class="box"></div></td>
+				<td><div ng-click="cycleFurca('_d17')" id="furca_d17" class="box"></div><div ng-click="cycleFurca('_m17')" id="furca_m17" class="box"></div></td>
+				<td><div ng-click="cycleFurca('_d16')" id="furca_d16" class="box"></div><div ng-click="cycleFurca('_m16')" id="furca_m16" class="box"></div></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><div ng-click="cycleFurca('_m26')" id="furca_m26" class="box"></div><div  ng-click="cycleFurca('_d26')" id="furca_d26" class="box"></div></td>
+				<td><div ng-click="cycleFurca('_m27')" id="furca_m27" class="box"></div><div  ng-click="cycleFurca('_d27')" id="furca_d27" class="box"></div></td>
+				<td><div ng-click="cycleFurca('_m28')" id="furca_m28" class="box"></div><div  ng-click="cycleFurca('_d28')" id="furca_d28" class="box"></div></td>
+			</tr>
+			<tr class="table_title teeth_num">
+				<td></td>
+                <td ng-repeat="x in UpperTeeth">{{x.Id + " L"}}</td>
+            </tr>
+        </table>
+
+		<table class="table">
+            <tr class="table_title teeth_num">
+				<td></td>
+                <td ng-repeat="x in LowerTeeth">{{x.Id}}</td>
+            </tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.mobility}}</td>
+				<td ng-repeat="x in LowerTeeth">
+					<input type="number" value="0"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.implant}}</td>
+				<td ng-repeat="x in LowerTeeth"><input ng-change="redraw({{x.Id}})" type="checkbox" ng-model="x.m_Implant"/></td>
+			</tr>
+			<tr class="furca">
+				<td class="table_title row_title">{{Dictionnary.furcation}}</td>
+				<td><div ng-click="cycleFurca(48)" id="furca48" class="box"></div></td>
+				<td><div ng-click="cycleFurca(47)" id="furca47" class="box"></div></td>
+				<td><div ng-click="cycleFurca(46)" id="furca46" class="box"></div></td>
+				<td></td>
+				<td><div ng-click="cycleFurca(44)" id="furca44" class="box"></div></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><div ng-click="cycleFurca(34)" id="furca34" class="box"></div></td>
+				<td></td>
+				<td><div ng-click="cycleFurca(36)" id="furca36" class="box"></div></td>
+				<td><div ng-click="cycleFurca(37)" id="furca37" class="box"></div></td>
+				<td><div ng-click="cycleFurca(38)" id="furca38" class="box"></div></td>
+			</tr>
+			<tr class="cb bop">
+				<td class="table_title row_title">{{Dictionnary.bleed_on_probing}}</td>
+				<td ng-repeat="x in LowerTeeth">
+					<input id="bop{{x.Id}}a" ng-model="x.m_BleedOnProbing.a" type="checkbox"/><label for="bop{{x.Id}}a"></label>
+					<input id="bop{{x.Id}}b" ng-model="x.m_BleedOnProbing.b" type="checkbox"/><label for="bop{{x.Id}}b"></label>	
+					<input id="bop{{x.Id}}c" ng-model="x.m_BleedOnProbing.c" type="checkbox"/><label for="bop{{x.Id}}c"></label>
+				</td>
+			</tr>
+			<tr class="cb plq">
+				<td class="table_title row_title">{{Dictionnary.plaque}}</td>
+				<td ng-repeat="x in LowerTeeth">
+					<input id="plq{{x.Id}}a" ng-model="x.m_HasPlaque.a" type="checkbox"/><label for="plq{{x.Id}}a"></label>
+					<input id="plq{{x.Id}}b" ng-model="x.m_HasPlaque.b" type="checkbox"/><label for="plq{{x.Id}}b"></label>	
+					<input id="plq{{x.Id}}c" ng-model="x.m_HasPlaque.c" type="checkbox"/><label for="plq{{x.Id}}c"></label>
+				</td>
+			</tr>
+            <tr>
+				<td class="table_title row_title">{{Dictionnary.gingival_depth}}</td>
+                <td style="white-space: nowrap;" ng-repeat="x in LowerTeeth">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.a" value="{{x.m_GingivalMargin.a}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.b" value="{{x.m_GingivalMargin.b}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.c" value="{{x.m_GingivalMargin.c}}">
+                </td>
+            </tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.probing_depth}}</td>
+				<td style="white-space: nowrap;" ng-repeat="x in LowerTeeth">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.a" value="{{x.m_ProbingDepth.a}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.b" value="{{x.m_ProbingDepth.b}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.c" value="{{x.m_ProbingDepth.c}}">
+                </td>
+			</tr>
+			<tr>
+				<td class="table_title row_title"></td>
+				<td colspan="48">
+				<div style="width:100%;">
+					<canvas id="vrc_display1" style="display:inline-block;max-width:100%;max-height:100%;"></canvas>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.probing_depth}}</td>
+				<td style="white-space: nowrap;" ng-repeat="x in LowerTeeth">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepthL.a" value="{{x.m_ProbingDepthL.a}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepthL.b" value="{{x.m_ProbingDepthL.b}}">
+                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepthL.c" value="{{x.m_ProbingDepthL.c}}">
+                </td>
+			</tr>
+			<tr>
+				<td class="table_title row_title">{{Dictionnary.gingival_depth}}</td>
+                <td style="white-space: nowrap;" ng-repeat="x in LowerTeeth">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMarginL.a" value="{{x.m_GingivalMarginL.a}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMarginL.b" value="{{x.m_GingivalMarginL.b}}">
+                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMarginL.c" value="{{x.m_GingivalMarginL.c}}">
+                </td>
+            </tr>
+			<tr class="cb plq">
+				<td class="table_title row_title">{{Dictionnary.plaque}}</td>
+				<td ng-repeat="x in LowerTeeth">
+					<input id="plq{{x.Id}}La" ng-model="x.m_HasPlaqueL.a" type="checkbox"/><label for="plq{{x.Id}}La"></label>
+					<input id="plq{{x.Id}}Lb" ng-model="x.m_HasPlaqueL.b" type="checkbox"/><label for="plq{{x.Id}}Lb"></label>	
+					<input id="plq{{x.Id}}Lc" ng-model="x.m_HasPlaqueL.c" type="checkbox"/><label for="plq{{x.Id}}Lc"></label>
+				</td>
+			</tr>
+			<tr class="cb bop">
+				<td class="table_title row_title">{{Dictionnary.bleed_on_probing}}</td>
+				<td ng-repeat="x in LowerTeeth">
+					<input id="bop{{x.Id}}La" ng-model="x.m_BleedOnProbingL.a" type="checkbox"/><label for="bop{{x.Id}}La"></label>
+					<input id="bop{{x.Id}}Lb" ng-model="x.m_BleedOnProbingL.b" type="checkbox"/><label for="bop{{x.Id}}Lb"></label>	
+					<input id="bop{{x.Id}}Lc" ng-model="x.m_BleedOnProbingL.c" type="checkbox"/><label for="bop{{x.Id}}Lc"></label>
+				</td>
+			</tr>
+			<tr class="table_title teeth_num">
+				<td></td>
+                <td ng-repeat="x in LowerTeeth">{{x.Id + " L"}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+	<script type="text/javascript" defer src="dictionnary_fr.js"></script>
+	<script type="text/javascript" defer src="main.js"></script>
+	<script type="text/javascript" defer src="ng_controller.js"></script>	
 
 </body>
 

@@ -80,11 +80,26 @@ body
 	border:none;
 }
 
+.table input[type=number]
+{
+	width:25%;
+	text-align:center;
+	/*border:1px solid rgba(0, 0, 0, 0.3);*/
+	background:transparent;
+	border:none;
+
+	-moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-butto
+{
+	-webkit-appearance: none;
+}
+
 .table label {
 	display: inline-block;
 	cursor: pointer;
 	line-height:1rem;
-	width:100%;
+	width:25%;
 }
 
 .cb input[type=checkbox] {
