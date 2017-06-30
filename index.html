@@ -6,27 +6,23 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<link  rel="stylesheet" type="text/css" href="main.css">
 </head>
-<body style="margin:0px;padding:0px;">
+<body>
 	<div id="vr_charting"></div>
 
 
-<div ng-app="app">
+<div ng-app="app" ng-cloak>
     <div ng-controller="ctl">
 
 		<div style="display:flex;flex-direction:column;width:100%;">
 			<div class="chart_title">{{Dictionnary.periodontal_chart}}</div>
-			<div style="text-align:center;">
-				<table class="pdata_container">
-					<tr>
-						<td><label for="pFirstName">{{Dictionnary.last_name}} : </label></td><td><input id="pFirstName" type="text"></td>
-						<td><label for="pLastName">{{Dictionnary.first_name}} : </label></td><td><input id="pLastName" type="text"></td>
-						<td><label for="pBirthDate">{{Dictionnary.date_of_birth}} : </label></td><td><input id="pBirthDate" type="text"></td>
-					</tr>
-					<tr>
-						<td><label for="pClinician">{{Dictionnary.clinician}} : </label></td><td><input id="pClinician" type="text"></td>
-						<td><label for="pDate">{{Dictionnary.date}} : </label></td><td><input id="pDate" type="text"></td>
-					</tr>
-				</table>
+			<div class="pdata_container">
+				<label for="pFirstName">{{Dictionnary.last_name}} : </label></td><td><input id="pFirstName" type="text">
+				<label for="pLastName">{{Dictionnary.first_name}} : </label></td><td><input id="pLastName" type="text">
+				<br>
+				<label for="pBirthDate">{{Dictionnary.date_of_birth}} : </label></td><td><input id="pBirthDate" type="date">
+				<br>
+				<label for="pClinician">{{Dictionnary.clinician}} : </label></td><td><input id="pClinician" type="text">
+				<label for="pDate">{{Dictionnary.date}} : </label></td><td><input id="pDate" type="date">
 			</div>
 			<!--
 			<p style="text-align:center;" class="no-print">
@@ -195,14 +191,14 @@
 				<td><div ng-click="cycleFurca(47)" id="furca47" class="box"></div></td>
 				<td><div ng-click="cycleFurca(46)" id="furca46" class="box"></div></td>
 				<td></td>
-				<td><div ng-click="cycleFurca(44)" id="furca44" class="box"></div></td>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><div ng-click="cycleFurca(34)" id="furca34" class="box"></div></td>
+				<td></td>
+				<td></td>
 				<td></td>
 				<td><div ng-click="cycleFurca(36)" id="furca36" class="box"></div></td>
 				<td><div ng-click="cycleFurca(37)" id="furca37" class="box"></div></td>
