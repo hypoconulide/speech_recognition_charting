@@ -1,4 +1,5 @@
 var __dictionnary = {
+    //display
     last_name:'Nom',
     first_name:'Prénom',
     clinician:'Praticien',
@@ -14,5 +15,10 @@ var __dictionnary = {
     start:'Démarrer',
     stop:'Arrêter',
     refresh:'Rafraîchir',
-    periodontal_chart:'Charting Parodontal'
+    periodontal_chart:'Charting Parodontal',
+
+    //voice control
+    missing:'absente',
+    stop_recognition:'arrêter',
+    tooth:'dent'
 };

@@ -630,7 +630,7 @@ class Charting
 	setCurrentToothValue(value)
 	{
 		var target;
-		if (this.CurrentField.id.contains('G'))
+		if (this.CurrentField.id.indexOf('G') > -1)
 		{
 			target = (this.CurrentTeeth.face ? 
 				this.CurrentTeeth.asObject.m_GingivalMarginL : this.CurrentTeeth.asObject.m_GingivalMargin);
@@ -644,13 +644,13 @@ class Charting
 		switch(TeethMinor[this.CurrentTeeth.minor])
 		{
 			case 'a':
-				target.a = this.CurrentField.value;
+				target.a = parseInt(this.CurrentField.value);
 				break;
 			case 'b':
-				target.b = this.CurrentField.value;
+				target.b = parseInt(this.CurrentField.value);
 				break;
 			case 'c':
-				target.c = this.CurrentField.value;
+				target.c = parseInt(this.CurrentField.value);
 				break;
 			default:break;
 		}	
@@ -800,33 +800,30 @@ class SpeechController
 {
 	constructor()
 	{
-		this.DICTIONNARY = { Missing:'' , StopReco:'' , Tooth:'' };
+		this.DICTIONNARY = { Missing:__dictionnary.missing,
+			StopReco:__dictionnary.stop_recognition,
+			Tooth:__dictionnary.tooth };
 		this.final_transcript = '';
 		this.Recognition = 0;
 		this.Charting = 0;
 	}
 	
 	initialise()
-	{
-		generatePageContent();		
-		
+	{		
 		this.Charting = new Charting();
-		//this.setLanguage(document.getElementById('lang').value);
+
 		this.Charting.initialise();
 		
-		/* disable buttons for now
-		document.getElementById('refresh_bt').addEventListener("click", 
-			function(){
+		document.getElementById('refresh_bt').addEventListener("click", function(){
 				speech_ctl.Charting.Maxilla.drawBackground();
 				speech_ctl.Charting.Mandibula.drawBackground();
-			}, 
-			false);
-		*/	
+			}, false);
+	
 		/* Generate tables, and buttons event listeners */
-		/*
+		
 		document.getElementById('StartBut').addEventListener("click", this.startRecognition.bind(this), false);
 		document.getElementById('StopBut').addEventListener("click", this.stopRecognition.bind(this), false);
-		*/
+		
 		/* Initialise SpeechRecognition */
 		
 		if (!('webkitSpeechRecognition' in window))
@@ -845,6 +842,7 @@ class SpeechController
 			*/
 			
 			this.Recognition = new webkitSpeechRecognition();
+			this.Recognition.lang = "fr_FR";
 			this.Recognition.continuous = true;
 			this.Recognition.interimResults = false;
 			
@@ -866,22 +864,31 @@ class SpeechController
 						break;
 					default:break;
 				}
-				printf("Starting from " + str);
 			}.bind(this);
 			this.Recognition.onresult = function(event)
 			{
 				for (var i = event.resultIndex ; i < event.results.length ; ++i)
 				{
-					if (event.results[i][0].transcript.includes(this.DICTIONNARY.StopReco))
-					{
-						this.Recognition.stop();
-						printf("End of recognition.\n");
+					if(!isNaN(parseInt(event.results[i][0].transcript)))
+					{						
+						this.Charting.CurrentField.value = parseInt(event.results[i][0].transcript);
+						this.Charting.setCurrentToothValue(parseInt(event.results[i][0].transcript));
+						
+						//this.Charting.drawTooth();
+						//printf("Found teeth with ID : " + this.Charting.CurrentTeeth.asObject.Id + " for " + TeethMajor[this.Charting.CurrentTeeth.major] + " filling " + this.Charting.CurrentField.id + '\n');
+						this.Charting.getNextTeeth();
+						this.Charting.getCurrentField();
+						this.Charting.getCurrentToothAsObject();
 					}
-					else if (event.results[i][0].transcript.includes(this.DICTIONNARY.Tooth))
+					else if (event.results[i][0].transcript.indexOf(this.DICTIONNARY.StopReco) > -1)
+					{
+						this.stopRecognition();
+					}
+					else if (event.results[i][0].transcript.indexOf(this.DICTIONNARY.Tooth) > -1)
 					{
 						
 					}
-					else if (event.results[i][0].transcript.includes(this.DICTIONNARY.Missing))
+					else if (event.results[i][0].transcript.indexOf(this.DICTIONNARY.Missing) > -1)
 					{
 						var sv = this.Charting.CurrentTeeth.face;
 						
@@ -902,38 +909,16 @@ class SpeechController
 						this.Charting.getCurrentField();
 						this.Charting.getCurrentToothAsObject();
 					}
-					else if(!isNaN(parseInt(event.results[i][0].transcript)) || 
-							event.results[i][0].transcript.includes("un") ||
-							event.results[i][0].transcript.includes("de"))
-					{
-						if (event.results[i][0].transcript.includes("un"))
-						{
-							this.Charting.CurrentField.value = 1;
-							this.Charting.setCurrentToothValue(1);
-						}
-						else if (event.results[i][0].transcript.includes("de"))
-						{
-							this.Charting.CurrentField.value = 2;
-							this.Charting.setCurrentToothValue(2);
-						}
-						else
-						{
-							this.Charting.CurrentField.value = parseInt(event.results[i][0].transcript);
-							this.Charting.setCurrentToothValue(parseInt(event.results[i][0].transcript));
-						}
-						this.Charting.drawTooth();
-						printf("Found teeth with ID : " + this.Charting.CurrentTeeth.asObject.Id + " for " + TeethMajor[this.Charting.CurrentTeeth.major] + " filling " + this.Charting.CurrentField.id + '\n');
-						this.Charting.getNextTeeth();
-						this.Charting.getCurrentField();
-						this.Charting.getCurrentToothAsObject();
-					}
 					else
-						printf("Unknown transcript : " + event.results[i][0].transcript);
+					{
+						//printf("Unknown transcript : " + event.results[i][0].transcript);
+					}
+					console.log(event.results[i][0].transcript);
 				}
 			}.bind(this);
 			this.Recognition.onnomatch = function(event)
 			{
-				printf('No command string matching what you said.\n');
+				//printf('No command string matching what you said.\n');
 			}.bind(this);
 			this.Recognition.onerror = function(event) 
 			{
@@ -946,40 +931,20 @@ class SpeechController
 		}
 	}
 	
-	setLanguage(lang)
-	{
-		switch(lang)
-		{
-			case 'fr-FR':
-				this.DICTIONNARY.Missing = ('absente');
-				this.DICTIONNARY.StopReco = ('stop');
-				this.DICTIONNARY.Tooth = ('dent');
-				break;
-			case 'en-US':
-				this.DICTIONNARY.Missing = ('missing');
-				this.DICTIONNARY.StopReco = ('stop');
-				this.DICTIONNARY.Tooth = ('tooth');
-				break;
-			default:break;
-		}
-	}
-	
 	startRecognition(event)
 	{
-		printf("Recognition started :\n");
 		this.final_transcript = '';
-		this.Recognition.lang = document.getElementById('lang').value;
-		this.setLanguage(this.Recognition.lang);
-		document.getElementById('rec_icon').src = "https://github.com/philippe-bachour/vr_charting/raw/master/icons/ic_settings_voice_red_24dp_2x.png";
+		document.getElementById('rec_icon').src = "icons/ic_settings_voice_red_24dp_2x.png";
 
-		if (!this.Charting.CurrentField) this.Charting.getCurrentField();
+		if (!this.Charting.CurrentField)
+			this.Charting.getCurrentField();
 		else this.Charting.CurrentField.focus();
 		this.Charting.getCurrentToothAsObject();
 		this.Recognition.start();
 	}
 	stopRecognition()
 	{
-		document.getElementById('rec_icon').src = "https://github.com/philippe-bachour/vr_charting/raw/master/icons/ic_settings_voice_black_24dp_2x.png";
+		document.getElementById('rec_icon').src = "icons/ic_settings_voice_black_24dp_2x.png";
 		this.Recognition.stop();
 	}
 	

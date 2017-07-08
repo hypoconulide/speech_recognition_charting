@@ -24,19 +24,13 @@
 				<label for="pClinician">{{Dictionnary.clinician}} : </label></td><td><input id="pClinician" type="text">
 				<label for="pDate">{{Dictionnary.date}} : </label></td><td><input id="pDate" type="date">
 			</div>
-			<!--
 			<p style="text-align:center;" class="no-print">
-				<span><img id="rec_icon" style="height:32px" src="https://github.com/philippe-bachour/vr_charting/raw/master/icons/ic_settings_voice_black_24dp_2x.png"></span>
+				<span><img id="rec_icon" style="height:32px" src="icons/ic_settings_voice_black_24dp_2x.png"></span>
 				<input type="button" value="{{Dictionnary.start}}" id="StartBut">
 				<input type="button" value="{{Dictionnary.stop}}" id="StopBut"> 
 				<input type="button" value="{{Dictionnary.refresh}}" id="refresh_bt">
-				<select style="display:none;" id="lang">
-					<option value="fr-FR" selected>Français</option>
-					<option value="en-US">English</option>
-				</select> 
 			</p>
 			<br>
-			-->
 		</div>
 		<br>
         <table class="table">
@@ -92,17 +86,17 @@
             <tr>
 				<td class="table_title row_title">{{Dictionnary.gingival_depth}}</td>
                 <td style="white-space: nowrap;" ng-repeat="x in UpperTeeth">
-                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.a" value="{{x.m_GingivalMargin.a}}">
-                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.b" value="{{x.m_GingivalMargin.b}}">
-                    <input ng-change="redraw({{x.Id}})" size="1" type="number" ng-model="x.m_GingivalMargin.c" value="{{x.m_GingivalMargin.c}}">
+                    <input ng-change="redraw({{x.Id}})" id="{{x.Id + 'Ga'}}" size="1" type="number" ng-model="x.m_GingivalMargin.a" value="{{x.m_GingivalMargin.a}}">
+                    <input ng-change="redraw({{x.Id}})" id="{{x.Id + 'Gb'}}" size="1" type="number" ng-model="x.m_GingivalMargin.b" value="{{x.m_GingivalMargin.b}}">
+                    <input ng-change="redraw({{x.Id}})" id="{{x.Id + 'Gc'}}" size="1" type="number" ng-model="x.m_GingivalMargin.c" value="{{x.m_GingivalMargin.c}}">
                 </td>
             </tr>
 			<tr>
 				<td class="table_title row_title">{{Dictionnary.probing_depth}}</td>
 				<td style="white-space: nowrap;" ng-repeat="x in UpperTeeth">
-                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.a" value="{{x.m_ProbingDepth.a}}">
-                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.b" value="{{x.m_ProbingDepth.b}}">
-                    <input ng-change="redraw({{x.Id}})" type="number" ng-model="x.m_ProbingDepth.c" value="{{x.m_ProbingDepth.c}}">
+                    <input ng-change="redraw({{x.Id}})" id="{{x.Id + 'a'}}" type="number" ng-model="x.m_ProbingDepth.a" value="{{x.m_ProbingDepth.a}}">
+                    <input ng-change="redraw({{x.Id}})" id="{{x.Id + 'b'}}" type="number" ng-model="x.m_ProbingDepth.b" value="{{x.m_ProbingDepth.b}}">
+                    <input ng-change="redraw({{x.Id}})" id="{{x.Id + 'c'}}" type="number" ng-model="x.m_ProbingDepth.c" value="{{x.m_ProbingDepth.c}}">
                 </td>
 			</tr>
 			<tr>
