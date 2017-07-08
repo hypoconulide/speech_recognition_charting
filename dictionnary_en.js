@@ -1,4 +1,8 @@
 var __dictionnary = {
+    // language id for speech recognition
+    lang:'en-GB',
+
+    //display
     last_name:'Last name',
     first_name:'First name',
     clinician:'Clinician',
@@ -14,5 +18,10 @@ var __dictionnary = {
     start:'Start',
     stop:'Stop',
     refresh:'Refresh',
-    periodontal_chart:'Periodontal Chart'
+    periodontal_chart:'Periodontal Chart',
+
+    //voice control
+    missing:'missing',
+    stop_recognition:'stop',
+    tooth:'tooth'
 };

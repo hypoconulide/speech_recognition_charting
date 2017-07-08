@@ -842,7 +842,7 @@ class SpeechController
 			*/
 			
 			this.Recognition = new webkitSpeechRecognition();
-			this.Recognition.lang = "fr_FR";
+			this.Recognition.lang = __dictionnary.lang;
 			this.Recognition.continuous = true;
 			this.Recognition.interimResults = false;
 			

@@ -1,4 +1,7 @@
 var __dictionnary = {
+    // language id for speech recognition
+    lang:'fr-FR',
+
     //display
     last_name:'Nom',
     first_name:'Prénom',
