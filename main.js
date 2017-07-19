@@ -184,6 +184,8 @@ class ChartRenderer
 
 		this.Teeth[num].m_Exists = !this.Teeth[num].m_Exists;
 		this.Teeth[num].draw(this.Context);
+
+		angular.element(document.getElementById('main_controller')).scope().$apply();
 	}		
 	
 	checkLoadState()
