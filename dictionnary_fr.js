@@ -16,14 +16,15 @@ var __dictionnary = {
     plaque:'Plaque',
     gingival_depth:'Niveau gingival',
     average_gingival_depth:'Niveau gingival moyen',
-    probing_depth:'Progondeur de sondage',
-    average_probing_depth:'Progondeur de sondage moyenne',
+    probing_depth:'Profondeur de sondage',
+    average_probing_depth:'Profondeur de sondage moyenne',
     start:'Démarrer',
     stop:'Arrêter',
     refresh:'Rafraîchir',
     periodontal_chart:'Charting Parodontal',
 
     //statistics
+    statistics:'Statistiques',
     missing_teeth:'Dents absentes',
 
     //voice control

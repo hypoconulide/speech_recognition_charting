@@ -11,7 +11,7 @@
 
 
 <div ng-app="app" ng-cloak>
-    <div ng-controller="ctl">
+    <div ng-controller="ctl" id="main_controller">
 
 		<div style="display:flex;flex-direction:column;width:100%;">
 			<div class="chart_title">{{Dictionnary.periodontal_chart}}</div>
@@ -275,6 +275,69 @@
                 <td ng-repeat="x in LowerTeeth">{{x.Id + " L"}}</td>
             </tr>
         </table>
+
+
+<div id="svg_div" style="text-align: center;margin-top:3em;">
+	<div class="chart_title">{{Dictionnary.statistics}}</div>
+
+	<div class="svg radial-progress" id="C_MissingTeeth">
+		<svg height="10em" width="10em">
+			<circle id="crt_missing_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+			<circle id="crt_missing_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
+			<circle id="crt_missing_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+		</svg>
+		<div class="svg_text_container">
+			<p>
+				<span class="percentage">{{ sumMissingTeeth() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.missing_teeth }}</span>
+			</p>
+		</div>
+	</div>
+
+	<div class="svg radial-progress" id="C_Implants">
+		<svg height="10em" width="10em">
+		<circle id="crt_implants_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+		<circle id="crt_implants_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
+		<circle id="crt_implants_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+		</svg>
+		<div class="svg_text_container">
+			<p>
+				<span class="percentage">{{ sumImplants() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.implants }}</span>
+			</p>
+		</div>
+	</div>
+
+	<div class="svg radial-progress" id="C_BleedOnProbing">
+		<svg height="10em" width="10em">
+		<circle id="crt_bleed_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+		<circle id="crt_bleed_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
+		<circle id="crt_bleed_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+		</svg>
+		<div class="svg_text_container">
+			<p>
+				<span class="percentage">{{ sumBleed() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.bleed_on_probing }}</span>
+			</p>
+		</div>
+	</div>
+	<div class="svg radial-progress" id="C_Plaque">
+		<svg height="10em" width="10em">
+		<circle id="crt_plaque_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em" ng-style="stroke:{{ CustomColor }}"></circle>
+		<circle id="crt_plaque_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
+		<circle id="crt_plaque_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+		</svg>
+		<div class="svg_text_container">
+			<p style="height: 100%;display: flex;flex-direction: column;justify-content: center;padding: 0;margin: 0;">
+				<span class="percentage">{{ sumPlaque() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.plaque }}</span>
+			</p>
+		</div>
+	</div>
+	<div>{{ Dictionnary.average_gingival_depth }} : {{ averageGingivalDepth() }} mm</div>
+	<div>{{ Dictionnary.average_probing_depth }} : {{ averageProbingDepth() }} mm</div>
+</div>
+<!-- ********************************************** -->
     </div>
 </div>
 

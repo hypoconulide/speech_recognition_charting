@@ -276,126 +276,67 @@
             </tr>
         </table>
 
-<!-- SVG -->
-<div id="svg_div" style="text-align: center;">
-	<div class="svg radial-progress" id="C_MissingTeeth" style="position:relative">
+
+<div id="svg_div" style="text-align: center;margin-top:3em;">
+	<div class="chart_title">{{Dictionnary.statistics}}</div>
+
+	<div class="svg radial-progress" id="C_MissingTeeth">
 		<svg height="10em" width="10em">
-		<circle id="crt_missing_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
-		<circle id="crt_missing_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
-		<circle id="crt_missing_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+			<circle id="crt_missing_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+			<circle id="crt_missing_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
+			<circle id="crt_missing_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
 		</svg>
-		<div style="position:absolute;vertical-align:center;top:0;left:0;text-align:center;width:100%;height:100%;">
-			<div style="height:100%;">
-				<p style="height: 100%;display: flex;flex-direction: column;justify-content: center;padding: 0;margin: 0;">
-					<span style="font-size: 1.7rem;margin: 0;padding: 0;line-height: 1;">
-						{{ sumMissingTeeth() }}%</span><br>
-					<span style="font-size:.6rem;max-width: 60%;
-	margin-left: auto;
-	margin-right: auto;
-	">{{ Dictionnary.missing_teeth }}</span>
-				</p>
-			</div>
+		<div class="svg_text_container">
+			<p>
+				<span class="percentage">{{ sumMissingTeeth() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.missing_teeth }}</span>
+			</p>
 		</div>
 	</div>
 
-	<div class="svg radial-progress" id="C_Implants" style="position:relative">
+	<div class="svg radial-progress" id="C_Implants">
 		<svg height="10em" width="10em">
 		<circle id="crt_implants_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
 		<circle id="crt_implants_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
 		<circle id="crt_implants_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
 		</svg>
-		<div style="position:absolute;vertical-align:center;top:0;left:0;text-align:center;width:100%;height:100%;">
-			<div style="height:100%;">
-				<p style="height: 100%;display: flex;flex-direction: column;justify-content: center;padding: 0;margin: 0;">
-					<span style="font-size: 1.7rem;margin: 0;padding: 0;line-height: 1;">
-						{{ sumImplants() }}%</span><br>
-					<span style="font-size:.6rem;max-width: 60%;margin-left: auto;margin-right: auto;">{{ Dictionnary.implants }}</span>
-				</p>
-			</div>
+		<div class="svg_text_container">
+			<p>
+				<span class="percentage">{{ sumImplants() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.implants }}</span>
+			</p>
 		</div>
 	</div>
 
-	<div class="svg radial-progress" id="C_BleedOnProbing" style="position:relative">
+	<div class="svg radial-progress" id="C_BleedOnProbing">
 		<svg height="10em" width="10em">
 		<circle id="crt_bleed_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
 		<circle id="crt_bleed_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
 		<circle id="crt_bleed_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
 		</svg>
-		<div style="position:absolute;vertical-align:center;top:0;left:0;text-align:center;width:100%;height:100%;">
-			<div style="height:100%;">
-				<p style="height: 100%;display: flex;flex-direction: column;justify-content: center;padding: 0;margin: 0;">
-					<span style="font-size: 1.7rem;margin: 0;padding: 0;line-height: 1;">
-						{{ sumBleed() }}%</span><br>
-					<span style="font-size:.6rem;max-width: 60%;
-	margin-left: auto;
-	margin-right: auto;
-	">{{ Dictionnary.bleed_on_probing }}</span>
-				</p>
-			</div>
+		<div class="svg_text_container">
+			<p>
+				<span class="percentage">{{ sumBleed() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.bleed_on_probing }}</span>
+			</p>
 		</div>
 	</div>
-	<div class="svg radial-progress" id="C_Plaque" style="position:relative">
+	<div class="svg radial-progress" id="C_Plaque">
 		<svg height="10em" width="10em">
-		<circle id="crt_plaque_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
+		<circle id="crt_plaque_b" class="radial-progress-background" r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em" ng-style="stroke:{{ CustomColor }}"></circle>
 		<circle id="crt_plaque_c" class="radial-progress-cover"      r="60" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0"></circle>
 		<circle id="crt_plaque_d" class="radial-progress-center"     r="40" cx="5em" cy="5em" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"></circle>
 		</svg>
-		<div style="position:absolute;vertical-align:center;top:0;left:0;text-align:center;width:100%;height:100%;">
-			<div style="height:100%;">
-				<p style="height: 100%;display: flex;flex-direction: column;justify-content: center;padding: 0;margin: 0;">
-					<span style="font-size: 1.7rem;margin: 0;padding: 0;line-height: 1;">
-						{{ sumPlaque() }}%</span><br>
-					<span style="font-size:.6rem;max-width: 60%;
-	margin-left: auto;
-	margin-right: auto;
-	">{{ Dictionnary.plaque }}</span>
-				</p>
-			</div>
+		<div class="svg_text_container">
+			<p style="height: 100%;display: flex;flex-direction: column;justify-content: center;padding: 0;margin: 0;">
+				<span class="percentage">{{ sumPlaque() }}%</span><br>
+				<span class="descriptor">{{ Dictionnary.plaque }}</span>
+			</p>
 		</div>
 	</div>
 	<div>{{ Dictionnary.average_gingival_depth }} : {{ averageGingivalDepth() }} mm</div>
 	<div>{{ Dictionnary.average_probing_depth }} : {{ averageProbingDepth() }} mm</div>
 </div>
-<style>
-
-.svg.radial-progress {
-  position: relative;
-  display: inline-block;
-}
-
-svg {
-  transform: rotate(270deg);
-}
-
-circle {
-  stroke-width: 1em;
-  fill: transparent;
-  transform: rotate(0.1deg); // to fix Firefox
-}
-
-.radial-progress-background {
-  stroke: orange;
-}
-
-.radial-progress-cover {
-  stroke: #DEDEDE;
-  stroke-width: 1em;
-	border: 12px solid red;
-	transition:0.5s;
-}
-
-.radial-progress-center {
-  fill: transparent;
-}
-
-.radial-fill {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-</style>
 <!-- ********************************************** -->
     </div>
 </div>

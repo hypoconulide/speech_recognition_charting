@@ -119,8 +119,16 @@ app.controller('ctl', function($scope){
 
         var maxCount = 32;
 
-        var offset = -(Circumference / maxCount) * sum;
-        document.getElementById('crt_missing_c').setAttribute('stroke-dashoffset', offset);
+        var offset = (Circumference / maxCount) * sum;
+        
+        /*if(offset > Circumference * 2 / 3)
+            document.getElementById('crt_missing_b').style.stroke = 'red';
+        else if (offset > Circumference / 3)
+            document.getElementById('crt_missing_b').style.stroke = 'orange';
+        else 
+            document.getElementById('crt_missing_b').style.stroke = 'skyblue';*/
+
+        document.getElementById('crt_missing_c').setAttribute('stroke-dashoffset', -offset);
     };
     $scope.sumMissingTeeth = function(){
         var sum = 0;
