@@ -324,3 +324,16 @@ circle
 		padding-bottom: 20%;
 	}
 }
+
+/* Help page */
+
+.help_list li
+{
+	list-style: none;
+	text-indent: 1em;
+	text-align: justify;
+}
+.help_list li:before
+{
+	content:'- ';
+}

@@ -293,7 +293,7 @@ class Teeth
 		}
 
 		ctx.lineWidth = 2;
-        ctx.strokeStyle = speech_ctl.Charting.GMColor;
+        ctx.strokeStyle = speech_ctl.Charting.PDColor;
         ctx.stroke();
 		
 		ctx.beginPath();
@@ -301,21 +301,21 @@ class Teeth
 		if(left != 0 && left.m_Exists)
 		{
 			ctx.moveTo(left.m_Rect.x + left.m_Rect.w * 3 / 4, (left.m_Rect.y + left.m_Rect.h - this.offset) + 
-				(left.m_ProbingDepth.c) * sg_hg);
-			ctx.lineTo(x_1_4, (Top_V) + (this.m_ProbingDepth.a) * sg_hg);
+				(left.m_GingivalMargin.c) * sg_hg);
+			ctx.lineTo(x_1_4, (Top_V) + (this.m_GingivalMargin.a) * sg_hg);
 		}
-        else ctx.moveTo(x_1_4, (Top_V) + (this.m_ProbingDepth.a) * sg_hg);
-		ctx.lineTo(x_2, (Top_V) + (this.m_ProbingDepth.b) * sg_hg);
-		ctx.lineTo(x_3_4, (Top_V) + (this.m_ProbingDepth.c) * sg_hg);
+        else ctx.moveTo(x_1_4, (Top_V) + (this.m_GingivalMargin.a) * sg_hg);
+		ctx.lineTo(x_2, (Top_V) + (this.m_GingivalMargin.b) * sg_hg);
+		ctx.lineTo(x_3_4, (Top_V) + (this.m_GingivalMargin.c) * sg_hg);
 
 		if(right != 0 && right.m_Exists)
 		{
 			ctx.lineTo(right.m_Rect.x + right.m_Rect.w * 1 / 4, (right.m_Rect.y + right.m_Rect.h - this.offset) + 
-				(right.m_ProbingDepth.a) * sg_hg);
+				(right.m_GingivalMargin.a) * sg_hg);
 		}
 
 		ctx.lineWidth = 2;
-        ctx.strokeStyle = speech_ctl.Charting.PDColor;
+        ctx.strokeStyle = speech_ctl.Charting.GMColor;
         ctx.stroke();
 		
 		
@@ -341,28 +341,28 @@ class Teeth
 		}
 
 		ctx.lineWidth = 2;
-        ctx.strokeStyle = speech_ctl.Charting.GMColor;
+        ctx.strokeStyle = speech_ctl.Charting.PDColor;
         ctx.stroke();
 		
 		ctx.beginPath();
 		if(left != 0 && left.m_Exists)
 		{
 			ctx.moveTo(left.m_Rect.x + left.m_Rect.w * 3 / 4, (left.m_Rect.y + left.m_Rect.h * 2 - this.offset) + 
-				(left.m_ProbingDepthL.c) * sg_hg);
-			ctx.lineTo(x_1_4, (Top_L) + (this.m_ProbingDepthL.a) * sg_hg);
+				(left.m_GingivalMarginL.c) * sg_hg);
+			ctx.lineTo(x_1_4, (Top_L) + (this.m_GingivalMarginL.a) * sg_hg);
 		}
-        else ctx.moveTo(x_1_4, (Top_L) + (this.m_ProbingDepthL.a) * sg_hg);
-		ctx.lineTo(x_2, (Top_L) + (this.m_ProbingDepthL.b) * sg_hg);
-		ctx.lineTo(x_3_4, (Top_L) + (this.m_ProbingDepthL.c) * sg_hg);
+        else ctx.moveTo(x_1_4, (Top_L) + (this.m_GingivalMarginL.a) * sg_hg);
+		ctx.lineTo(x_2, (Top_L) + (this.m_GingivalMarginL.b) * sg_hg);
+		ctx.lineTo(x_3_4, (Top_L) + (this.m_GingivalMarginL.c) * sg_hg);
 
 		if(right != 0 && right.m_Exists)
 		{
 			ctx.lineTo(right.m_Rect.x + right.m_Rect.w * 1 / 4, (right.m_Rect.y + right.m_Rect.h * 2 - this.offset) + 
-				(right.m_ProbingDepthL.a) * sg_hg);
+				(right.m_GingivalMarginL.a) * sg_hg);
 		}
 
 		ctx.lineWidth = 2;
-        ctx.strokeStyle = speech_ctl.Charting.PDColor;
+        ctx.strokeStyle = speech_ctl.Charting.GMColor;
         ctx.stroke();
 	}
     
@@ -802,7 +802,7 @@ class SpeechController
 {
 	constructor()
 	{
-		this.DICTIONNARY = { Missing:__dictionnary.missing,
+		this.DICTIONNARY = { Missing:__dictionnary.rec_missing,
 			StopReco:__dictionnary.stop_recognition,
 			Tooth:__dictionnary.tooth };
 		this.final_transcript = '';
@@ -830,6 +830,7 @@ class SpeechController
 		
 		if (!('webkitSpeechRecognition' in window))
 		{
+			document.getElementById('speech_ui').innerHTML = __dictionnary.no_speech_support;
 			//printf("Speech API not supported by your browser, you must use Chrome version 25 or later.");
 		}
 		else
@@ -871,10 +872,14 @@ class SpeechController
 			{
 				for (var i = event.resultIndex ; i < event.results.length ; ++i)
 				{
-					if(!isNaN(parseInt(event.results[i][0].transcript)))
+					var transcript = event.results[i][0].transcript
+					if(transcript.indexOf(' ') == 0)
+						transcript = transcript.substring(1);
+					document.getElementById('debug').innerHTML = transcript;
+					if(!isNaN(parseInt(transcript)))
 					{						
-						this.Charting.CurrentField.value = parseInt(event.results[i][0].transcript);
-						this.Charting.setCurrentToothValue(parseInt(event.results[i][0].transcript));
+						this.Charting.CurrentField.value = parseInt(transcript);
+						this.Charting.setCurrentToothValue(parseInt(transcript));
 						
 						//this.Charting.drawTooth();
 						//printf("Found teeth with ID : " + this.Charting.CurrentTeeth.asObject.Id + " for " + TeethMajor[this.Charting.CurrentTeeth.major] + " filling " + this.Charting.CurrentField.id + '\n');
@@ -882,15 +887,15 @@ class SpeechController
 						this.Charting.getCurrentField();
 						this.Charting.getCurrentToothAsObject();
 					}
-					else if (event.results[i][0].transcript.indexOf(this.DICTIONNARY.StopReco) > -1)
+					else if (transcript.indexOf(this.DICTIONNARY.StopReco) > -1)
 					{
 						this.stopRecognition();
 					}
-					else if (event.results[i][0].transcript.indexOf(this.DICTIONNARY.Tooth) > -1)
+					else if (transcript.indexOf(this.DICTIONNARY.Tooth) > -1)
 					{
 						
 					}
-					else if (event.results[i][0].transcript.indexOf(this.DICTIONNARY.Missing) > -1)
+					else if (transcript == __dictionnary.rec_missing)
 					{
 						var sv = this.Charting.CurrentTeeth.face;
 						
@@ -911,11 +916,16 @@ class SpeechController
 						this.Charting.getCurrentField();
 						this.Charting.getCurrentToothAsObject();
 					}
+					else if (transcript == __dictionnary.rec_implant)
+					{
+						this.Charting.CurrentTeeth.asObject.m_Implant = true;
+						this.Charting.drawTooth();
+					}
 					else
 					{
 						//printf("Unknown transcript : " + event.results[i][0].transcript);
 					}
-					console.log(event.results[i][0].transcript);
+					console.log(transcript);
 				}
 			}.bind(this);
 			this.Recognition.onnomatch = function(event)
@@ -1011,16 +1021,20 @@ function startup()
         {
             for (var i = event.resultIndex ; i < event.results.length ; ++i)
             {
-                if (event.results[i][0].transcript.includes(this.DICTIONNARY.StopReco))
+                if (event.results[i][0].transcript == __dictionnary.stop_recognition)
                 {
                     this.Recognition.stop();
-                    printf("End of recognition.\n");
                 }
-                else if (event.results[i][0].transcript.includes(this.DICTIONNARY.Tooth))
+                else if (event.results[i][0].transcript.includes(__dictionnary.tooth))
                 {
                     
-                }
-                else if (event.results[i][0].transcript.includes(this.DICTIONNARY.Missing))
+				}
+				else if (event.results[i][0].transcript == __dictionnary.implant)
+				{
+					this.Charting.getCurrentToothAsObject();
+					this.Charting.CurrentTeeth.m_Implant = true;
+				}
+                else if (event.results[i][0].transcript == __dictionnary.stop_recognition)
                 {
                     this.CurrentTeeth.minor = 0;
                     getCurrentField();
@@ -1041,56 +1055,14 @@ function startup()
                     this.Charting.getCurrentField();
                     this.Charting.getCurrentToothAsObject();
                 }
-                else if(parseInt(event.results[i][0].transcript) || event.results[i][0].transcript.includes("un"))
-                {
-                    if (event.results[i][0].transcript.includes("un"))
-                    {
-                        this.CurrentField.value = 1;
-                        switch (TeethMinor[CurrentTeeth.minor])
-                        {
-                            case 'a':
-                                CurrentTeeth.asObject.m_ProbingDepth.a = 1;
-                                break;
-                            case 'b':
-                                CurrentTeeth.asObject.m_ProbingDepth.b = 1;
-                                break;
-                            case 'c':
-                                CurrentTeeth.asObject.m_ProbingDepth.c = 1;
-                                break;
-                            default:break;
-                        }
-                    }
-                    else
-                    {
-                        this.CurrentField.value = parseInt(event.results[i][0].transcript);
-                        switch (TeethMinor[CurrentTeeth.minor])
-                        {
-                            case 'a':
-                                CurrentTeeth.asObject.m_ProbingDepth.a = parseInt(event.results[i][0].transcript);
-                                break;
-                            case 'b':
-                                CurrentTeeth.asObject.m_ProbingDepth.b = parseInt(event.results[i][0].transcript);
-                                break;
-                            case 'c':
-                                CurrentTeeth.asObject.m_ProbingDepth.c = parseInt(event.results[i][0].transcript);
-                                break;
-                            default:break;
-                        }
-                    }
-                    this.drawTooth();
-                    printf("Found teeth with ID : " + CurrentTeeth.asObject.Id + " for " + TeethMajor[CurrentTeeth.major] + " filling " + this.CurrentField.id + '\n');
-                    getNextTeeth();
-                    getCurrentField();
-                    getCurrentToothAsObject();
-                }
                 else
                     printf("Unknown transcript : " + event.results[i][0].transcript);
             }
         };
         this.Recognition.onnomatch = function(event)
         {
-            printf('No command string matching what you said.\n');
-        }
+            
+        };
         this.Recognition.onerror = function(event) 
         {
         

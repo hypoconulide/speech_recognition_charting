@@ -28,7 +28,12 @@ var __dictionnary = {
     missing_teeth:'Dents absentes',
 
     //voice control
-    missing:'absente',
+    rec_missing:'absente',
+    rec_implant:'implant',
     stop_recognition:'arrêter',
-    tooth:'dent'
+    tooth:'dent',
+    
+
+    //user interface
+    no_speech_support:'Votre navigateur ne supporte pas la reconnaissance vocale. La version 25 ou plus de Google Chrome est nécessaire.'
 };

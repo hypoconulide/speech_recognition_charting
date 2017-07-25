@@ -1,0 +1,67 @@
+<!doctype>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<link  rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+<div style="text-align: center;"><a href="fr.html">Retourner au charting</a></div>
+
+<div class="chart_title">Aide de la reconnaissance vocale.</div>
+
+<div style="width:80%;margin:auto;">
+
+<div>
+	<div>Liste des commandes vocales :</div>
+	<div>
+		<ul class="help_list">
+			<li>"Un chiffre" pour indiquer la profondeur de sondage</li>
+			<li>"Un chiffre" pour indiquer le niveau gingival</li>
+			<li>"Absente" pour marque absent la dent actuelle. Ceci fonctionne pour n'importe laquelle des trois cases ayant le focus. Les trois cases seront mises à zéro.</li>
+			<li>"Implant" pour mettre un implant sur la dent actuelle.</li>
+		</ul>
+	</div>
+</div>
+
+<div>
+	<div>Notes sur les statistiques :</div>
+	<div>TBF.</div>
+</div>
+
+<div>
+	<div>Qualité de la reconnaissance vocale :</div>
+	<div>
+		<ul class="help_list">
+			<li>Je ne contrôle pas la précision de la reconnaissance vocale, celle-ci dépend du navigateur.</li>
+			<li>Il est cependant probable que la qualité du microphone et du volume d'enregistrement influent sur la qualité de la reconnaissance vocale.</li>
+			<li>Le problème des homophones : les systèmes de reconnaissance vocale utilisent le contexte de la phrase afin choisir entre deux homophones. Pour le charting il n'y a pas de phrases quand vous dictez les nombres, donc le navigateur ne fait pas nécessairement la différence entre "un", "hein" ou "1". Quand les règles de grammaire seront implémentées par les navigateurs (si elles le sont), elles devraient régler ce problème. En attendant, <strong>si le navigateur semble ne rien faire quand vous dictez des chiffres, essayez de rajouter un zéro avant le chiffre (ex : dites "zéro un" au lieu de "un").</strong></li>
+		</ul>
+	</div>
+</div>
+
+<div>
+	<div>Si la reconnaissance vocale ne fonctionne pas :</div>
+	<div>
+		<ul class="help_list">
+			<li>Assurez-vous que votre micro est branché.</li>
+			<li>Assurez-vous que le volume d'enregistrement de votre micro est suffisamment élevé.</li>
+			<li>La reconnaissance vocale ne fonctionne actuellement que sur Google Chrome, à partir de la version 25. Si votre navigateur ne supporte pas la reconnaissance vocale, celà vous sera indiqué directement sur la page du charting. Le support pour les autres navigateurs sera ajouté quand ceux-ci supporteront la reconnaissance vocale.</li>
+		</ul>
+	</div>
+</div>
+<div>
+
+<div>
+	<div>
+		Si avez des suggestions, ou que vous rencontrez des problèmes particuliers ou des bugs, merci de les rapporter ici : <a href="https://github.com/philippe-bachour/speech_recognition_charting/issues">https://github.com/philippe-bachour/speech_recognition_charting/issues</a>, afin que tout le monde puisse les consulter (l'inscription sur Github est gratuite). Assurez-vous qu'une demande similaire n'ait pas déjà été soumise.
+	</div>
+</div>
+
+</div>
+
+</body>
+
+</html>
