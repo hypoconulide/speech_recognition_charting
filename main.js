@@ -22,6 +22,11 @@ var GingivalState = [
 	"", "G"
 ];
 
+// furcation point positions
+furc_17v = {x:51, y:120};
+
+/** _________________________________________________________________________________________________ **/
+
 function swap(array, e1, e2)
 {
 	var tmp = array[e2];
@@ -29,7 +34,7 @@ function swap(array, e1, e2)
 	array[e1] = tmp;
 }
 
-function drawTeeth(id)
+function drawTeeth(id) // deprecated
 {
 	var t = speech_ctl.Charting.getTeethById(id);
 	if (id > 30)
@@ -82,6 +87,7 @@ class ChartRenderer
 		this.Canvas;
 		this.Context;
 		this.Arc = arc;
+		this.WireframeOnly = true;
 	}
 	
 	initialise()
@@ -183,7 +189,7 @@ class ChartRenderer
 		var num = Math.floor(((e.clientX - rect.left) / rect.width) * 16);
 
 		this.Teeth[num].m_Exists = !this.Teeth[num].m_Exists;
-		this.Teeth[num].draw(this.Context);
+		this.Teeth[num].draw(this.Context, this.WireframeOnly);
 
 		angular.element(document.getElementById('main_controller')).scope().$apply();
 	}		
@@ -206,11 +212,11 @@ class ChartRenderer
         
 		for (var i = 7 ; i >=0 ; i--)
 		{
-			this.Teeth[i].draw(this.Context);
+			this.Teeth[i].draw(this.Context, this.WireframeOnly);
 		}
 		for (var i = 8 ; i < this.Teeth.length ; ++i)
         {
-            this.Teeth[i].draw(this.Context);
+            this.Teeth[i].draw(this.Context, this.WireframeOnly);
         }
 
         var end = performance.now();
@@ -242,11 +248,12 @@ class Teeth
 		this.m_HasPlaque = {a:false , b:false , c:false};
 		this.m_BleedOnProbingL = {a:false , b:false , c:false};
 		this.m_HasPlaqueL = {a:false , b:false , c:false};
+		this.m_Furcation = {m:0, d:0, c:0};
 
 		this.offset = (this.Id > 30) ? 135 : 105;
         this.sign = (this.Id > 30) ? 1 : -1;
 	}
-    drawImages(ctx, view)
+    drawImages(ctx)
 	{
 		if (this.m_Implant)
 		{
@@ -259,13 +266,22 @@ class Teeth
 			ctx.drawImage(this.m_ImgLing, this.m_Rect.x, this.m_Rect.y + this.m_Rect.h);
 		}
 	}
-	clearRect(ctx, view)
+	clearRect(ctx)
 	{
 		ctx.clearRect(this.m_Rect.x, this.m_Rect.y, this.m_Rect.w, this.m_Rect.h * 2);
 	}
-	drawLines(ctx, view)
+	drawLines(ctx, wireframe)
 	{
+		/* premod, draw in about 2500µs */
+		ctx.save();
+
 		ctx.beginPath();
+		ctx.moveTo(this.m_Rect.x, this.m_Rect.y)
+		ctx.lineTo(this.m_Rect.x + this.m_Rect.w, this.m_Rect.y);
+		ctx.lineTo(this.m_Rect.x + this.m_Rect.w, this.m_Rect.y + this.m_Rect.h);
+		ctx.lineTo(this.m_Rect.x, this.m_Rect.y + this.m_Rect.h);
+		ctx.clip();
+
 		var left = getTeethOnLeft(this.Id);
 		var right = getTeethOnRight(this.Id);
 		var sg_hg = this.sign * speech_ctl.Charting.HEIGHT_STEP;
@@ -275,124 +291,233 @@ class Teeth
 		var Top_V = this.m_Rect.y + this.m_Rect.h - this.offset;
 		var Top_L = this.m_Rect.y + this.m_Rect.h * 2 - this.offset;
 		
+		//debug
+		wireframe = false;
+		
+		var p0, p1, p2, p3, p4;
+
 		if(left != 0 && left.m_Exists)
 		{
-			ctx.moveTo(left.m_Rect.x + left.m_Rect.w * 3 / 4, (left.m_Rect.y + left.m_Rect.h - this.offset) + 
-				(left.m_ProbingDepth.c + left.m_GingivalMargin.c) * sg_hg);
-			ctx.lineTo(x_1_4, (Top_V) + (this.m_ProbingDepth.a + this.m_GingivalMargin.a) * sg_hg);
+			p0 = {x:left.m_Rect.x + left.m_Rect.w * 3 / 4,
+				y:(left.m_Rect.y + left.m_Rect.h - this.offset) + 
+				(left.m_ProbingDepth.c + left.m_GingivalMargin.c) * sg_hg};
+			p1 = {x:x_1_4,
+				y:(Top_V) + (this.m_ProbingDepth.a + this.m_GingivalMargin.a) * sg_hg};
 		}
 		else
-			ctx.moveTo(x_1_4, (Top_V) + (this.m_ProbingDepth.a + this.m_GingivalMargin.a) * sg_hg);
-		ctx.lineTo(x_2, (Top_V) + (this.m_ProbingDepth.b + this.m_GingivalMargin.b) * sg_hg);
-		ctx.lineTo(x_3_4, (Top_V) + (this.m_ProbingDepth.c + this.m_GingivalMargin.c) * sg_hg);
+			p0 = {x:x_1_4, y:(Top_V) + (this.m_ProbingDepth.a + this.m_GingivalMargin.a) * sg_hg};
+
+		p2 = {x:x_2, y:(Top_V) + (this.m_ProbingDepth.b + this.m_GingivalMargin.b) * sg_hg};
+		p3 = {x:x_3_4, y:(Top_V) + (this.m_ProbingDepth.c + this.m_GingivalMargin.c) * sg_hg};
+
 
 		if(right != 0 && right.m_Exists)
 		{
-			ctx.lineTo(right.m_Rect.x + right.m_Rect.w * 1 / 4, (right.m_Rect.y + right.m_Rect.h - this.offset) + 
-				(right.m_ProbingDepth.a + right.m_GingivalMargin.a) * sg_hg);
+			p4 = {x:right.m_Rect.x + right.m_Rect.w * 1 / 4, y:(right.m_Rect.y + right.m_Rect.h - this.offset) + 
+				(right.m_ProbingDepth.a + right.m_GingivalMargin.a) * sg_hg};
 		}
-
-		ctx.lineWidth = 2;
-        ctx.strokeStyle = speech_ctl.Charting.PDColor;
-        ctx.stroke();
 		
-		ctx.beginPath();
 		
+		var p5, p6, p7, p8, p9;
 		if(left != 0 && left.m_Exists)
 		{
-			ctx.moveTo(left.m_Rect.x + left.m_Rect.w * 3 / 4, (left.m_Rect.y + left.m_Rect.h - this.offset) + 
-				(left.m_GingivalMargin.c) * sg_hg);
-			ctx.lineTo(x_1_4, (Top_V) + (this.m_GingivalMargin.a) * sg_hg);
+			p5 = { x:left.m_Rect.x + left.m_Rect.w * 3 / 4, y:(left.m_Rect.y + left.m_Rect.h - this.offset) + 
+				(left.m_GingivalMargin.c) * sg_hg };
+			p6 = { x:x_1_4, y:(Top_V) + (this.m_GingivalMargin.a) * sg_hg };
 		}
-        else ctx.moveTo(x_1_4, (Top_V) + (this.m_GingivalMargin.a) * sg_hg);
-		ctx.lineTo(x_2, (Top_V) + (this.m_GingivalMargin.b) * sg_hg);
-		ctx.lineTo(x_3_4, (Top_V) + (this.m_GingivalMargin.c) * sg_hg);
+        else
+		{
+			p5 = { x:x_1_4, y:(Top_V) + (this.m_GingivalMargin.a) * sg_hg };
+		}
+		p7 = { x:x_2, y:(Top_V) + (this.m_GingivalMargin.b) * sg_hg };
+		p8 = { x:x_3_4, y:(Top_V) + (this.m_GingivalMargin.c) * sg_hg };
+		
 
 		if(right != 0 && right.m_Exists)
 		{
-			ctx.lineTo(right.m_Rect.x + right.m_Rect.w * 1 / 4, (right.m_Rect.y + right.m_Rect.h - this.offset) + 
-				(right.m_GingivalMargin.a) * sg_hg);
+			p9 = {x:right.m_Rect.x + right.m_Rect.w * 1 / 4, y:(right.m_Rect.y + right.m_Rect.h - this.offset) + 
+				(right.m_GingivalMargin.a) * sg_hg};
 		}
+		
+		if(wireframe == false)
+		{
+			ctx.beginPath();
+			ctx.moveTo(p0.x, p0.y);
+			if(left != 0 && left.m_Exists)
+				ctx.lineTo(p1.x, p1.y);
+			ctx.lineTo(p2.x, p2.y);
+			ctx.lineTo(p3.x, p3.y);
+			if(right != 0 && right.m_Exists)
+				ctx.lineTo(p4.x, p4.y);
+			if(right != 0 && right.m_Exists)
+				ctx.lineTo(p9.x, p9.y);
+			ctx.lineTo(p8.x, p8.y);
+			ctx.lineTo(p7.x, p7.y);
+			if(left != 0 && left.m_Exists)
+				ctx.lineTo(p6.x, p6.y);
+			ctx.lineTo(p5.x, p5.y);
+			ctx.closePath();
+			ctx.fillStyle = '#00f';
+			ctx.globalAlpha = 0.2;
+			ctx.fill();
+			ctx.globalAlpha = 1.0;
+		}
+
+		ctx.beginPath();
+		ctx.moveTo(p0.x, p0.y);
+		if(left != 0 && left.m_Exists)
+			ctx.lineTo(p1.x, p1.y);
+		ctx.lineTo(p2.x, p2.y);
+		ctx.lineTo(p3.x, p3.y);
+		if(right != 0 && right.m_Exists)
+			ctx.lineTo(p4.x, p4.y);
+		ctx.lineWidth = 2;
+        ctx.strokeStyle = speech_ctl.Charting.PDColor;
+		if (this.m_Furcation.c != 0.0)
+			ctx.strokeStyle = 'yellow';
+        ctx.stroke();
+
+		ctx.beginPath();
+		ctx.moveTo(p5.x, p5.y);
+		if(left != 0 && left.m_Exists)
+			ctx.lineTo(p6.x, p6.y);
+		ctx.lineTo(p7.x, p7.y);
+		ctx.lineTo(p8.x, p8.y);
+		if(right != 0 && right.m_Exists)
+			ctx.lineTo(p9.x, p9.y);
 
 		ctx.lineWidth = 2;
         ctx.strokeStyle = speech_ctl.Charting.GMColor;
         ctx.stroke();
-		
+
+		ctx.restore();
 		
 		/*--------------------BACK VIEW------------------------*/
-		ctx.beginPath();
 		left = getTeethOnLeft(this.Id);
 		right = getTeethOnRight(this.Id);
+
+		ctx.save();
+		ctx.beginPath();
+		ctx.moveTo(this.m_Rect.x, this.m_Rect.y + this.m_Rect.h)
+		ctx.lineTo(this.m_Rect.x + this.m_Rect.w, this.m_Rect.y + this.m_Rect.h);
+		ctx.lineTo(this.m_Rect.x + this.m_Rect.w, this.m_Rect.y + this.m_Rect.h * 2);
+		ctx.lineTo(this.m_Rect.x, this.m_Rect.y + this.m_Rect.h * 2);
+		ctx.clip();
 		
 		if(left != 0 && left.m_Exists)
 		{
-			ctx.moveTo(left.m_Rect.x + left.m_Rect.w * 3 / 4, (left.m_Rect.y + left.m_Rect.h * 2 - this.offset) + 
-				(left.m_ProbingDepthL.c + left.m_GingivalMarginL.c) * sg_hg);
-			ctx.lineTo(x_1_4, (Top_L) + (this.m_ProbingDepthL.a + this.m_GingivalMarginL.a) * sg_hg);
+			p0 = {x:left.m_Rect.x + left.m_Rect.w * 3 / 4, y:(left.m_Rect.y + left.m_Rect.h * 2 - this.offset) + 
+				(left.m_ProbingDepthL.c + left.m_GingivalMarginL.c) * sg_hg};
+			p1 = {x:x_1_4, y:(Top_L) + (this.m_ProbingDepthL.a + this.m_GingivalMarginL.a) * sg_hg};
 		}
-		else ctx.moveTo(x_1_4, (Top_L) + (this.m_ProbingDepthL.a + this.m_GingivalMarginL.a) * sg_hg);
-		ctx.lineTo(x_2, (Top_L) + (this.m_ProbingDepthL.b + this.m_GingivalMarginL.b) * sg_hg);
-		ctx.lineTo(x_3_4, (Top_L) + (this.m_ProbingDepthL.c + this.m_GingivalMarginL.c) * sg_hg);
+		else p0 = { x:x_1_4, y:(Top_L) + (this.m_ProbingDepthL.a + this.m_GingivalMarginL.a) * sg_hg };
+		
+		p2 = { x:x_2, y:(Top_L) + (this.m_ProbingDepthL.b + this.m_GingivalMarginL.b) * sg_hg };
+		p3 = { x:x_3_4, y:(Top_L) + (this.m_ProbingDepthL.c + this.m_GingivalMarginL.c) * sg_hg };
+
 
 		if(right != 0 && right.m_Exists)
 		{
-			ctx.lineTo(right.m_Rect.x + right.m_Rect.w * 1 / 4, (right.m_Rect.y + right.m_Rect.h * 2 - this.offset) + 
-				(right.m_ProbingDepthL.a + right.m_GingivalMarginL.a) * sg_hg);
+			p4 = {x:right.m_Rect.x + right.m_Rect.w * 1 / 4, y:(right.m_Rect.y + right.m_Rect.h * 2 - this.offset) + 
+				(right.m_ProbingDepthL.a + right.m_GingivalMarginL.a) * sg_hg};
 		}
+
+		ctx.beginPath();
+		ctx.moveTo(p0.x, p0.y);
+		if(left != 0 && left.m_Exists)
+			ctx.lineTo(p1.x, p1.y);
+		ctx.lineTo(p2.x, p2.y);
+		ctx.lineTo(p3.x, p3.y);
+		if(right != 0 && right.m_Exists)
+			ctx.lineTo(p4.x, p4.y);
 
 		ctx.lineWidth = 2;
         ctx.strokeStyle = speech_ctl.Charting.PDColor;
         ctx.stroke();
 		
-		ctx.beginPath();
 		if(left != 0 && left.m_Exists)
 		{
-			ctx.moveTo(left.m_Rect.x + left.m_Rect.w * 3 / 4, (left.m_Rect.y + left.m_Rect.h * 2 - this.offset) + 
-				(left.m_GingivalMarginL.c) * sg_hg);
-			ctx.lineTo(x_1_4, (Top_L) + (this.m_GingivalMarginL.a) * sg_hg);
+			p5 = {x:left.m_Rect.x + left.m_Rect.w * 3 / 4, y:(left.m_Rect.y + left.m_Rect.h * 2 - this.offset) + 
+				(left.m_GingivalMarginL.c) * sg_hg};
+			p6 = {x:x_1_4, y:(Top_L) + (this.m_GingivalMarginL.a) * sg_hg};
 		}
-        else ctx.moveTo(x_1_4, (Top_L) + (this.m_GingivalMarginL.a) * sg_hg);
-		ctx.lineTo(x_2, (Top_L) + (this.m_GingivalMarginL.b) * sg_hg);
-		ctx.lineTo(x_3_4, (Top_L) + (this.m_GingivalMarginL.c) * sg_hg);
+        else p5 = { x:x_1_4, y:(Top_L) + (this.m_GingivalMarginL.a) * sg_hg };
+		p7 = { x:x_2, y:(Top_L) + (this.m_GingivalMarginL.b) * sg_hg };
+		p8 = { x:x_3_4, y:(Top_L) + (this.m_GingivalMarginL.c) * sg_hg };
 
 		if(right != 0 && right.m_Exists)
 		{
-			ctx.lineTo(right.m_Rect.x + right.m_Rect.w * 1 / 4, (right.m_Rect.y + right.m_Rect.h * 2 - this.offset) + 
-				(right.m_GingivalMarginL.a) * sg_hg);
+			p9 = {x:right.m_Rect.x + right.m_Rect.w * 1 / 4, y:(right.m_Rect.y + right.m_Rect.h * 2 - this.offset) + 
+				(right.m_GingivalMarginL.a) * sg_hg };
 		}
+
+		ctx.beginPath();
+		ctx.moveTo(p5.x, p5.y);
+		if(left != 0 && left.m_Exists)
+			ctx.lineTo(p6.x, p6.y);
+		ctx.lineTo(p7.x, p7.y);
+		ctx.lineTo(p8.x, p8.y);
+		if(right != 0 && right.m_Exists)
+			ctx.lineTo(p9.x, p9.y);
 
 		ctx.lineWidth = 2;
         ctx.strokeStyle = speech_ctl.Charting.GMColor;
         ctx.stroke();
+
+		if(wireframe == false)
+		{
+			ctx.beginPath();
+			ctx.moveTo(p0.x, p0.y);
+			if(left != 0 && left.m_Exists)
+				ctx.lineTo(p1.x, p1.y);
+			ctx.lineTo(p2.x, p2.y);
+			ctx.lineTo(p3.x, p3.y);
+			if(right != 0 && right.m_Exists)
+				ctx.lineTo(p4.x, p4.y);
+			if(right != 0 && right.m_Exists)
+				ctx.lineTo(p9.x, p9.y);
+			ctx.lineTo(p8.x, p8.y);
+			ctx.lineTo(p7.x, p7.y);
+			if(left != 0 && left.m_Exists)
+				ctx.lineTo(p6.x, p6.y);
+			ctx.lineTo(p5.x, p5.y);
+			ctx.closePath();
+			ctx.fillStyle = '#00f';
+			ctx.globalAlpha = 0.2;
+			ctx.fill();
+			ctx.globalAlpha = 1.0;
+		}
+
+		ctx.restore();
 	}
     
-    draw(ctx, view)
+    draw(ctx, wireframe)
     {
 		var left = getTeethOnLeft(this.Id);
 		var right = getTeethOnRight(this.Id);
 		if (left)
 		{
-			left.clearRect(ctx, view);
+			left.clearRect(ctx, wireframe);
 			if(left.m_Exists)
-				left.drawImages(ctx, view);
+				left.drawImages(ctx, wireframe);
 		}	
 		if (right)
 		{
-			right.clearRect(ctx, view);
+			right.clearRect(ctx, wireframe);
 			if(right.m_Exists)
-				right.drawImages(ctx, view);
+				right.drawImages(ctx, wireframe);
 		}
-        this.clearRect(ctx, view);
+        this.clearRect(ctx, wireframe);
 
 		if (this.m_Exists)
         {
-			this.drawImages(ctx, view);
-			this.drawLines(ctx, view);	
+			this.drawImages(ctx, wireframe);
+			this.drawLines(ctx, wireframe);	
         }
 		if (left && left.m_Exists)
-			left.drawLines(ctx, view);
+			left.drawLines(ctx, wireframe);
 		if (right && right.m_Exists)
-			right.drawLines(ctx, view);
+			right.drawLines(ctx, wireframe);
     }
 }
 
@@ -532,14 +657,14 @@ class Charting
 		if (id == -1)
 		{
 			if(this.CurrentTeeth.asObject.Id > 30)
-				this.CurrentTeeth.asObject.draw(this.Mandibula.Context);
-			else this.CurrentTeeth.asObject.draw(this.Maxilla.Context);
+				this.CurrentTeeth.asObject.draw(this.Mandibula.Context, this.Mandibula.WireframeOnly);
+			else this.CurrentTeeth.asObject.draw(this.Maxilla.Context, this.Mandibula.WireframeOnly);
 			return;
 		}
 		var t = this.getTeethById(id);
 		if (t.Id > 30)
-			t.draw(this.Mandibula.Context);
-		else t.draw(this.Maxilla.Context);
+			t.draw(this.Mandibula.Context, this.Mandibula.WireframeOnly);
+		else t.draw(this.Maxilla.Context, this.Mandibula.WireframeOnly);
 	}
 	
 	setTeethOnClick()
@@ -790,11 +915,44 @@ class Charting
 	cycle_furcState(tooth)
 	{
 		var e = document.getElementById('furca' + tooth);
+		var fillRate;
 		if(e.classList.contains("half_fill"))
+		{
 			e.className = "box fill";
+			fillRate = 1;
+		}
 		else if (e.classList.contains("fill"))
+		{
 			e.className = "box";
-		else e.className = "box half_fill";
+			fillRate = 0.0;
+		}
+		else 
+		{
+			e.className = "box half_fill";
+			fillRate = 0.5;
+		}
+		
+		/* update state and draw */
+		var face = tooth.charAt(1);
+		if (face != 'm' && face != 'd')
+		{
+			tooth = tooth.substr(1);
+		}
+		else tooth = tooth.substr(2);
+
+		if (face == 'm')
+		{
+			this.getTeethById(tooth).m_Furcation.m = fillRate;
+		}
+		else if (face == 'd')
+		{
+			this.getTeethById(tooth).m_Furcation.d = fillRate;
+		}
+		else
+		{
+			this.getTeethById(tooth).m_Furcation.c = fillRate;
+		}
+		this.drawTooth(tooth);
 	}
 }
 
@@ -830,7 +988,7 @@ class SpeechController
 		
 		if (!('webkitSpeechRecognition' in window))
 		{
-			document.getElementById('speech_ui').innerHTML = __dictionnary.no_speech_support;
+			//document.getElementById('speech_ui').innerHTML = __dictionnary.no_speech_support;
 			//printf("Speech API not supported by your browser, you must use Chrome version 25 or later.");
 		}
 		else
